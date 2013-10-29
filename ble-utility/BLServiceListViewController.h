@@ -1,5 +1,5 @@
 //
-//  BLSecondViewController.h
+//  BLServiceListViewController.h
 //  ble-utility
 //
 //  Created by joost on 13-10-29.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BLSecondViewController : UIViewController
+@interface BLServiceListViewController : UITableViewController
 
 @end

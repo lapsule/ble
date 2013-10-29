@@ -1,0 +1,11 @@
+build
+dujun.*
+.DS_Store
+yangliu.*
+joost.*
+jun.*
+.DS_Store
+.svn
+xcuserdata
+xcshareddata
+project.xcworkspace

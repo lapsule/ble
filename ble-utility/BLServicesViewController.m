@@ -1,20 +1,18 @@
 //
-//  BLServiceListViewController.m
+//  BLServicesViewController.m
 //  ble-utility
 //
 //  Created by joost on 13-10-29.
 //  Copyright (c) 2013年 joost. All rights reserved.
 //
 
-#import "BLPeripheralsViewController.h"
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "BLServicesViewController.h"
 
-@interface BLPeripheralsViewController ()<CBCentralManagerDelegate>
-@property (nonatomic,strong) NSMutableArray * peripherals;
-@property (nonatomic,strong) CBCentralManager * manager;
+@interface BLServicesViewController ()
+@property (nonatomic,strong) NSMutableArray * services;
 @end
 
-@implementation BLPeripheralsViewController
+@implementation BLServicesViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,25 +24,13 @@
 }
 - (void)setup
 {
-    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-    self.peripherals = [NSMutableArray arrayWithCapacity:10];
+    self.services = [NSMutableArray arrayWithCapacity:10];
 }
-- (void)scan
-{
-    if (_manager.state == CBCentralManagerStatePoweredOn)
-    {
-        [_manager scanForPeripheralsWithServices:nil options:nil];
-    }else
-    {
-        NSLog(@"cbcentral manager NOT powered on");
-    }
 
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setup];
-    [self scan];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -71,19 +57,18 @@
 {
 
     // Return the number of rows in the section.
-    return _peripherals.count;
+    return _services.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"cell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBPeripheral * peripheral = _peripherals[indexPath.row];
+    CBService * service = _services[indexPath.row];
     UILabel * label = [cell viewWithTag:20];
-    label.text = peripheral.name;
-    
+    label.text = [[service.UUID data] base64Encoding];
     return cell;
 }
 
@@ -137,33 +122,5 @@
 }
 
  */
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CBPeripheral * peripheral = _peripherals[indexPath.row];
-    [_manager connectPeripheral: peripheral options:nil];
-    
 
-}
-#pragma mark - central manager delegate
-- (void)centralManager:(CBCentralManager *)central
- didDiscoverPeripheral:(CBPeripheral *)peripheral
-     advertisementData:(NSDictionary *)advertisementData
-                  RSSI:(NSNumber *)RSSI
-{
-        [_peripherals addObject: peripheral];
-    
-    NSLog(@"Discovered %@", peripheral.name);
-
-}
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    
-}
-#pragma mark - peripheral connection
-/*- (void)centralManager:(CBCentralManager *)central
-  didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    
-    NSLog(@"Peripheral %@ connected", peripheral.name);
-}*/
 @end

@@ -21,6 +21,7 @@
 		C81DFD97181F5FAE00E71CA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C81DFD95181F5FAE00E71CA8 /* InfoPlist.strings */; };
 		C81DFD99181F5FAE00E71CA8 /* ble_utilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */; };
 		C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */; };
+		C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ble_utilityTests.m; sourceTree = "<group>"; };
 		C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLPeripheralsViewController.h; sourceTree = "<group>"; };
 		C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLPeripheralsViewController.m; sourceTree = "<group>"; };
+		C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLServicesViewController.h; sourceTree = "<group>"; };
+		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServicesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				C81DFD71181F5FAE00E71CA8 /* Supporting Files */,
 				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
 				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
+				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
+				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
 			);
 			path = "ble-utility";
 			sourceTree = "<group>";
@@ -252,6 +257,7 @@
 			files = (
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
+				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

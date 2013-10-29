@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BLServiceListViewController : UITableViewController
+@interface BLPeripheralsViewController : UITableViewController
 
 @end

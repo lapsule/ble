@@ -6,13 +6,15 @@
 //  Copyright (c) 2013年 joost. All rights reserved.
 //
 
-#import "BLServiceListViewController.h"
+#import "BLPeripheralsViewController.h"
+#import <CoreBluetooth/CoreBluetooth.h>
 
-@interface BLServiceListViewController ()
-@property (nonatomic,strong) NSMutableArray * devices;
+@interface BLPeripheralsViewController ()<CBCentralManagerDelegate>
+@property (nonatomic,strong) NSMutableArray * peripherals;
+@property (nonatomic,strong) CBCentralManager * manager;
 @end
 
-@implementation BLServiceListViewController
+@implementation BLPeripheralsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -24,12 +26,25 @@
 }
 - (void)setup
 {
-    self.devices = [NSMutableArray arrayWithCapacity:10];
+    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.peripherals = [NSMutableArray arrayWithCapacity:10];
+}
+- (void)scan
+{
+    if (_manager.state == CBCentralManagerStatePoweredOn)
+    {
+        [_manager scanForPeripheralsWithServices:nil options:nil];
+    }else
+    {
+        NSLog(@"cbcentral manager NOT powered on");
+    }
+
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setup];
+    [self scan];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -56,12 +71,12 @@
 {
 
     // Return the number of rows in the section.
-    return _devices.count;
+    return _peripherals.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -119,5 +134,33 @@
 }
 
  */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CBPeripheral * peripheral = _peripherals[indexPath.row];
+    [_manager connectPeripheral: peripheral options:nil];
+    
 
+}
+#pragma mark - central manager delegate
+- (void)centralManager:(CBCentralManager *)central
+ didDiscoverPeripheral:(CBPeripheral *)peripheral
+     advertisementData:(NSDictionary *)advertisementData
+                  RSSI:(NSNumber *)RSSI
+{
+        [_peripherals addObject: peripheral];
+    
+    NSLog(@"Discovered %@", peripheral.name);
+
+}
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central
+{
+    
+}
+#pragma mark - peripheral connection
+/*- (void)centralManager:(CBCentralManager *)central
+  didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    
+    NSLog(@"Peripheral %@ connected", peripheral.name);
+}*/
 @end

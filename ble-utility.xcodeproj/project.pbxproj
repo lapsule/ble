@@ -20,7 +20,7 @@
 		C81DFD8F181F5FAE00E71CA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81DFD6E181F5FAE00E71CA8 /* UIKit.framework */; };
 		C81DFD97181F5FAE00E71CA8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C81DFD95181F5FAE00E71CA8 /* InfoPlist.strings */; };
 		C81DFD99181F5FAE00E71CA8 /* ble_utilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */; };
-		C81DFDA4181F61A600E71CA8 /* BLServiceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLServiceListViewController.m */; };
+		C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +51,8 @@
 		C81DFD94181F5FAE00E71CA8 /* ble-utilityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ble-utilityTests-Info.plist"; sourceTree = "<group>"; };
 		C81DFD96181F5FAE00E71CA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ble_utilityTests.m; sourceTree = "<group>"; };
-		C81DFDA2181F61A600E71CA8 /* BLServiceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLServiceListViewController.h; sourceTree = "<group>"; };
-		C81DFDA3181F61A600E71CA8 /* BLServiceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServiceListViewController.m; sourceTree = "<group>"; };
+		C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLPeripheralsViewController.h; sourceTree = "<group>"; };
+		C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLPeripheralsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +117,8 @@
 				C81DFD7C181F5FAE00E71CA8 /* Main.storyboard */,
 				C81DFD85181F5FAE00E71CA8 /* Images.xcassets */,
 				C81DFD71181F5FAE00E71CA8 /* Supporting Files */,
-				C81DFDA2181F61A600E71CA8 /* BLServiceListViewController.h */,
-				C81DFDA3181F61A600E71CA8 /* BLServiceListViewController.m */,
+				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
+				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
 			);
 			path = "ble-utility";
 			sourceTree = "<group>";
@@ -251,7 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
-				C81DFDA4181F61A600E71CA8 /* BLServiceListViewController.m in Sources */,
+				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

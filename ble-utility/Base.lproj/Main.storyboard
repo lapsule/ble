@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="180"/>
         </scene>
-        <!--Service List View Controller - Central-->
+        <!--Peripherals View Controller - Central-->
         <scene sceneID="aG8-PL-9G7">
             <objects>
-                <tableViewController id="hBH-rC-ofG" customClass="BLServiceListViewController" sceneMemberID="viewController">
+                <tableViewController id="hBH-rC-ofG" customClass="BLPeripheralsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="22" sectionFooterHeight="22" id="o2q-nx-ATn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -31,20 +31,13 @@
 }
 - (void)scan
 {
-    if (_manager.state == CBCentralManagerStatePoweredOn)
-    {
-        [_manager scanForPeripheralsWithServices:nil options:nil];
-    }else
-    {
-        NSLog(@"cbcentral manager NOT powered on");
-    }
+    [_manager scanForPeripheralsWithServices:nil options:@{CBCentralManagerOptionShowPowerAlertKey: @(YES)}];
 
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setup];
-    [self scan];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -145,20 +138,24 @@
 
 }
 #pragma mark - central manager delegate
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central
+{
+    if(central.state==CBCentralManagerStatePoweredOn)
+    {
+        [self scan];
+    }
+}
 - (void)centralManager:(CBCentralManager *)central
  didDiscoverPeripheral:(CBPeripheral *)peripheral
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
-        [_peripherals addObject: peripheral];
-    
+    [_peripherals addObject: peripheral];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_peripherals.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     NSLog(@"Discovered %@", peripheral.name);
 
 }
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    
-}
+
 #pragma mark - peripheral connection
 /*- (void)centralManager:(CBCentralManager *)central
   didConnectPeripheral:(CBPeripheral *)peripheral

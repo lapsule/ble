@@ -10,8 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 @interface BLPeripheralsViewController ()<CBCentralManagerDelegate>
-@property (nonatomic,strong) NSMutableArray * peripherals;
-@property (nonatomic,strong) CBCentralManager * manager;
+
 @end
 
 @implementation BLPeripheralsViewController
@@ -26,14 +25,9 @@
 }
 - (void)setup
 {
-    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-    self.peripherals = [NSMutableArray arrayWithCapacity:10];
+    
 }
-- (void)scan
-{
-    [_manager scanForPeripheralsWithServices:nil options:@{CBCentralManagerOptionShowPowerAlertKey: @(YES)}];
 
-}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -132,27 +126,9 @@
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CBPeripheral * peripheral = _peripherals[indexPath.row];
-    [_manager connectPeripheral: peripheral options:nil];
+//    CBPeripheral * peripheral = _peripherals[indexPath.row];
+//    [_manager connectPeripheral: peripheral options:nil];
     
-
-}
-#pragma mark - central manager delegate
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central
-{
-    if(central.state==CBCentralManagerStatePoweredOn)
-    {
-        [self scan];
-    }
-}
-- (void)centralManager:(CBCentralManager *)central
- didDiscoverPeripheral:(CBPeripheral *)peripheral
-     advertisementData:(NSDictionary *)advertisementData
-                  RSSI:(NSNumber *)RSSI
-{
-    [_peripherals addObject: peripheral];
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_peripherals.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    NSLog(@"Discovered %@", peripheral.name);
 
 }
 

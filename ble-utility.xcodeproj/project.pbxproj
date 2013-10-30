@@ -22,6 +22,14 @@
 		C81DFD99181F5FAE00E71CA8 /* ble_utilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */; };
 		C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */; };
 		C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */; };
+		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
+		C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581C182146CA00655AB4 /* RKCharacteristic.m */; };
+		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
+		C8BC5825182146CA00655AB4 /* RKService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5820182146CA00655AB4 /* RKService.m */; };
+		C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5827182146E700655AB4 /* RKPeripheralManager.m */; };
+		C8BC582B1821470A00655AB4 /* RKMutableCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */; };
+		C8BC582E1821472500655AB4 /* RKMutableService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC582D1821472500655AB4 /* RKMutableService.m */; };
+		C8BC58311821478500655AB4 /* RKCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC58301821478500655AB4 /* RKCentral.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +64,22 @@
 		C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLPeripheralsViewController.m; sourceTree = "<group>"; };
 		C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLServicesViewController.h; sourceTree = "<group>"; };
 		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServicesViewController.m; sourceTree = "<group>"; };
+		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
+		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
+		C8BC581B182146CA00655AB4 /* RKCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCharacteristic.h; sourceTree = "<group>"; };
+		C8BC581C182146CA00655AB4 /* RKCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCharacteristic.m; sourceTree = "<group>"; };
+		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
+		C8BC581E182146CA00655AB4 /* RKPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheral.m; sourceTree = "<group>"; };
+		C8BC581F182146CA00655AB4 /* RKService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKService.h; sourceTree = "<group>"; };
+		C8BC5820182146CA00655AB4 /* RKService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKService.m; sourceTree = "<group>"; };
+		C8BC5826182146E700655AB4 /* RKPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheralManager.h; sourceTree = "<group>"; };
+		C8BC5827182146E700655AB4 /* RKPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheralManager.m; sourceTree = "<group>"; };
+		C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKMutableCharacteristic.h; sourceTree = "<group>"; };
+		C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKMutableCharacteristic.m; sourceTree = "<group>"; };
+		C8BC582C1821472500655AB4 /* RKMutableService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKMutableService.h; sourceTree = "<group>"; };
+		C8BC582D1821472500655AB4 /* RKMutableService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKMutableService.m; sourceTree = "<group>"; };
+		C8BC582F1821478500655AB4 /* RKCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentral.h; sourceTree = "<group>"; };
+		C8BC58301821478500655AB4 /* RKCentral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentral.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +139,7 @@
 		C81DFD70181F5FAE00E71CA8 /* ble-utility */ = {
 			isa = PBXGroup;
 			children = (
+				C8BC580B1821453000655AB4 /* RKBluetooth */,
 				C81DFD79181F5FAE00E71CA8 /* BLAppDelegate.h */,
 				C81DFD7A181F5FAE00E71CA8 /* BLAppDelegate.m */,
 				C81DFD7C181F5FAE00E71CA8 /* Main.storyboard */,
@@ -155,6 +180,45 @@
 				C81DFD95181F5FAE00E71CA8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8BC580B1821453000655AB4 /* RKBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC5818182146CA00655AB4 /* Central */,
+				C8BC5821182146CA00655AB4 /* Peripheral */,
+			);
+			path = RKBluetooth;
+			sourceTree = "<group>";
+		};
+		C8BC5818182146CA00655AB4 /* Central */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC5819182146CA00655AB4 /* RKCentralManager.h */,
+				C8BC581A182146CA00655AB4 /* RKCentralManager.m */,
+				C8BC581B182146CA00655AB4 /* RKCharacteristic.h */,
+				C8BC581C182146CA00655AB4 /* RKCharacteristic.m */,
+				C8BC581D182146CA00655AB4 /* RKPeripheral.h */,
+				C8BC581E182146CA00655AB4 /* RKPeripheral.m */,
+				C8BC581F182146CA00655AB4 /* RKService.h */,
+				C8BC5820182146CA00655AB4 /* RKService.m */,
+			);
+			path = Central;
+			sourceTree = "<group>";
+		};
+		C8BC5821182146CA00655AB4 /* Peripheral */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC5826182146E700655AB4 /* RKPeripheralManager.h */,
+				C8BC5827182146E700655AB4 /* RKPeripheralManager.m */,
+				C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */,
+				C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */,
+				C8BC582C1821472500655AB4 /* RKMutableService.h */,
+				C8BC582D1821472500655AB4 /* RKMutableService.m */,
+				C8BC582F1821478500655AB4 /* RKCentral.h */,
+				C8BC58301821478500655AB4 /* RKCentral.m */,
+			);
+			path = Peripheral;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,10 +319,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8BC58311821478500655AB4 /* RKCentral.m in Sources */,
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
+				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
+				C8BC582E1821472500655AB4 /* RKMutableService.m in Sources */,
+				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
+				C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */,
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
+				C8BC5825182146CA00655AB4 /* RKService.m in Sources */,
+				C8BC582B1821470A00655AB4 /* RKMutableCharacteristic.m in Sources */,
 				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
+				C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +541,7 @@
 				C81DFD9E181F5FAE00E71CA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C81DFD9F181F5FAE00E71CA8 /* Build configuration list for PBXNativeTarget "ble-utilityTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +550,7 @@
 				C81DFDA1181F5FAE00E71CA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

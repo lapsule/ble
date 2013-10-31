@@ -8,9 +8,10 @@
 
 #import "BLPeripheralsViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "RKCentralManager.h"
 
 @interface BLPeripheralsViewController ()<CBCentralManagerDelegate>
-
+@property (nonatomic,strong) RKCentralManager * central;
 @end
 
 @implementation BLPeripheralsViewController
@@ -20,6 +21,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.central = [[RKCentralManager alloc] init];
     }
     return self;
 }
@@ -58,7 +60,7 @@
 {
 
     // Return the number of rows in the section.
-    return _peripherals.count;
+    return _central.peripherals.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,7 +69,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBPeripheral * peripheral = _peripherals[indexPath.row];
+    CBPeripheral * peripheral = _central.peripherals[indexPath.row];
     UILabel * label = [cell viewWithTag:20];
     label.text = peripheral.name;
     

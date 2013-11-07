@@ -20,7 +20,6 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.central = [[RKCentralManager alloc] init];
     }
     return self;
 }

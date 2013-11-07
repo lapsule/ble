@@ -13,27 +13,26 @@
 @end
 
 @implementation RKCentralManager
-- (id) init
+- (id) initWithOptions:(NSDictionary *) options
 {
     self = [super init];
     if (self)
     {
-        self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+        self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
         self.peripherals = [NSMutableArray arrayWithCapacity:10];
     }
     return  self;
 }
-- (void)scan
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options
 {
-    [_manager scanForPeripheralsWithServices:nil options:nil];
-    
+    [_manager scanForPeripheralsWithServices:serviceUUIDs options:options];
 }
 #pragma mark - central manager delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if(central.state==CBCentralManagerStatePoweredOn)
     {
-        [self scan];
+        
     }
 }
 - (void)centralManager:(CBCentralManager *)central

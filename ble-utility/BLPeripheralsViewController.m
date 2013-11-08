@@ -33,7 +33,7 @@
     [super viewDidLoad];
     [self setup];
     __weak BLPeripheralsViewController * wp = self;
-    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(CBPeripheral *peripheral) {
+    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
         [wp.tableView reloadData];
     }];
     // Uncomment the following line to preserve selection between presentations.
@@ -71,8 +71,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBPeripheral * peripheral = _central.peripherals[indexPath.row];
-    UILabel * label = [cell viewWithTag:20];
+    CBPeripheral * peripheral = [_central.peripherals[indexPath.row] peripheral];
+    UILabel * label =(UILabel*) [cell viewWithTag:20];
     label.text = peripheral.name;
     
     return cell;
@@ -130,17 +130,12 @@
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    CBPeripheral * peripheral = _peripherals[indexPath.row];
-//    [_manager connectPeripheral: peripheral options:nil];
+    CBPeripheral * peripheral = self.central.peripherals[indexPath.row];
+//    [self.central connectPeripheral: peripheral options:nil];
     
 
 }
 
 #pragma mark - peripheral connection
-/*- (void)centralManager:(CBCentralManager *)central
-  didConnectPeripheral:(CBPeripheral *)peripheral
-{
-    
-    NSLog(@"Peripheral %@ connected", peripheral.name);
-}*/
+
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <CoreBluetooth/CoreBluetooth.h>
 @interface RKPeripheral : NSObject
-
+@property (nonatomic,readonly,strong) CBPeripheral * peripheral;
+- (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 @end

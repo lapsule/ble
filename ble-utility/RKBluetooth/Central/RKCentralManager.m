@@ -8,6 +8,7 @@
 
 #import "RKCentralManager.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "RKPeripheral.h"
 
 
 @interface RKCentralManager()<CBCentralManagerDelegate>
@@ -95,14 +96,15 @@
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
-    if (![self.peripherals containsObject: peripheral])
+    RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral: peripheral];
+    if (![self.peripherals containsObject: rkperipheral])
     {
-        [self.peripherals addObject: peripheral];
+        [self.peripherals addObject: rkperipheral];
     }
     
     if (_onPeripheralUpdated)
     {
-        _onPeripheralUpdated(peripheral);
+        _onPeripheralUpdated(rkperipheral);
     }
     DebugLog(@"name %@",peripheral.name);
 }

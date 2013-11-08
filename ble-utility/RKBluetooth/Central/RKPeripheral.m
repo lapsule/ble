@@ -7,7 +7,20 @@
 //
 
 #import "RKPeripheral.h"
-
+@interface RKPeripheral()
+@end
 @implementation RKPeripheral
-
+- (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
+{
+    self = [super init];
+    if (self)
+    {
+        _peripheral = peripheral;
+    }
+    return self;
+}
+- (BOOL) isEqual:(id)object
+{
+    return [_peripheral isEqual: [object peripheral]];
+}
 @end

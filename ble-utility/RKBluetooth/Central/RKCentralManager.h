@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-typedef void(^RKPeripheralUpdatedBlock)(CBPeripheral * peripheral);
+@class RKPeripheral;
+typedef void(^RKPeripheralUpdatedBlock)(RKPeripheral * peripheral);
 
 @interface RKCentralManager : NSObject
 @property (atomic,strong) NSMutableArray * peripherals;

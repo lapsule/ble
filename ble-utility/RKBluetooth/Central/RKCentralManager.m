@@ -8,27 +8,53 @@
 
 #import "RKCentralManager.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+
+
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
 @property (nonatomic,strong) RKPeripheralUpdatedBlock onPeripheralUpdated;
+@property (nonatomic,strong) NSArray * scanningServices;
+@property (nonatomic,strong) NSDictionary*  scanningOptions;
+@property (nonatomic,assign) BOOL scanStarted;
 @end
 
 @implementation RKCentralManager
-- (id) initWithOptions:(NSDictionary *) options
+- (instancetype) initWithOptions:(NSDictionary *) options
 {
     self = [super init];
     if (self)
     {
-        self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
-        self.peripherals = [NSMutableArray arrayWithCapacity:10];
+        [self initializeWithOptions:options];
     }
     return  self;
+}
+- (instancetype) init
+{
+    self = [super init];
+    if (self)
+    {
+        [self initializeWithOptions:@{CBCentralManagerOptionShowPowerAlertKey:@YES}];
+    }
+    return self;
+}
+- (void)initializeWithOptions:(NSDictionary *) options
+{
+    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
+    self.peripherals = [NSMutableArray arrayWithCapacity:10];
 }
 #pragma mark scan
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
     self.onPeripheralUpdated = onUpdate;
-    [_manager scanForPeripheralsWithServices:serviceUUIDs options:options];
+    if (_manager.state == CBCentralManagerStatePoweredOn )
+    {
+        [_manager scanForPeripheralsWithServices: serviceUUIDs options:options];
+    }else
+    {
+        self.scanningOptions = options;
+        self.scanningServices = serviceUUIDs;
+        self.scanStarted = YES;
+    }
 }
 - (void)stopScan
 {
@@ -55,9 +81,9 @@
 #pragma mark - central manager delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    if(central.state==CBCentralManagerStatePoweredOn)
+    if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
     {
-        
+        [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
     }
     //FIXME:ERROR
     
@@ -69,7 +95,11 @@
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
-    [_peripherals addObject: peripheral];
+    if (![self.peripherals containsObject: peripheral])
+    {
+        [self.peripherals addObject: peripheral];
+    }
+    
     if (_onPeripheralUpdated)
     {
         _onPeripheralUpdated(peripheral);

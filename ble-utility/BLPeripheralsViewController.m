@@ -32,7 +32,10 @@
 {
     [super viewDidLoad];
     [self setup];
-    [self.central scanForPeripheralsWithServices:nil options:nil];
+    __weak BLPeripheralsViewController * wp = self;
+    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(CBPeripheral *peripheral) {
+        [wp.tableView reloadData];
+    }];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

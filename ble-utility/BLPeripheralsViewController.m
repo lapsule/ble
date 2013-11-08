@@ -9,7 +9,7 @@
 #import "BLPeripheralsViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "RKCentralManager.h"
-@interface BLPeripheralsViewController ()<CBCentralManagerDelegate>
+@interface BLPeripheralsViewController ()
 @property (nonatomic,strong) RKCentralManager * central;
 @end
 

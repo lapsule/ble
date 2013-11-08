@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
+@property (nonatomic,strong) RKPeripheralUpdatedBlock onPeripheralUpdated;
 @end
 
 @implementation RKCentralManager
@@ -23,10 +24,34 @@
     }
     return  self;
 }
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options
+#pragma mark scan
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
+    self.onPeripheralUpdated = onUpdate;
     [_manager scanForPeripheralsWithServices:serviceUUIDs options:options];
 }
+- (void)stopScan
+{
+    [_manager stopScan];
+}
+#pragma mark connect peripheral
+- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options
+{
+    //TODO: connect callback
+    [_manager connectPeripheral: peripheral options:options];
+    
+}
+
+#pragma mark retrieve connected peripherals
+- (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
+{
+   return  [_manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
+}
+- (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
+{
+    return [_manager retrieveConnectedPeripheralsWithServices:identifiers];
+}
+
 #pragma mark - central manager delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
@@ -34,6 +59,10 @@
     {
         
     }
+    //FIXME:ERROR
+    
+
+    DebugLog(@"Central %@ changed to %d",central,central.state);
 }
 - (void)centralManager:(CBCentralManager *)central
  didDiscoverPeripheral:(CBPeripheral *)peripheral
@@ -41,7 +70,11 @@
                   RSSI:(NSNumber *)RSSI
 {
     [_peripherals addObject: peripheral];
-    
+    if (_onPeripheralUpdated)
+    {
+        _onPeripheralUpdated(peripheral);
+    }
+    DebugLog(@"name %@",peripheral.name);
 }
 
 @end

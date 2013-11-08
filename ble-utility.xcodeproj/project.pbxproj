@@ -182,6 +182,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C86ED45B182D364200512FC0 /* mayNotBeUsed */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC582F1821478500655AB4 /* RKCentral.h */,
+				C8BC58301821478500655AB4 /* RKCentral.m */,
+				C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */,
+				C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */,
+				C8BC582C1821472500655AB4 /* RKMutableService.h */,
+				C8BC582D1821472500655AB4 /* RKMutableService.m */,
+			);
+			name = mayNotBeUsed;
+			sourceTree = "<group>";
+		};
+		C86ED45C182D365A00512FC0 /* mayNotBeUsed */ = {
+			isa = PBXGroup;
+			children = (
+				C8BC581B182146CA00655AB4 /* RKCharacteristic.h */,
+				C8BC581C182146CA00655AB4 /* RKCharacteristic.m */,
+				C8BC581F182146CA00655AB4 /* RKService.h */,
+				C8BC5820182146CA00655AB4 /* RKService.m */,
+			);
+			name = mayNotBeUsed;
+			sourceTree = "<group>";
+		};
 		C8BC580B1821453000655AB4 /* RKBluetooth */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,12 +220,9 @@
 			children = (
 				C8BC5819182146CA00655AB4 /* RKCentralManager.h */,
 				C8BC581A182146CA00655AB4 /* RKCentralManager.m */,
-				C8BC581B182146CA00655AB4 /* RKCharacteristic.h */,
-				C8BC581C182146CA00655AB4 /* RKCharacteristic.m */,
 				C8BC581D182146CA00655AB4 /* RKPeripheral.h */,
 				C8BC581E182146CA00655AB4 /* RKPeripheral.m */,
-				C8BC581F182146CA00655AB4 /* RKService.h */,
-				C8BC5820182146CA00655AB4 /* RKService.m */,
+				C86ED45C182D365A00512FC0 /* mayNotBeUsed */,
 			);
 			path = Central;
 			sourceTree = "<group>";
@@ -211,12 +232,7 @@
 			children = (
 				C8BC5826182146E700655AB4 /* RKPeripheralManager.h */,
 				C8BC5827182146E700655AB4 /* RKPeripheralManager.m */,
-				C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */,
-				C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */,
-				C8BC582C1821472500655AB4 /* RKMutableService.h */,
-				C8BC582D1821472500655AB4 /* RKMutableService.m */,
-				C8BC582F1821478500655AB4 /* RKCentral.h */,
-				C8BC58301821478500655AB4 /* RKCentral.m */,
+				C86ED45B182D364200512FC0 /* mayNotBeUsed */,
 			);
 			path = Peripheral;
 			sourceTree = "<group>";

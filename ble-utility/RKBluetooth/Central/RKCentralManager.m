@@ -102,7 +102,7 @@
         [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
     }
     //FIXME:ERROR
-    DebugLog(@"Central %@ changed to %ld",central,central.state);
+    DebugLog(@"Central %@ changed to %d",central,(int)central.state);
 }
 - (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
 {
@@ -138,6 +138,7 @@
         {
             self.onConnectionFinish(self.connectingPeripheral,nil);
         }
+        self.connectingPeripheral = nil;
     }
     
 }
@@ -149,17 +150,18 @@
         {
             self.onConnectionFinish(self.connectingPeripheral,error);
         }
+        self.connectingPeripheral = nil;
     }
 }
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    if (peripheral == self.connectingPeripheral.peripheral)
+
+    if (self.onDisconnected)
     {
-        if (self.onDisconnected)
-        {
-            self.onDisconnected(self.connectingPeripheral,error);
-        }
+        RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral: peripheral];
+        self.onDisconnected(rkperipheral,error);
     }
+
 }
 
 @end

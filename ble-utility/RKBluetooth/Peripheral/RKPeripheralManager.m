@@ -9,5 +9,4 @@
 #import "RKPeripheralManager.h"
 
 @implementation RKPeripheralManager
-
 @end

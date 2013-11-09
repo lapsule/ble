@@ -27,12 +27,23 @@ typedef void(^RKServicesUpdated)(NSArray * services);
 @property (nonatomic,strong) RKCharacteristicChangedBlock notificationStateChanged;
 
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
+
 #pragma mark discovery services
+
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished;
 - (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) finished;
+
 #pragma mark Discovering Characteristics and Characteristic Descriptors
+
 - (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish;
 - (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onfinish;
+
+#pragma mark Reading Characteristic and Characteristic Descriptor Values
+
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onUpdate;
+- (void)readValueForDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onUpdate;
+
 #pragma mark ReadRSSI
+
 - (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated;
 @end

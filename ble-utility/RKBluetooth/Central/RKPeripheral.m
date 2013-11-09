@@ -9,10 +9,14 @@
 #import "RKPeripheral.h"
 @interface RKPeripheral()<CBPeripheralDelegate>
 @property (nonatomic,strong) RKPeripheralChangedBlock didFinishServiceDiscovery;
-@property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong)RKPeripheralChangedBlock rssiUpdated;
+@property (nonatomic,strong) RKCharacteristicChangedBlock onCharacteristicsValueUpdated;
+@property (nonatomic,strong) RKDescriptorChangedBlock onDescriptorsValueUpdated;
+@property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsDiscoveredBlocks;
 @property (nonatomic,strong) NSMutableDictionary * descriptorDiscoveredBlocks;
+@property (nonatomic,strong) NSMutableDictionary * characteristicsValueUpdatedBlocks;
+@property (nonatomic,strong) NSMutableDictionary * descriptorValueUpdatedBlocks;
 @end
 @implementation RKPeripheral
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
@@ -25,6 +29,8 @@
         self.servicesFindingIncludeService = [NSMutableDictionary dictionaryWithCapacity:10];
         self.characteristicsDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
         self.descriptorDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
+        self.characteristicsValueUpdatedBlocks =[NSMutableDictionary dictionaryWithCapacity:20];
+        self.descriptorValueUpdatedBlocks  =[NSMutableDictionary dictionaryWithCapacity:20];
     }
     return self;
 }
@@ -66,6 +72,17 @@
 {
     _descriptorDiscoveredBlocks[characteristic.UUID] = onfinish;
     [_peripheral discoverDescriptorsForCharacteristic: characteristic];
+}
+#pragma mark Reading Characteristic and Characteristic Descriptor Values
+- (void)readValueForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onUpdate
+{
+    _characteristicsValueUpdatedBlocks[characteristic.UUID] = onUpdate;
+    [_peripheral readValueForCharacteristic: characteristic];
+}
+- (void)readValueForDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onUpdate
+{
+    _descriptorValueUpdatedBlocks[descriptor.UUID] = onUpdate;
+    [_peripheral readValueForDescriptor: descriptor];
 }
 #pragma mark ReadRSSI
 - (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated
@@ -124,11 +141,33 @@
 #pragma mark Retrieving Characteristic and Characteristic Descriptor Values
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral)
+    {
+        RKCharacteristicChangedBlock onupdate = _characteristicsValueUpdatedBlocks[characteristic.UUID];
+        if (onupdate)
+        {
+            onupdate(characteristic,error);
+            [_characteristicsValueUpdatedBlocks removeObjectForKey: characteristic.UUID];
+        }else if(self.onCharacteristicsValueUpdated)
+        {
+            self.onCharacteristicsValueUpdated(characteristic,error);
+        }
+    }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral)
+    {
+        RKDescriptorChangedBlock onupdate = _descriptorValueUpdatedBlocks[descriptor.UUID];
+        if (onupdate)
+        {
+            onupdate(descriptor,error);
+            [_descriptorValueUpdatedBlocks removeObjectForKey:descriptor.UUID];
+        }else if(self.onDescriptorsValueUpdated)
+        {
+            self.onDescriptorsValueUpdated(descriptor,error);
+        }
+    }
 }
 #pragma mark Writing Characteristic and Characteristic Descriptor Values
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error

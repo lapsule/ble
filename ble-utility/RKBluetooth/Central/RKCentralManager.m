@@ -79,7 +79,8 @@
     return [_manager retrieveConnectedPeripheralsWithServices:identifiers];
 }
 
-#pragma mark - central manager delegate
+#pragma mark - Delegate
+#pragma mark    central state delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
@@ -88,9 +89,9 @@
     }
     //FIXME:ERROR
     
-
-    DebugLog(@"Central %@ changed to %d",central,central.state);
+    DebugLog(@"Central %@ changed to %ld",central,central.state);
 }
+#pragma mark discovery delegate
 - (void)centralManager:(CBCentralManager *)central
  didDiscoverPeripheral:(CBPeripheral *)peripheral
      advertisementData:(NSDictionary *)advertisementData
@@ -109,4 +110,17 @@
     DebugLog(@"name %@",peripheral.name);
 }
 
+#pragma mark connection delegate
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    
+}
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    
+}
+- (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    
+}
 @end

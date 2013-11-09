@@ -10,13 +10,14 @@
 @interface RKPeripheral()<CBPeripheralDelegate>
 @property (nonatomic,strong) RKPeripheralChangedBlock didFinishServiceDiscovery;
 @property (nonatomic,strong)RKPeripheralChangedBlock rssiUpdated;
-@property (nonatomic,strong) RKCharacteristicChangedBlock onCharacteristicsValueUpdated;
-@property (nonatomic,strong) RKDescriptorChangedBlock onDescriptorsValueUpdated;
 @property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsDiscoveredBlocks;
 @property (nonatomic,strong) NSMutableDictionary * descriptorDiscoveredBlocks;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsValueUpdatedBlocks;
 @property (nonatomic,strong) NSMutableDictionary * descriptorValueUpdatedBlocks;
+@property (nonatomic,strong) NSMutableDictionary * characteristicValueWrtieBlocks;
+@property (nonatomic,strong) NSMutableDictionary * descriptorValueWrtieBlocks;
+@property (nonatomic,strong) NSMutableDictionary * characteristicsNotifyBlocks;
 @end
 @implementation RKPeripheral
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
@@ -26,11 +27,20 @@
     {
         _peripheral = peripheral;
         _peripheral.delegate = self;
-        self.servicesFindingIncludeService = [NSMutableDictionary dictionaryWithCapacity:10];
-        self.characteristicsDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
-        self.descriptorDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
-        self.characteristicsValueUpdatedBlocks =[NSMutableDictionary dictionaryWithCapacity:20];
-        self.descriptorValueUpdatedBlocks  =[NSMutableDictionary dictionaryWithCapacity:20];
+        //#callbacks for finding included services of specified service
+        self.servicesFindingIncludeService = [NSMutableDictionary dictionaryWithCapacity:5];
+        //
+        self.characteristicsDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:5];
+        self.descriptorDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:5];
+        //# read value callbacks
+        self.characteristicsValueUpdatedBlocks =[NSMutableDictionary dictionaryWithCapacity:5];
+        self.descriptorValueUpdatedBlocks  =[NSMutableDictionary dictionaryWithCapacity:5];
+        //# write value callbacks
+        self.characteristicValueWrtieBlocks =[NSMutableDictionary dictionaryWithCapacity:5];
+        self.descriptorValueWrtieBlocks =[NSMutableDictionary dictionaryWithCapacity:5];
+        
+        //#for characteristics notification
+        self.characteristicsNotifyBlocks = [NSMutableDictionary dictionaryWithCapacity:10];
     }
     return self;
 }
@@ -55,6 +65,7 @@
 }
 - (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) finished
 {
+    NSAssert(finished!=nil, @"block finished must'not be nil!");
     _servicesFindingIncludeService[service.UUID]=finished;
     [_peripheral discoverIncludedServices: includedServiceUUIDs forService:service];
 }
@@ -65,25 +76,63 @@
 #pragma mark Discovering Characteristics and Characteristic Descriptors
 - (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish
 {
+    NSAssert(onfinish!=nil, @"block onfinish must'not be nil!");
     _characteristicsDiscoveredBlocks[service.UUID] = onfinish;
     [_peripheral discoverCharacteristics: characteristicUUIDs forService:service];
 }
 - (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onfinish
 {
+    NSAssert(onfinish!=nil, @"block onfinish must'not be nil!");
     _descriptorDiscoveredBlocks[characteristic.UUID] = onfinish;
     [_peripheral discoverDescriptorsForCharacteristic: characteristic];
 }
 #pragma mark Reading Characteristic and Characteristic Descriptor Values
 - (void)readValueForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onUpdate
 {
+    NSAssert(onUpdate!=nil, @"block onUpdate must'not be nil!");
     _characteristicsValueUpdatedBlocks[characteristic.UUID] = onUpdate;
     [_peripheral readValueForCharacteristic: characteristic];
 }
 - (void)readValueForDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onUpdate
 {
+    NSAssert(onUpdate!=nil, @"block onUpdate must'not be nil!");
     _descriptorValueUpdatedBlocks[descriptor.UUID] = onUpdate;
     [_peripheral readValueForDescriptor: descriptor];
 }
+#pragma mark Writing Characteristic and Characteristic Descriptor Values
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type onFinish:(RKCharacteristicChangedBlock) onfinish
+{
+    
+    if (type == CBCharacteristicWriteWithResponse)
+    {
+        NSAssert(onfinish!=nil, @"block onfinish must'not be nil!");
+        _characteristicValueWrtieBlocks[characteristic.UUID] = onfinish;
+    }
+    [_peripheral writeValue:data forCharacteristic:characteristic type:type];
+}
+- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onfinish
+{
+    if (onfinish)
+    {
+        _descriptorValueWrtieBlocks[descriptor.UUID] = onfinish;
+    }
+    [_peripheral writeValue:data forDescriptor:descriptor];
+}
+#pragma mark Setting Notifications for a Characteristic’s Value
+
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic onUpdated:(RKCharacteristicChangedBlock) onUpdated
+{
+    if (enabled)
+    {
+        NSAssert(onUpdated!=nil, @"block onUpdated must'not be nil!");
+        self.characteristicsNotifyBlocks[characteristic.UUID] = onUpdated;
+    }else
+    {
+        [self.characteristicsNotifyBlocks removeObjectForKey: characteristic.UUID];
+    }
+    [_peripheral setNotifyValue:enabled forCharacteristic:characteristic];
+}
+
 #pragma mark ReadRSSI
 - (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated
 {
@@ -148,10 +197,16 @@
         {
             onupdate(characteristic,error);
             [_characteristicsValueUpdatedBlocks removeObjectForKey: characteristic.UUID];
-        }else if(self.onCharacteristicsValueUpdated)
+        }else
         {
-            self.onCharacteristicsValueUpdated(characteristic,error);
+            //notifications
+            onupdate = self.characteristicsNotifyBlocks[characteristic.UUID];
+            if (onupdate)
+            {
+                onupdate(characteristic,error);
+            }
         }
+
     }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
@@ -163,20 +218,34 @@
         {
             onupdate(descriptor,error);
             [_descriptorValueUpdatedBlocks removeObjectForKey:descriptor.UUID];
-        }else if(self.onDescriptorsValueUpdated)
-        {
-            self.onDescriptorsValueUpdated(descriptor,error);
         }
     }
 }
 #pragma mark Writing Characteristic and Characteristic Descriptor Values
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral)
+    {
+        RKCharacteristicChangedBlock onwrote = _characteristicValueWrtieBlocks[characteristic.UUID];
+        if (onwrote)
+        {
+            onwrote(characteristic,error);
+            [_characteristicValueWrtieBlocks removeObjectForKey:characteristic.UUID];
+        }
+    }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral)
+    {
+        RKDescriptorChangedBlock onwrote = _descriptorValueWrtieBlocks[descriptor.UUID];
+        if (onwrote)
+        {
+            onwrote(descriptor,error);
+            [_descriptorValueWrtieBlocks removeObjectForKey:descriptor.UUID];
+        }
+
+    }
 }
 #pragma mark Managing Notifications for a Characteristic’s Value
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error

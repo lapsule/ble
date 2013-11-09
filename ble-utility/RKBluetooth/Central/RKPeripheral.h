@@ -43,6 +43,14 @@ typedef void(^RKServicesUpdated)(NSArray * services);
 - (void)readValueForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onUpdate;
 - (void)readValueForDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onUpdate;
 
+#pragma mark Writing Characteristic and Characteristic Descriptor Values
+- (void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type onFinish:(RKCharacteristicChangedBlock) onfinish;
+- (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onfinish;
+
+#pragma mark Setting Notifications for a Characteristic’s Value
+
+- (void)setNotifyValue:(BOOL)enabled forCharacteristic:(CBCharacteristic *)characteristic onUpdated:(RKCharacteristicChangedBlock) onUpdated;
+
 #pragma mark ReadRSSI
 
 - (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated;

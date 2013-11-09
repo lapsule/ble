@@ -10,6 +10,7 @@
 @interface RKPeripheral()<CBPeripheralDelegate>
 @property (nonatomic,strong) RKPeripheralChangedBlock didFinishServiceDiscovery;
 @property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
+@property (nonatomic,strong)RKPeripheralChangedBlock rssiUpdated;
 @end
 @implementation RKPeripheral
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
@@ -47,6 +48,12 @@
     _servicesFindingIncludeService[service.UUID]=finished;
     [_peripheral discoverIncludedServices: includedServiceUUIDs forService:service];
 }
+#pragma mark ReadRSSI
+- (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated
+{
+    self.rssiUpdated = onUpdated;
+    [_peripheral readRSSI];
+}
 - (NSArray*)services
 {
     return _peripheral.services;
@@ -55,18 +62,24 @@
 #pragma mark service discovery
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
 {
-    self.didFinishServiceDiscovery(error);
+    if (peripheral == _peripheral)
+    {
+        self.didFinishServiceDiscovery(error);
+        
+    }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
 {
-    RKIncluedServiceBlock onfound = _servicesFindingIncludeService[service.UUID];
-    if (onfound)
+    if (peripheral == _peripheral)
     {
-        onfound(service,error);
-        [_servicesFindingIncludeService removeObjectForKey:service.UUID];
+        RKIncluedServiceBlock onfound = _servicesFindingIncludeService[service.UUID];
+        if (onfound)
+        {
+            onfound(service,error);
+            [_servicesFindingIncludeService removeObjectForKey:service.UUID];
+        }
     }
 }
-
 #pragma mark Characteristics
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
@@ -101,6 +114,10 @@
 #pragma mark Retrieving a Peripheral’s Received Signal Strength Indicator (RSSI) Data
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if (peripheral == _peripheral)
+    {
+        self.rssiUpdated(error);
+    }
     
 }
 #pragma mark Monitoring Changes to a Peripheral’s Name or Services

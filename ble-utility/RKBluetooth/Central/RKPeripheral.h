@@ -24,4 +24,6 @@ typedef void(^RKPeripheralChangedBlock)(NSError * error);
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished;
 - (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKIncluedServiceBlock) finished;
+
+- (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated;
 @end

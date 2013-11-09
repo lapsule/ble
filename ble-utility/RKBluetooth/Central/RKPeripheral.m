@@ -11,6 +11,8 @@
 @property (nonatomic,strong) RKPeripheralChangedBlock didFinishServiceDiscovery;
 @property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong)RKPeripheralChangedBlock rssiUpdated;
+@property (nonatomic,strong) NSMutableDictionary * characteristicsDiscoveredBlocks;
+@property (nonatomic,strong) NSMutableDictionary * descriptorDiscoveredBlocks;
 @end
 @implementation RKPeripheral
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
@@ -21,6 +23,8 @@
         _peripheral = peripheral;
         _peripheral.delegate = self;
         self.servicesFindingIncludeService = [NSMutableDictionary dictionaryWithCapacity:10];
+        self.characteristicsDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
+        self.descriptorDiscoveredBlocks = [NSMutableDictionary dictionaryWithCapacity:20];
     }
     return self;
 }
@@ -37,16 +41,31 @@
 {
     return _peripheral.identifier;
 }
-#pragma mark discovery
+#pragma mark discovery services
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished
 {
     self.didFinishServiceDiscovery = discoverFinished;
     [_peripheral discoverServices:serviceUUIDs];
 }
-- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKIncluedServiceBlock) finished
+- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) finished
 {
     _servicesFindingIncludeService[service.UUID]=finished;
     [_peripheral discoverIncludedServices: includedServiceUUIDs forService:service];
+}
+- (NSArray*)services
+{
+    return _peripheral.services;
+}
+#pragma mark Discovering Characteristics and Characteristic Descriptors
+- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish
+{
+    _characteristicsDiscoveredBlocks[service.UUID] = onfinish;
+    [_peripheral discoverCharacteristics: characteristicUUIDs forService:service];
+}
+- (void)discoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic onFinish:(RKCharacteristicChangedBlock) onfinish
+{
+    _descriptorDiscoveredBlocks[characteristic.UUID] = onfinish;
+    [_peripheral discoverDescriptorsForCharacteristic: characteristic];
 }
 #pragma mark ReadRSSI
 - (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated
@@ -54,10 +73,7 @@
     self.rssiUpdated = onUpdated;
     [_peripheral readRSSI];
 }
-- (NSArray*)services
-{
-    return _peripheral.services;
-}
+
 #pragma mark - Delegate
 #pragma mark service discovery
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error
@@ -65,14 +81,14 @@
     if (peripheral == _peripheral)
     {
         self.didFinishServiceDiscovery(error);
-        
+        self.didFinishServiceDiscovery = nil;
     }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
 {
     if (peripheral == _peripheral)
     {
-        RKIncluedServiceBlock onfound = _servicesFindingIncludeService[service.UUID];
+        RKSpecifiedServiceUpdatedBlock onfound = _servicesFindingIncludeService[service.UUID];
         if (onfound)
         {
             onfound(service,error);
@@ -83,10 +99,27 @@
 #pragma mark Characteristics
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
+    if (peripheral == _peripheral)
+    {
+        RKSpecifiedServiceUpdatedBlock onfound = _characteristicsDiscoveredBlocks[service.UUID];
+        if (onfound)
+        {
+            onfound(service,error);
+            [_characteristicsDiscoveredBlocks removeObjectForKey: service.UUID];
+        }
+    }
 }
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral)
+    {
+        RKCharacteristicChangedBlock onfound = _descriptorDiscoveredBlocks[characteristic.UUID];
+        if (onfound)
+        {
+            onfound(characteristic,error);
+            [_descriptorDiscoveredBlocks removeObjectForKey: characteristic.UUID];
+        }
+    }
 }
 #pragma mark Retrieving Characteristic and Characteristic Descriptor Values
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
@@ -120,6 +153,7 @@
     if (peripheral == _peripheral)
     {
         self.rssiUpdated(error);
+        self.rssiUpdated = nil;
     }
     
 }

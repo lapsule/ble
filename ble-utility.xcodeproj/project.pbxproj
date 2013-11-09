@@ -146,8 +146,6 @@
 				C81DFD7C181F5FAE00E71CA8 /* Main.storyboard */,
 				C81DFD85181F5FAE00E71CA8 /* Images.xcassets */,
 				C81DFD71181F5FAE00E71CA8 /* Supporting Files */,
-				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
-				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
 			);
 			path = "ble-utility";
 			sourceTree = "<group>";
@@ -208,6 +206,8 @@
 		C8AFDE65182DCD2A005BA936 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
+				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
 				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
 				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
 			);

@@ -23,6 +23,7 @@
 @end
 
 @implementation RKCentralManager
+
 - (instancetype) initWithOptions:(NSDictionary *) options
 {
     self = [super init];

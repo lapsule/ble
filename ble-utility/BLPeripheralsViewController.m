@@ -73,8 +73,12 @@
     
     // Configure the cell...
     RKPeripheral * peripheral = _central.peripherals[indexPath.row] ;
-    UILabel * label =(UILabel*) [cell viewWithTag:20];
+    UILabel * label =(UILabel*) [cell viewWithTag:19];
     label.text = peripheral.name;
+    UILabel * rssi =(UILabel*) [cell viewWithTag:20];
+    [peripheral readRSSIOnFinish:^(NSError *error) {
+        rssi.text = [peripheral.RSSI stringValue];
+    }];
     
     return cell;
 }
@@ -147,7 +151,7 @@
             DebugLog(@"error when connecting : %@, %@",peripheral,error);
         }
     } onDisconnected:^(RKPeripheral *peripheral, NSError *error) {
-        
+        DebugLog(@"disconnected : %@, %@",peripheral,error);
     }];
     
 

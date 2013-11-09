@@ -57,6 +57,10 @@
 {
     return _peripheral.identifier;
 }
+- (NSNumber *)RSSI
+{
+    return _peripheral.RSSI;
+}
 #pragma mark discovery services
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished
 {

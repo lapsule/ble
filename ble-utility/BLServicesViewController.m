@@ -73,7 +73,8 @@
     // Configure the cell...
     CBService * service = self.peripheral.services[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:20];
-    label.text = [NSString stringWithUTF8String: [service.UUID data].bytes ];
+    NSString* str = (__bridge_transfer NSString *)CFUUIDCreateString(nil, (__bridge CFUUIDRef)(service.UUID));
+    label.text = str;
     return cell;
 }
 

@@ -83,13 +83,23 @@
 #pragma mark    central state delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
+    if (_delegate && [_delegate respondsToSelector:@selector(centralManagerDidUpdateState:)])
+    {
+        [_delegate centralManagerDidUpdateState: central];
+    }
     if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
     {
         [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
     }
     //FIXME:ERROR
-    
     DebugLog(@"Central %@ changed to %ld",central,central.state);
+}
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(centralManager:willRestoreState:)])
+    {
+        [_delegate centralManager:central willRestoreState: dict];
+    }
 }
 #pragma mark discovery delegate
 - (void)centralManager:(CBCentralManager *)central
@@ -102,7 +112,6 @@
     {
         [self.peripherals addObject: rkperipheral];
     }
-    
     if (_onPeripheralUpdated)
     {
         _onPeripheralUpdated(rkperipheral);

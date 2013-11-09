@@ -13,6 +13,8 @@ typedef void(^RKPeripheralUpdatedBlock)(RKPeripheral * peripheral);
 
 @interface RKCentralManager : NSObject
 @property (atomic,strong) NSMutableArray * peripherals;
+@property (nonatomic,weak) id<CBCentralManagerDelegate> delegate;
+
 - (instancetype) initWithOptions:(NSDictionary *) options;
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate;
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs;

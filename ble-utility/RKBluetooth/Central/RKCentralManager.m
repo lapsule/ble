@@ -14,9 +14,12 @@
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
 @property (nonatomic,strong) RKPeripheralUpdatedBlock onPeripheralUpdated;
+@property (nonatomic,strong) RKPeripheralConnectionBlock onConnectionFinish;
+@property (nonatomic,strong) RKPeripheralConnectionBlock onDisconnected;
 @property (nonatomic,strong) NSArray * scanningServices;
 @property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;
+@property (nonatomic,strong) RKPeripheral * connectingPeripheral;
 @end
 
 @implementation RKCentralManager
@@ -62,10 +65,13 @@
     [_manager stopScan];
 }
 #pragma mark connect peripheral
-- (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options
+- (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected
 {
     //TODO: connect callback
-    [_manager connectPeripheral: peripheral options:options];
+    self.onConnectionFinish = finished;
+    self.onDisconnected = disconnected;
+    self.connectingPeripheral = peripheral;
+    [_manager connectPeripheral: peripheral.peripheral options:options];
     
 }
 
@@ -122,14 +128,34 @@
 #pragma mark connection delegate
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    
-}
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
+    if (peripheral == self.connectingPeripheral.peripheral)
+    {
+        if (self.onConnectionFinish)
+        {
+            self.onConnectionFinish(self.connectingPeripheral,nil);
+        }
+    }
     
 }
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    
+    if (peripheral == self.connectingPeripheral.peripheral)
+    {
+        if (self.onConnectionFinish)
+        {
+            self.onConnectionFinish(self.connectingPeripheral,error);
+        }
+    }
 }
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    if (peripheral == self.connectingPeripheral.peripheral)
+    {
+        if (self.onDisconnected)
+        {
+            self.onDisconnected(self.connectingPeripheral,error);
+        }
+    }
+}
+
 @end

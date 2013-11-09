@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreBluetooth/CoreBluetooth.h>
+#import "RKPeripheral.h"
 @interface BLServicesViewController : UITableViewController
-@property (nonatomic,strong) CBPeripheral * peripheral;
+@property (nonatomic,strong) RKPeripheral * peripheral;
 @end

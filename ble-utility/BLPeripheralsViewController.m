@@ -9,6 +9,7 @@
 #import "BLPeripheralsViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "RKCentralManager.h"
+#import "BLServicesViewController.h"
 @interface BLPeripheralsViewController ()
 @property (nonatomic,strong) RKCentralManager * central;
 @end
@@ -130,12 +131,32 @@
  */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CBPeripheral * peripheral = self.central.peripherals[indexPath.row];
-//    [self.central connectPeripheral: peripheral options:nil];
+    RKPeripheral * peripheral = self.central.peripherals[indexPath.row];
+    __weak BLPeripheralsViewController * this = self;
+    [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
+        if (!error)
+        {
+            if (connectedperipheral == peripheral)
+            {
+                [this performSegueWithIdentifier:@"services" sender: peripheral];
+            }
+            
+        }else
+        {
+            //error handler here
+            DebugLog(@"error when connecting : %@, %@",peripheral.peripheral,error);
+        }
+    } onDisconnected:^(RKPeripheral *peripheral, NSError *error) {
+        
+    }];
     
 
 }
 
 #pragma mark - peripheral connection
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    BLServicesViewController * services = segue.destinationViewController;
+    services.peripheral = sender;
+}
 @end

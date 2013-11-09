@@ -139,6 +139,7 @@
 		C81DFD70181F5FAE00E71CA8 /* ble-utility */ = {
 			isa = PBXGroup;
 			children = (
+				C8AFDE65182DCD2A005BA936 /* controllers */,
 				C8BC580B1821453000655AB4 /* RKBluetooth */,
 				C81DFD79181F5FAE00E71CA8 /* BLAppDelegate.h */,
 				C81DFD7A181F5FAE00E71CA8 /* BLAppDelegate.m */,
@@ -147,8 +148,6 @@
 				C81DFD71181F5FAE00E71CA8 /* Supporting Files */,
 				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
 				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
-				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
-				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
 			);
 			path = "ble-utility";
 			sourceTree = "<group>";
@@ -204,6 +203,15 @@
 				C8BC5820182146CA00655AB4 /* RKService.m */,
 			);
 			name = mayNotBeUsed;
+			sourceTree = "<group>";
+		};
+		C8AFDE65182DCD2A005BA936 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
+				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 		C8BC580B1821453000655AB4 /* RKBluetooth */ = {

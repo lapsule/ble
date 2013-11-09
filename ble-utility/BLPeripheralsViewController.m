@@ -72,7 +72,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBPeripheral * peripheral = [_central.peripherals[indexPath.row] peripheral];
+    RKPeripheral * peripheral = _central.peripherals[indexPath.row] ;
     UILabel * label =(UILabel*) [cell viewWithTag:20];
     label.text = peripheral.name;
     
@@ -144,7 +144,7 @@
         }else
         {
             //error handler here
-            DebugLog(@"error when connecting : %@, %@",peripheral.peripheral,error);
+            DebugLog(@"error when connecting : %@, %@",peripheral,error);
         }
     } onDisconnected:^(RKPeripheral *peripheral, NSError *error) {
         

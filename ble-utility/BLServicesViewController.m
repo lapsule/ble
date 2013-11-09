@@ -9,7 +9,6 @@
 #import "BLServicesViewController.h"
 
 @interface BLServicesViewController ()
-@property (nonatomic,strong) NSMutableArray * services;
 @end
 
 @implementation BLServicesViewController
@@ -24,13 +23,13 @@
 }
 - (void)setup
 {
-    self.services = [NSMutableArray arrayWithCapacity:10];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setup];
+    self.title = _peripheral.peripheral.name;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -43,7 +42,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    __weak BLServicesViewController * this  = self;
+    [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
+        [this.tableView reloadData];
+    }];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -57,7 +62,7 @@
 {
 
     // Return the number of rows in the section.
-    return _services.count;
+    return self.peripheral.services.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -66,7 +71,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBService * service = _services[indexPath.row];
+    CBService * service = self.peripheral.services[indexPath.row];
     UILabel * label = [cell viewWithTag:20];
     label.text = [[service.UUID data] base64Encoding];
     return cell;

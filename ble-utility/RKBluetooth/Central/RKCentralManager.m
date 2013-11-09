@@ -44,7 +44,11 @@
 - (void)initializeWithOptions:(NSDictionary *) options
 {
     self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
-    self.peripherals = [NSMutableArray arrayWithCapacity:10];
+    _peripherals = [NSMutableArray arrayWithCapacity:10];
+}
+- (CBCentralManagerState)state
+{
+    return _manager.state;
 }
 #pragma mark scan
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate

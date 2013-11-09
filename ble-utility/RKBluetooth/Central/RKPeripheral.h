@@ -13,6 +13,7 @@ typedef void(^RKCharacteristicChangedBlock)(CBCharacteristic * characteristic, N
 typedef void(^RKDescriptorChangedBlock)(CBDescriptor * descriptor, NSError * error);
 typedef void(^RKIncluedServiceBlock)(CBService * service,NSError * error);
 typedef void(^RKPeripheralChangedBlock)(NSError * error);
+typedef void(^RKServicesUpdated)(NSArray * services);
 @interface RKPeripheral : NSObject
 @property (nonatomic,strong,readonly) CBPeripheral * peripheral;
 @property (nonatomic) NSArray * services;
@@ -20,6 +21,9 @@ typedef void(^RKPeripheralChangedBlock)(NSError * error);
 @property(readonly, nonatomic,strong) NSUUID *identifier;
 @property(readonly) NSString *name;
 @property(readonly) NSNumber *RSSI;
+@property (nonatomic,strong) RKServicesUpdated onServiceModified;
+@property (nonatomic,strong) RKPeripheralChangedBlock onNameUpdated;
+@property (nonatomic,strong) RKCharacteristicChangedBlock notificationStateChanged;
 
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished;

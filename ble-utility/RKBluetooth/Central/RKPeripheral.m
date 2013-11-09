@@ -109,7 +109,10 @@
 #pragma mark Managing Notifications for a Characteristic’s Value
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
 {
-    
+    if (peripheral == _peripheral && self.notificationStateChanged)
+    {
+        self.notificationStateChanged(characteristic,error);
+    }
 }
 #pragma mark Retrieving a Peripheral’s Received Signal Strength Indicator (RSSI) Data
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error
@@ -123,10 +126,16 @@
 #pragma mark Monitoring Changes to a Peripheral’s Name or Services
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices
 {
-    
+    if (peripheral == _peripheral && self.onServiceModified)
+    {
+        self.onServiceModified(invalidatedServices);
+    }
 }
 - (void)peripheralDidUpdateName:(CBPeripheral *)peripheral
 {
-    
+    if (peripheral == _peripheral && self.onNameUpdated)
+    {
+        self.onNameUpdated(nil);
+    }
 }
 @end

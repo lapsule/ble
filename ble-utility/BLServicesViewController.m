@@ -72,7 +72,7 @@
     
     // Configure the cell...
     CBService * service = self.peripheral.services[indexPath.row];
-    UILabel * label = [cell viewWithTag:20];
+    UILabel * label = (UILabel*)[cell viewWithTag:20];
     label.text = [[service.UUID data] base64Encoding];
     return cell;
 }

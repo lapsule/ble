@@ -10,4 +10,5 @@
 #import "RKPeripheral.h"
 @interface BLServicesViewController : UITableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
+@property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
 @end

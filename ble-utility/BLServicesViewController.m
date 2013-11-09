@@ -29,7 +29,8 @@
 {
     [super viewDidLoad];
     [self setup];
-    self.title = _peripheral.peripheral.name;
+    self.title = _peripheral.name;
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -45,6 +46,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     __weak BLServicesViewController * this  = self;
+    [_peripheral readRSSIOnFinish:^(NSError *error) {
+        this.rssiLabel.text = [_peripheral.RSSI stringValue];
+    }];
     [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
         [this.tableView reloadData];
     }];

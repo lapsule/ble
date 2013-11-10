@@ -7,6 +7,7 @@
 //
 
 #import "RKPeripheral.h"
+#import "RKBlueBlocks.h"
 @interface RKPeripheral()<CBPeripheralDelegate>
 @property (nonatomic,copy) RKPeripheralChangedBlock didFinishServiceDiscovery;
 @property (nonatomic,copy)RKPeripheralChangedBlock rssiUpdated;

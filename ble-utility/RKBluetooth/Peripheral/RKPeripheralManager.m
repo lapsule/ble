@@ -23,6 +23,33 @@
     }
     return self;
 }
+- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options
+{
+    self = [super init];
+    if (self)
+    {
+        [self initializeWithQueue:queue options:options];
+    }
+    return self;
+}
+- (void)initializeWithQueue:(dispatch_queue_t) queue options:(NSDictionary *)options
+{
+    _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue options:options];
+}
+#pragma mark Adding and Removing Services
+- (void)addService:(CBMutableService *)service
+{
+    [_peripheralManager addService:service];
+}
+- (void)removeService:(CBMutableService *)service
+{
+    [_peripheralManager removeService:service];
+}
+- (void)removeAllServices
+{
+    [_peripheralManager removeAllServices];
+}
+
 #pragma mark - Delegates
 #pragma mark Monitoring Changes to the Peripheral Manager’s State
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral

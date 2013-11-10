@@ -8,12 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#pragma mark block defs
-typedef void(^RKCharacteristicChangedBlock)(CBCharacteristic * characteristic, NSError * error);
-typedef void(^RKDescriptorChangedBlock)(CBDescriptor * descriptor, NSError * error);
-typedef void(^RKSpecifiedServiceUpdatedBlock)(CBService * service,NSError * error);
-typedef void(^RKPeripheralChangedBlock)(NSError * error);
-typedef void(^RKServicesUpdated)(NSArray * services);
+#import "RKBlueBlocks.h"
 
 @interface RKPeripheral : NSObject
 @property (nonatomic,strong,readonly) CBPeripheral * peripheral;

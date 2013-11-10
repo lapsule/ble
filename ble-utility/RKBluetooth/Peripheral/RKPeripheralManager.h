@@ -10,4 +10,7 @@
 
 @interface RKPeripheralManager : NSObject
 
+- (instancetype)initWithQueue:(dispatch_queue_t)queue;
+- (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options NS_AVAILABLE(NA, 7_0);
+
 @end

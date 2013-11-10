@@ -71,6 +71,7 @@
 		C89261CF182F2F450062860A /* BLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLTableViewController.m; sourceTree = "<group>"; };
 		C89261D2182F63130062860A /* RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKBlueKit.h; sourceTree = "<group>"; };
 		C89261D3182F63130062860A /* RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKBlueKit.m; sourceTree = "<group>"; };
+		C89261D5182F707E0062860A /* RKBlueBlocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBlueBlocks.h; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
 		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
 		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 		C8BC5818182146CA00655AB4 /* Central */ = {
 			isa = PBXGroup;
 			children = (
+				C89261D5182F707E0062860A /* RKBlueBlocks.h */,
 				C8BC5819182146CA00655AB4 /* RKCentralManager.h */,
 				C8BC581A182146CA00655AB4 /* RKCentralManager.m */,
 				C8BC581D182146CA00655AB4 /* RKPeripheral.h */,

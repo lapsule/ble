@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RKPeripheral.h"
-@interface BLCharacteristicsViewController : UITableViewController
+#import "BLTableViewController.h"
+@interface BLCharacteristicsViewController : BLTableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (nonatomic,strong) CBService * service;
 @end

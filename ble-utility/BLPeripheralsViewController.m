@@ -33,6 +33,8 @@
 {
     [super viewDidLoad];
     [self setup];
+    self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    [self.indicator startAnimating];
     __weak BLPeripheralsViewController * wp = self;
     [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
         [wp.tableView reloadData];

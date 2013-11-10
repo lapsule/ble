@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BLPeripheralsViewController : UITableViewController
+#import "BLTableViewController.h"
+@interface BLPeripheralsViewController : BLTableViewController
 
 @end

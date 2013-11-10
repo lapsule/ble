@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RKPeripheral.h"
-@interface BLServicesViewController : UITableViewController
+#import "BLTableViewController.h"
+@interface BLServicesViewController : BLTableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
 @end

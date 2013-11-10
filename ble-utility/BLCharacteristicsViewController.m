@@ -37,10 +37,13 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     __weak BLCharacteristicsViewController * this = self;
+    self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    [self.indicator startAnimating];
     [_peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
         if (service == _service)
         {
             [this.tableView reloadData];
+            [this.indicator stopAnimating];
         }
         
     }];

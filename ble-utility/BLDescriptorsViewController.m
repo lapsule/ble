@@ -27,9 +27,11 @@
 {
     [super viewDidLoad];
     __weak BLDescriptorsViewController * this = self;
-    
+    self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    [self.indicator startAnimating];
     [_peripheral discoverDescriptorsForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
         [this.tableView reloadData];
+        [this.indicator stopAnimating];
     }];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

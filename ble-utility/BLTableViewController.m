@@ -1,18 +1,18 @@
 //
-//  BLServicesViewController.m
+//  BLTableViewController.m
 //  ble-utility
 //
-//  Created by joost on 13-10-29.
-//  Copyright (c) 2013年 joost. All rights reserved.
+//  Created by Joost Fu on 11/10/13.
+//  Copyright (c) 2013 joost. All rights reserved.
 //
 
-#import "BLServicesViewController.h"
-#import "BLCharacteristicsViewController.h"
+#import "BLTableViewController.h"
 
-@interface BLServicesViewController ()
+@interface BLTableViewController ()
+
 @end
 
-@implementation BLServicesViewController
+@implementation BLTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -22,15 +22,10 @@
     }
     return self;
 }
-- (void)setup
-{
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setup];
-    self.title = _peripheral.name;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -38,40 +33,43 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+- (UIBarButtonItem *) indicatorItem
+{
+    if (!_indicatorItem)
+    {
+        _indicatorItem = [[UIBarButtonItem alloc] initWithCustomView: self.indicator];
+    }
+    return _indicatorItem;
+}
+- (UIActivityIndicatorView *)indicator
+{
+    if (!_indicator)
+    {
+        _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicator.hidesWhenStopped = YES;
+    }
+    return  _indicator;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (void)viewDidAppear:(BOOL)animated
-{
-    __weak BLServicesViewController * this  = self;
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    [_peripheral readRSSIOnFinish:^(NSError *error) {
-        this.rssiLabel.text = [_peripheral.RSSI stringValue];
-    }];
-    [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
-        [this.tableView reloadData];
-        [this.indicator stopAnimating];
-        DebugLog(@"%@",_peripheral.services);
-    }];
-}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
+#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
+#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return self.peripheral.services.count;
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,12 +78,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBService * service = self.peripheral.services[indexPath.row];
-    UILabel * label = (UILabel*)[cell viewWithTag:19];
-    label.text = [service.UUID description];
-    UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [NSString stringWithFormat:@"%@",service.UUID];
-    DebugLog(@"%@",label.text);
+    
     return cell;
 }
 
@@ -128,11 +121,7 @@
 }
 */
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CBService * service = self.peripheral.services[indexPath.row];
-    [self performSegueWithIdentifier:@"characteristics" sender:service];
-}
+/*
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -140,11 +129,8 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    BLCharacteristicsViewController * vc = segue.destinationViewController;
-    vc.service = sender;
-    vc.peripheral = self.peripheral;
 }
 
-
+ */
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "BLServicesViewController.h"
+#import "BLCharacteristicsViewController.h"
 
 @interface BLServicesViewController ()
 @end
@@ -77,8 +78,10 @@
     
     // Configure the cell...
     CBService * service = self.peripheral.services[indexPath.row];
-    UILabel * label = (UILabel*)[cell viewWithTag:20];
+    UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [service.UUID description];
+    UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
+    uuidLabel.text = [NSString stringWithFormat:@"%@",service.UUID];
     DebugLog(@"%@",label.text);
     return cell;
 }
@@ -122,7 +125,11 @@
 }
 */
 
-/*
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CBService * service = self.peripheral.services[indexPath.row];
+    [self performSegueWithIdentifier:@"characteristics" sender:service];
+}
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -130,8 +137,11 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    BLCharacteristicsViewController * vc = segue.destinationViewController;
+    vc.service = sender;
+    vc.peripheral = self.peripheral;
 }
 
- */
+
 
 @end

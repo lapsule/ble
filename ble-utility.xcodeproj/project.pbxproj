@@ -26,13 +26,8 @@
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
 		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
-		C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581C182146CA00655AB4 /* RKCharacteristic.m */; };
 		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
-		C8BC5825182146CA00655AB4 /* RKService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5820182146CA00655AB4 /* RKService.m */; };
 		C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5827182146E700655AB4 /* RKPeripheralManager.m */; };
-		C8BC582B1821470A00655AB4 /* RKMutableCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */; };
-		C8BC582E1821472500655AB4 /* RKMutableService.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC582D1821472500655AB4 /* RKMutableService.m */; };
-		C8BC58311821478500655AB4 /* RKCentral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC58301821478500655AB4 /* RKCentral.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,20 +70,10 @@
 		C89261CF182F2F450062860A /* BLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLTableViewController.m; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
 		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
-		C8BC581B182146CA00655AB4 /* RKCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCharacteristic.h; sourceTree = "<group>"; };
-		C8BC581C182146CA00655AB4 /* RKCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCharacteristic.m; sourceTree = "<group>"; };
 		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
 		C8BC581E182146CA00655AB4 /* RKPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheral.m; sourceTree = "<group>"; };
-		C8BC581F182146CA00655AB4 /* RKService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKService.h; sourceTree = "<group>"; };
-		C8BC5820182146CA00655AB4 /* RKService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKService.m; sourceTree = "<group>"; };
 		C8BC5826182146E700655AB4 /* RKPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheralManager.h; sourceTree = "<group>"; };
 		C8BC5827182146E700655AB4 /* RKPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheralManager.m; sourceTree = "<group>"; };
-		C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKMutableCharacteristic.h; sourceTree = "<group>"; };
-		C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKMutableCharacteristic.m; sourceTree = "<group>"; };
-		C8BC582C1821472500655AB4 /* RKMutableService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKMutableService.h; sourceTree = "<group>"; };
-		C8BC582D1821472500655AB4 /* RKMutableService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKMutableService.m; sourceTree = "<group>"; };
-		C8BC582F1821478500655AB4 /* RKCentral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentral.h; sourceTree = "<group>"; };
-		C8BC58301821478500655AB4 /* RKCentral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentral.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,30 +173,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C86ED45B182D364200512FC0 /* mayNotBeUsed */ = {
-			isa = PBXGroup;
-			children = (
-				C8BC582F1821478500655AB4 /* RKCentral.h */,
-				C8BC58301821478500655AB4 /* RKCentral.m */,
-				C8BC58291821470A00655AB4 /* RKMutableCharacteristic.h */,
-				C8BC582A1821470A00655AB4 /* RKMutableCharacteristic.m */,
-				C8BC582C1821472500655AB4 /* RKMutableService.h */,
-				C8BC582D1821472500655AB4 /* RKMutableService.m */,
-			);
-			name = mayNotBeUsed;
-			sourceTree = "<group>";
-		};
-		C86ED45C182D365A00512FC0 /* mayNotBeUsed */ = {
-			isa = PBXGroup;
-			children = (
-				C8BC581B182146CA00655AB4 /* RKCharacteristic.h */,
-				C8BC581C182146CA00655AB4 /* RKCharacteristic.m */,
-				C8BC581F182146CA00655AB4 /* RKService.h */,
-				C8BC5820182146CA00655AB4 /* RKService.m */,
-			);
-			name = mayNotBeUsed;
-			sourceTree = "<group>";
-		};
 		C8AFDE65182DCD2A005BA936 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,7 +206,6 @@
 				C8BC581A182146CA00655AB4 /* RKCentralManager.m */,
 				C8BC581D182146CA00655AB4 /* RKPeripheral.h */,
 				C8BC581E182146CA00655AB4 /* RKPeripheral.m */,
-				C86ED45C182D365A00512FC0 /* mayNotBeUsed */,
 			);
 			path = Central;
 			sourceTree = "<group>";
@@ -255,7 +215,6 @@
 			children = (
 				C8BC5826182146E700655AB4 /* RKPeripheralManager.h */,
 				C8BC5827182146E700655AB4 /* RKPeripheralManager.m */,
-				C86ED45B182D364200512FC0 /* mayNotBeUsed */,
 			);
 			path = Peripheral;
 			sourceTree = "<group>";
@@ -361,20 +320,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C8BC58311821478500655AB4 /* RKCentral.m in Sources */,
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
 				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
-				C8BC582E1821472500655AB4 /* RKMutableService.m in Sources */,
 				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
 				C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */,
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
-				C8BC5825182146CA00655AB4 /* RKService.m in Sources */,
 				C89261D0182F2F450062860A /* BLTableViewController.m in Sources */,
-				C8BC582B1821470A00655AB4 /* RKMutableCharacteristic.m in Sources */,
 				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,
-				C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */,
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

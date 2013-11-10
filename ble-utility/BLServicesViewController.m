@@ -8,6 +8,7 @@
 
 #import "BLServicesViewController.h"
 #import "BLCharacteristicsViewController.h"
+#import "CBUUID+RKBlueKit.h"
 
 @interface BLServicesViewController ()
 @end
@@ -84,7 +85,7 @@
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [service.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [NSString stringWithFormat:@"%@",service.UUID];
+    uuidLabel.text = [service.UUID representativeString];
     DebugLog(@"%@",label.text);
     return cell;
 }

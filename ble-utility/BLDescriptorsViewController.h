@@ -12,4 +12,7 @@
 @interface BLDescriptorsViewController : BLTableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (nonatomic,strong) CBCharacteristic * characteristic;
+@property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
+@property (weak, nonatomic) IBOutlet UILabel *properties;
+@property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @end

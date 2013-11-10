@@ -9,6 +9,7 @@
 #import "BLCharacteristicsViewController.h"
 #import "BLDescriptorsViewController.h"
 #import "RKBlueKit.h"
+#import "CBUUID+RKBlueKit.h"
 
 @interface BLCharacteristicsViewController ()
 
@@ -28,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.title = @"Characteristics";
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -82,7 +83,7 @@
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [characteristic.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [NSString stringWithFormat:@"%@",characteristic.UUID];
+    uuidLabel.text = [characteristic.UUID representativeString];
     
     UILabel * propertyLabel = (UILabel *)[cell viewWithTag:21];
     propertyLabel.text = [[RKBlueKit propertiesFrom: characteristic.properties] componentsJoinedByString:@","];

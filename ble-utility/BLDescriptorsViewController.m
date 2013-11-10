@@ -8,8 +8,9 @@
 
 #import "BLDescriptorsViewController.h"
 #import "RKBlueKit.h"
+#import "CBUUID+RKBlueKit.h"
 
-@interface BLDescriptorsViewController ()
+@interface BLDescriptorsViewController ()<UITextFieldDelegate>
 
 @end
 
@@ -34,6 +35,19 @@
         [this.tableView reloadData];
         [this.indicator stopAnimating];
     }];
+    if ((_characteristic.properties &CBCharacteristicPropertyWrite) >0)
+    {
+        self.valueTextField.enabled = YES;
+        [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+             this.valueTextField.text =[NSString stringWithFormat:@"%@",_characteristic.value];
+        }];
+       
+    }else
+    {
+        self.valueTextField.enabled = NO;
+    }
+    self.properties.text =[ [RKBlueKit propertiesFrom: _characteristic.properties] componentsJoinedByString:@" "];
+    self.uuidLabel.text = [_characteristic.UUID representativeString];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -136,5 +150,31 @@
 }
 
  */
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    __weak BLDescriptorsViewController * this = self;
+    NSData * data = [textField.text dataUsingEncoding:NSUTF8StringEncoding];
+    if (data)
+    {
+        self.title = @"writing data";
+        [self.indicator startAnimating];
+        [self.peripheral writeValue:data forCharacteristic:_characteristic type:CBCharacteristicWriteWithResponse onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+            DebugLog(@"write response %@",error);
+            [this.indicator stopAnimating];
+            
+            if (error)
+            {
+                self.title = error.localizedDescription;
+            }else
+            {
+                self.title = @"done";
+            }
+        }];
+
+    }
+        [textField resignFirstResponder];
+    return YES;
+}
 
 @end

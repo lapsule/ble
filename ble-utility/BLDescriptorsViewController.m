@@ -72,7 +72,10 @@
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [descriptor.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [NSString stringWithFormat:@"value: %@",descriptor.value];
+    [self.peripheral readValueForDescriptor:descriptor onFinish:^(CBDescriptor *tdescriptor, NSError *error) {
+        uuidLabel.text =[NSString stringWithFormat:@"value:%@", tdescriptor.value];
+    }];
+    
     
     return cell;
 }

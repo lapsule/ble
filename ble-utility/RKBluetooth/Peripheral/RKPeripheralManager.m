@@ -13,6 +13,7 @@
 @property (nonatomic,strong) CBPeripheralManager * peripheralManager;
 @property (nonatomic,strong) NSMutableDictionary * serviceAddingBlocks;
 @property (nonatomic,copy) RKObjectChangedBlock advertisingStartedBlock;
+@property (nonatomic,strong) NSMutableArray * addedServices;
 @end
 #pragma mark - implementation
 @implementation RKPeripheralManager
@@ -56,6 +57,7 @@
     
     //blocks for adding services
     self.serviceAddingBlocks = [NSMutableDictionary dictionaryWithCapacity:5];
+    self.addedServices = [NSMutableArray arrayWithCapacity:10];
     
 }
 #pragma mark Adding and Removing Services
@@ -63,14 +65,17 @@
 {
     self.serviceAddingBlocks[service.UUID] = onfinish;
     [_peripheralManager addService:service];
+    [self.addedServices addObject: service];
 }
 - (void)removeService:(CBMutableService *)service
 {
     [_peripheralManager removeService:service];
+    [self.addedServices removeObject:service];
 }
 - (void)removeAllServices
 {
     [_peripheralManager removeAllServices];
+    [self.addedServices removeAllObjects];
 }
 #pragma mark Managing Advertising
 - (void)startAdvertising:(NSDictionary *)advertisementData onStarted:(RKObjectChangedBlock) onstarted
@@ -108,7 +113,14 @@
 {
     [_peripheralManager setDesiredConnectionLatency: latency forCentral:central];
 }
-
+- (CBPeripheralManagerState) state
+{
+    return _peripheralManager.state;
+}
+- (NSArray *)services
+{
+    return self.addedServices;
+}
 #pragma mark - Delegates
 #pragma mark Monitoring Changes to the Peripheral Manager’s State
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral

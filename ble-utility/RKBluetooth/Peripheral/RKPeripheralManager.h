@@ -17,6 +17,8 @@
 @property (nonatomic,copy)RKCentralReadRequestBlock onReceivedReadRequest;
 @property (nonatomic,copy)RKCentralWriteRequestBlock onReceivedWriteRequest;
 @property (nonatomic,copy)RKObjectChangedBlock onReadToUpdateSubscribers;
+@property(readonly) CBPeripheralManagerState state;
+@property (nonatomic,strong)NSArray * services;
 
 - (instancetype)initWithQueue:(dispatch_queue_t)queue;
 - (instancetype)initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *)options NS_AVAILABLE(NA, 7_0);

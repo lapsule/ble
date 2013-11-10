@@ -26,6 +26,7 @@
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
 		C89261D4182F63130062860A /* RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261D3182F63130062860A /* RKBlueKit.m */; };
+		C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261D9182F7ACF0062860A /* BLCentralsViewController.m */; };
 		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
 		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
 		C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5827182146E700655AB4 /* RKPeripheralManager.m */; };
@@ -72,6 +73,8 @@
 		C89261D2182F63130062860A /* RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKBlueKit.h; sourceTree = "<group>"; };
 		C89261D3182F63130062860A /* RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKBlueKit.m; sourceTree = "<group>"; };
 		C89261D5182F707E0062860A /* RKBlueBlocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RKBlueBlocks.h; sourceTree = "<group>"; };
+		C89261D8182F7ACF0062860A /* BLCentralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCentralsViewController.h; sourceTree = "<group>"; };
+		C89261D9182F7ACF0062860A /* BLCentralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCentralsViewController.m; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
 		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
 		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
@@ -186,7 +189,7 @@
 			path = BluethoothKit;
 			sourceTree = "<group>";
 		};
-		C8AFDE65182DCD2A005BA936 /* controllers */ = {
+		C89261D6182F7A880062860A /* central manager */ = {
 			isa = PBXGroup;
 			children = (
 				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
@@ -199,6 +202,24 @@
 				C89261CC182F282D0062860A /* BLDescriptorsViewController.m */,
 				C89261CE182F2F450062860A /* BLTableViewController.h */,
 				C89261CF182F2F450062860A /* BLTableViewController.m */,
+			);
+			name = "central manager";
+			sourceTree = "<group>";
+		};
+		C89261D7182F7A9D0062860A /* peripheral manager */ = {
+			isa = PBXGroup;
+			children = (
+				C89261D8182F7ACF0062860A /* BLCentralsViewController.h */,
+				C89261D9182F7ACF0062860A /* BLCentralsViewController.m */,
+			);
+			name = "peripheral manager";
+			sourceTree = "<group>";
+		};
+		C8AFDE65182DCD2A005BA936 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C89261D7182F7A9D0062860A /* peripheral manager */,
+				C89261D6182F7A880062860A /* central manager */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -337,6 +358,7 @@
 			files = (
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
 				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
+				C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */,
 				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
 				C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */,
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,

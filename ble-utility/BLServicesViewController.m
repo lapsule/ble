@@ -51,6 +51,7 @@
     }];
     [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
         [this.tableView reloadData];
+        DebugLog(@"%@",_peripheral.services);
     }];
 }
 #pragma mark - Table view data source
@@ -77,8 +78,8 @@
     // Configure the cell...
     CBService * service = self.peripheral.services[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:20];
-    NSString* str = (__bridge_transfer NSString *)CFUUIDCreateString(nil, (__bridge CFUUIDRef)(service.UUID));
-    label.text = str;
+    label.text = [service.UUID description];
+    DebugLog(@"%@",label.text);
     return cell;
 }
 

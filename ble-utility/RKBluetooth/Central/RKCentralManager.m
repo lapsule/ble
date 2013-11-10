@@ -24,12 +24,12 @@
 
 @implementation RKCentralManager
 
-- (instancetype) initWithOptions:(NSDictionary *) options
+- (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options
 {
     self = [super init];
     if (self)
     {
-        [self initializeWithOptions:options];
+        [self initializeWithQueue:queue options:options];
     }
     return  self;
 }
@@ -38,13 +38,13 @@
     self = [super init];
     if (self)
     {
-        [self initializeWithOptions:@{CBCentralManagerOptionShowPowerAlertKey:@YES}];
+        [self initializeWithQueue:nil options: @{CBCentralManagerOptionShowPowerAlertKey:@YES}];
     }
     return self;
 }
-- (void)initializeWithOptions:(NSDictionary *) options
+- (void)initializeWithQueue:(dispatch_queue_t) queue options:(NSDictionary *) options
 {
-    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
+    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:queue options:options];
     _peripherals = [NSMutableArray arrayWithCapacity:10];
 }
 - (CBCentralManagerState)state

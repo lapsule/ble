@@ -17,7 +17,7 @@ typedef void(^RKPeripheralConnectionBlock)(RKPeripheral * peripheral,NSError * e
 @property (nonatomic,weak) id<CBCentralManagerDelegate> delegate;
 @property(readonly) CBCentralManagerState state;
 
-- (instancetype) initWithOptions:(NSDictionary *) options;
+- (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options;
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate;
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected;
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs;

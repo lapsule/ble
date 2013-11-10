@@ -24,6 +24,7 @@
 		C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */; };
 		C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */; };
 		C84A689B182FA8060094226A /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689A182FA8060094226A /* NSData+Hex.m */; };
+		C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */; };
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
@@ -70,6 +71,8 @@
 		C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RKBlueKit.m"; sourceTree = "<group>"; };
 		C84A6899182FA8060094226A /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
 		C84A689A182FA8060094226A /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
+		C84A689C182FD9840094226A /* BLAvailableServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLAvailableServicesViewController.h; sourceTree = "<group>"; };
+		C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLAvailableServicesViewController.m; sourceTree = "<group>"; };
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
 		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
@@ -229,6 +232,8 @@
 			children = (
 				C89261D8182F7ACF0062860A /* BLCentralsViewController.h */,
 				C89261D9182F7ACF0062860A /* BLCentralsViewController.m */,
+				C84A689C182FD9840094226A /* BLAvailableServicesViewController.h */,
+				C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */,
 			);
 			name = "peripheral manager";
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 				C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */,
 				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
+				C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */,
 				C89261D4182F63130062860A /* RKBlueKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

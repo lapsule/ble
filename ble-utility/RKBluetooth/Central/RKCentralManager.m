@@ -72,7 +72,6 @@
 #pragma mark connect peripheral
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected
 {
-    //TODO: connect callback
     self.onConnectionFinish = finished;
     self.onDisconnected = disconnected;
     self.connectingPeripheral = peripheral;

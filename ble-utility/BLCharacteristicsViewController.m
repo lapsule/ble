@@ -8,6 +8,7 @@
 
 #import "BLCharacteristicsViewController.h"
 #import "BLDescriptorsViewController.h"
+#import "RKBlueKit.h"
 
 @interface BLCharacteristicsViewController ()
 
@@ -83,6 +84,9 @@
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
     uuidLabel.text = [NSString stringWithFormat:@"%@",characteristic.UUID];
     
+    UILabel * propertyLabel = (UILabel *)[cell viewWithTag:21];
+    propertyLabel.text = [[RKBlueKit propertiesFrom: characteristic.properties] componentsJoinedByString:@","];
+
     return cell;
 }
 

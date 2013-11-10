@@ -25,6 +25,7 @@
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
+		C89261D4182F63130062860A /* RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261D3182F63130062860A /* RKBlueKit.m */; };
 		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
 		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
 		C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5827182146E700655AB4 /* RKPeripheralManager.m */; };
@@ -68,6 +69,8 @@
 		C89261CC182F282D0062860A /* BLDescriptorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLDescriptorsViewController.m; sourceTree = "<group>"; };
 		C89261CE182F2F450062860A /* BLTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLTableViewController.h; sourceTree = "<group>"; };
 		C89261CF182F2F450062860A /* BLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLTableViewController.m; sourceTree = "<group>"; };
+		C89261D2182F63130062860A /* RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKBlueKit.h; sourceTree = "<group>"; };
+		C89261D3182F63130062860A /* RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKBlueKit.m; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
 		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
 		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
@@ -173,6 +176,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C89261D1182F62E50062860A /* BluethoothKit */ = {
+			isa = PBXGroup;
+			children = (
+				C89261D2182F63130062860A /* RKBlueKit.h */,
+				C89261D3182F63130062860A /* RKBlueKit.m */,
+			);
+			path = BluethoothKit;
+			sourceTree = "<group>";
+		};
 		C8AFDE65182DCD2A005BA936 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +205,7 @@
 		C8BC580B1821453000655AB4 /* RKBluetooth */ = {
 			isa = PBXGroup;
 			children = (
+				C89261D1182F62E50062860A /* BluethoothKit */,
 				C8BC5818182146CA00655AB4 /* Central */,
 				C8BC5821182146CA00655AB4 /* Peripheral */,
 			);
@@ -330,6 +343,7 @@
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
+				C89261D4182F63130062860A /* RKBlueKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

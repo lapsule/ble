@@ -7,6 +7,7 @@
 //
 
 #import "BLDescriptorsViewController.h"
+#import "RKBlueKit.h"
 
 @interface BLDescriptorsViewController ()
 
@@ -75,11 +76,16 @@
     [self.peripheral readValueForDescriptor:descriptor onFinish:^(CBDescriptor *tdescriptor, NSError *error) {
         uuidLabel.text =[NSString stringWithFormat:@"value:%@", tdescriptor.value];
     }];
-    
-    
     return cell;
 }
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section ==0)
+    {
+        return [NSString stringWithFormat: @"%lu descriptors",(unsigned long)self.characteristic.descriptors.count];
+    }
+    return nil;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

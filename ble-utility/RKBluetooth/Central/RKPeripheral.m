@@ -9,8 +9,8 @@
 #import "RKPeripheral.h"
 #import "RKBlueBlocks.h"
 @interface RKPeripheral()<CBPeripheralDelegate>
-@property (nonatomic,copy) RKPeripheralChangedBlock didFinishServiceDiscovery;
-@property (nonatomic,copy)RKPeripheralChangedBlock rssiUpdated;
+@property (nonatomic,copy) RKObjectChangedBlock didFinishServiceDiscovery;
+@property (nonatomic,copy)RKObjectChangedBlock rssiUpdated;
 @property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsDiscoveredBlocks;
 @property (nonatomic,strong) NSMutableDictionary * descriptorDiscoveredBlocks;
@@ -63,7 +63,7 @@
     return _peripheral.RSSI;
 }
 #pragma mark discovery services
-- (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished
+- (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKObjectChangedBlock) discoverFinished
 {
     self.didFinishServiceDiscovery = discoverFinished;
     [_peripheral discoverServices:serviceUUIDs];
@@ -139,7 +139,7 @@
 }
 
 #pragma mark ReadRSSI
-- (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated
+- (void)readRSSIOnFinish:(RKObjectChangedBlock) onUpdated
 {
     self.rssiUpdated = onUpdated;
     [_peripheral readRSSI];

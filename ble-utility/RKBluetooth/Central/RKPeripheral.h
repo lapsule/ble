@@ -18,14 +18,14 @@
 @property(readonly,strong) NSString *name;
 @property(readonly,strong) NSNumber *RSSI;
 @property (nonatomic,copy) RKServicesUpdated onServiceModified;
-@property (nonatomic,copy) RKPeripheralChangedBlock onNameUpdated;
+@property (nonatomic,copy) RKObjectChangedBlock onNameUpdated;
 @property (nonatomic,copy) RKCharacteristicChangedBlock notificationStateChanged;
 
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 
 #pragma mark discovery services
 
-- (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKPeripheralChangedBlock) discoverFinished;
+- (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKObjectChangedBlock) discoverFinished;
 - (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) finished;
 
 #pragma mark Discovering Characteristics and Characteristic Descriptors
@@ -48,5 +48,5 @@
 
 #pragma mark ReadRSSI
 
-- (void)readRSSIOnFinish:(RKPeripheralChangedBlock) onUpdated;
+- (void)readRSSIOnFinish:(RKObjectChangedBlock) onUpdated;
 @end

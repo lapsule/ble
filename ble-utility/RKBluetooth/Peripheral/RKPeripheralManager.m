@@ -7,10 +7,12 @@
 //
 
 #import "RKPeripheralManager.h"
-#import <CoreBluetooth/CoreBluetooth.h>
+
 
 @interface RKPeripheralManager()<CBPeripheralManagerDelegate>
 @property (nonatomic,strong) CBPeripheralManager * peripheralManager;
+@property (nonatomic,strong) NSMutableDictionary * serviceAddingBlocks;
+@property (nonatomic,copy) RKObjectChangedBlock advertisingStartedBlock;
 @end
 #pragma mark - implementation
 @implementation RKPeripheralManager
@@ -19,7 +21,7 @@
     self = [super init];
     if (self)
     {
-        _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue];
+        [self initializeWithQueue:queue options:nil];
     }
     return self;
 }
@@ -32,13 +34,34 @@
     }
     return self;
 }
+- (instancetype)init
+{
+    self = [super init];
+    if (self)
+    {
+        [self initializeWithQueue:nil options:nil];
+    }
+    return self;
+}
 - (void)initializeWithQueue:(dispatch_queue_t) queue options:(NSDictionary *)options
 {
-    _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue options:options];
+    if (options)
+    {
+        _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue options:options];
+    }else
+    {
+        _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue];
+    }
+    
+    
+    //blocks for adding services
+    self.serviceAddingBlocks = [NSMutableDictionary dictionaryWithCapacity:5];
+    
 }
 #pragma mark Adding and Removing Services
-- (void)addService:(CBMutableService *)service
+- (void)addService:(CBMutableService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish
 {
+    self.serviceAddingBlocks[service.UUID] = onfinish;
     [_peripheralManager addService:service];
 }
 - (void)removeService:(CBMutableService *)service
@@ -49,48 +72,141 @@
 {
     [_peripheralManager removeAllServices];
 }
+#pragma mark Managing Advertising
+- (void)startAdvertising:(NSDictionary *)advertisementData onStarted:(RKObjectChangedBlock) onstarted
+{
+    NSAssert(onstarted != nil, @"block should not be nil");
+    self.advertisingStartedBlock = onstarted;
+    [_peripheralManager startAdvertising: advertisementData];
+}
+- (void)stopAdvertising
+{
+    [_peripheralManager stopAdvertising];
+}
+- (BOOL)isAdvertising
+{
+    return  _peripheralManager.isAdvertising;
+}
+
+#pragma mark Sending Updates of a Characteristic’s Value
+- (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
+{
+    BOOL res = [_peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
+    if (!res)
+    {
+        
+    }
+    return res;
+}
+#pragma mark Responding to Read and Write Requests
+- (void)respondToRequest:(CBATTRequest *)request withResult:(CBATTError)result
+{
+    [_peripheralManager respondToRequest: request withResult: result];
+}
+#pragma mark Setting Connection Latency
+- (void)setDesiredConnectionLatency:(CBPeripheralManagerConnectionLatency)latency forCentral:(CBCentral *)central
+{
+    [_peripheralManager setDesiredConnectionLatency: latency forCentral:central];
+}
 
 #pragma mark - Delegates
 #pragma mark Monitoring Changes to the Peripheral Manager’s State
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onStatedUpdated)
+        {
+            self.onStatedUpdated(nil);
+        }
+    }
 }
 - (void)peripheralManager:(CBPeripheralManager *)peripheral willRestoreState:(NSDictionary *)dict
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onWillRestoreState)
+        {
+            self.onWillRestoreState(dict);
+        }
+    }
 }
 #pragma mark Adding Services
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        RKSpecifiedServiceUpdatedBlock onfinish = self.serviceAddingBlocks[service.UUID];
+        if (onfinish)
+        {
+            onfinish(service,error);
+            [self.serviceAddingBlocks removeObjectForKey: service.UUID];
+        }
+    }
 }
 #pragma mark Advertising Peripheral Data
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error
 {
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.advertisingStartedBlock)
+        {
+            self.advertisingStartedBlock(error);
+            self.advertisingStartedBlock = nil;
+        }
+    }
     
 }
 #pragma mark Monitoring Subscriptions to Characteristic Values
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onSubscribedBlock)
+        {
+            self.onSubscribedBlock(central ,characteristic);
+        }
+    }
 }
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onUnsubscribedBlock)
+        {
+            self.onUnsubscribedBlock(central,characteristic);
+        }
+    }
 }
 - (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onReadToUpdateSubscribers)
+        {
+            self.onReadToUpdateSubscribers(nil);
+        }
+    }
 }
 #pragma mark Receiving Read and Write Requests
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onReceivedReadRequest)
+        {
+            self.onReceivedReadRequest(request);
+        }
+    }
 }
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests
 {
-    
+    if (peripheral == self.peripheralManager)
+    {
+        if (self.onReceivedWriteRequest) {
+            self.onReceivedWriteRequest(requests);
+        }
+    }
 }
 
 @end

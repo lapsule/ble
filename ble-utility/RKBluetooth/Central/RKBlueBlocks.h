@@ -8,15 +8,22 @@
 
 #ifndef ble_utility_RKBlueBlocks_h
 #define ble_utility_RKBlueBlocks_h
-
-#pragma mark block defs
+#import <CoreBluetooth/CoreBluetooth.h>
+//#pragma mark block defs
 @class RKPeripheral;
+
+// central manager
 typedef void(^RKCharacteristicChangedBlock)(CBCharacteristic * characteristic, NSError * error);
 typedef void(^RKDescriptorChangedBlock)(CBDescriptor * descriptor, NSError * error);
 typedef void(^RKSpecifiedServiceUpdatedBlock)(CBService * service,NSError * error);
-typedef void(^RKPeripheralChangedBlock)(NSError * error);
+typedef void(^RKObjectChangedBlock)(NSError * error);
 typedef void(^RKServicesUpdated)(NSArray * services);
 typedef void(^RKPeripheralUpdatedBlock)(RKPeripheral * peripheral);
 typedef void(^RKPeripheralConnectionBlock)(RKPeripheral * peripheral,NSError * error);
 
+//peripheral manager
+typedef void(^RKPeripheralManagerStatedChnagedBlock)(NSDictionary * state);
+typedef void(^RKCentralSubscriptionBlock)(CBCentral * central,CBCharacteristic * characteristic);
+typedef void(^RKCentralReadRequestBlock)(CBATTRequest * readRequest);
+typedef void(^RKCentralWriteRequestBlock)(NSArray * writeRequests);
 #endif

@@ -8,8 +8,8 @@
 
 #import "RKPeripheral.h"
 @interface RKPeripheral()<CBPeripheralDelegate>
-@property (nonatomic,strong) RKPeripheralChangedBlock didFinishServiceDiscovery;
-@property (nonatomic,strong)RKPeripheralChangedBlock rssiUpdated;
+@property (nonatomic,copy) RKPeripheralChangedBlock didFinishServiceDiscovery;
+@property (nonatomic,copy)RKPeripheralChangedBlock rssiUpdated;
 @property (nonatomic,strong) NSMutableDictionary * servicesFindingIncludeService;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsDiscoveredBlocks;
 @property (nonatomic,strong) NSMutableDictionary * descriptorDiscoveredBlocks;

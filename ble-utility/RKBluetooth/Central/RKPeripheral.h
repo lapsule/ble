@@ -22,9 +22,9 @@ typedef void(^RKServicesUpdated)(NSArray * services);
 @property(readonly, nonatomic,strong) NSUUID *identifier;
 @property(readonly,strong) NSString *name;
 @property(readonly,strong) NSNumber *RSSI;
-@property (nonatomic,strong) RKServicesUpdated onServiceModified;
-@property (nonatomic,strong) RKPeripheralChangedBlock onNameUpdated;
-@property (nonatomic,strong) RKCharacteristicChangedBlock notificationStateChanged;
+@property (nonatomic,copy) RKServicesUpdated onServiceModified;
+@property (nonatomic,copy) RKPeripheralChangedBlock onNameUpdated;
+@property (nonatomic,copy) RKCharacteristicChangedBlock notificationStateChanged;
 
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 

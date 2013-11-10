@@ -13,9 +13,9 @@
 
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
-@property (nonatomic,strong) RKPeripheralUpdatedBlock onPeripheralUpdated;
-@property (nonatomic,strong) RKPeripheralConnectionBlock onConnectionFinish;
-@property (nonatomic,strong) RKPeripheralConnectionBlock onDisconnected;
+@property (nonatomic,copy) RKPeripheralUpdatedBlock onPeripheralUpdated;
+@property (nonatomic,copy) RKPeripheralConnectionBlock onConnectionFinish;
+@property (nonatomic,copy) RKPeripheralConnectionBlock onDisconnected;
 @property (nonatomic,strong) NSArray * scanningServices;
 @property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;

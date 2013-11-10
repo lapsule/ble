@@ -23,6 +23,7 @@
 		C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */; };
 		C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */; };
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
+		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
 		C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581C182146CA00655AB4 /* RKCharacteristic.m */; };
 		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
@@ -67,6 +68,8 @@
 		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServicesViewController.m; sourceTree = "<group>"; };
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
+		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
+		C89261CC182F282D0062860A /* BLDescriptorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLDescriptorsViewController.m; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
 		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
 		C8BC581B182146CA00655AB4 /* RKCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCharacteristic.h; sourceTree = "<group>"; };
@@ -215,6 +218,8 @@
 				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
 				C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */,
 				C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */,
+				C89261CB182F282D0062860A /* BLDescriptorsViewController.h */,
+				C89261CC182F282D0062860A /* BLDescriptorsViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				C8BC582B1821470A00655AB4 /* RKMutableCharacteristic.m in Sources */,
 				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
+				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,
 				C8BC5823182146CA00655AB4 /* RKCharacteristic.m in Sources */,
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
 			);

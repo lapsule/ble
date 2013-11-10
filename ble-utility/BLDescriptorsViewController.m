@@ -9,6 +9,7 @@
 #import "BLDescriptorsViewController.h"
 #import "RKBlueKit.h"
 #import "CBUUID+RKBlueKit.h"
+#import "NSData+Hex.h"
 
 @interface BLDescriptorsViewController ()<UITextFieldDelegate>
 
@@ -39,7 +40,7 @@
     {
         self.valueTextField.enabled = YES;
         [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
-             this.valueTextField.text =[NSString stringWithFormat:@"%@",_characteristic.value];
+             this.valueTextField.text =[_characteristic.value hexadecimalString];
         }];
        
     }else

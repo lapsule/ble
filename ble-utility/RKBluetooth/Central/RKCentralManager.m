@@ -104,13 +104,13 @@
     //FIXME:ERROR
     DebugLog(@"Central %@ changed to %d",central,(int)central.state);
 }
-- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
-{
-    if (_delegate && [_delegate respondsToSelector:@selector(centralManager:willRestoreState:)])
-    {
-        [_delegate centralManager:central willRestoreState: dict];
-    }
-}
+//- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
+//{
+//    if (_delegate && [_delegate respondsToSelector:@selector(centralManager:willRestoreState:)])
+//    {
+//        [_delegate centralManager:central willRestoreState: dict];
+//    }
+//}
 #pragma mark discovery delegate
 - (void)centralManager:(CBCentralManager *)central
  didDiscoverPeripheral:(CBPeripheral *)peripheral

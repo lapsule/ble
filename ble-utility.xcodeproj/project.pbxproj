@@ -23,6 +23,7 @@
 		C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */; };
 		C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */; };
 		C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */; };
+		C84A689B182FA8060094226A /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689A182FA8060094226A /* NSData+Hex.m */; };
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
@@ -67,6 +68,8 @@
 		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServicesViewController.m; sourceTree = "<group>"; };
 		C84A6895182FA05C0094226A /* CBUUID+RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+RKBlueKit.h"; sourceTree = "<group>"; };
 		C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RKBlueKit.m"; sourceTree = "<group>"; };
+		C84A6899182FA8060094226A /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
+		C84A689A182FA8060094226A /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
 		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
@@ -143,6 +146,7 @@
 		C81DFD70181F5FAE00E71CA8 /* ble-utility */ = {
 			isa = PBXGroup;
 			children = (
+				C84A6898182FA7E00094226A /* external */,
 				C8AFDE65182DCD2A005BA936 /* controllers */,
 				C8BC580B1821453000655AB4 /* RKBluetooth */,
 				C81DFD79181F5FAE00E71CA8 /* BLAppDelegate.h */,
@@ -181,6 +185,15 @@
 				C81DFD95181F5FAE00E71CA8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C84A6898182FA7E00094226A /* external */ = {
+			isa = PBXGroup;
+			children = (
+				C84A6899182FA8060094226A /* NSData+Hex.h */,
+				C84A689A182FA8060094226A /* NSData+Hex.m */,
+			);
+			name = external;
 			sourceTree = "<group>";
 		};
 		C89261D1182F62E50062860A /* BluethoothKit */ = {
@@ -369,6 +382,7 @@
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
 				C89261D0182F2F450062860A /* BLTableViewController.m in Sources */,
 				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
+				C84A689B182FA8060094226A /* NSData+Hex.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 				C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */,
 				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,

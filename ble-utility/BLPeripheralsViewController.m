@@ -79,7 +79,7 @@
     label.text = peripheral.name;
     UILabel * rssi =(UILabel*) [cell viewWithTag:20];
     [peripheral readRSSIOnFinish:^(NSError *error) {
-        rssi.text = [peripheral.RSSI stringValue];
+        rssi.text =[NSString stringWithFormat:@"rssi: %@", [peripheral.RSSI stringValue]];
     }];
     
     return cell;

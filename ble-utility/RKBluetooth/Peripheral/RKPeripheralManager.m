@@ -65,7 +65,6 @@
 {
     self.serviceAddingBlocks[service.UUID] = onfinish;
     [_peripheralManager addService:service];
-    [self.addedServices addObject: service];
 }
 - (void)removeService:(CBMutableService *)service
 {
@@ -149,6 +148,10 @@
     if (peripheral == self.peripheralManager)
     {
         RKSpecifiedServiceUpdatedBlock onfinish = self.serviceAddingBlocks[service.UUID];
+        if (!error)
+        {
+                [self.addedServices addObject: service];
+        }
         if (onfinish)
         {
             onfinish(service,error);

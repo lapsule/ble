@@ -8,6 +8,7 @@
 
 #import "BLCentralsViewController.h"
 #import "RKPeripheralManager.h"
+#import "BLAvailableServicesViewController.h"
 @interface BLCentralsViewController ()
 @property (nonatomic,strong) RKPeripheralManager * manager;
 @end
@@ -19,18 +20,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.manager = [[RKPeripheralManager alloc] init];
+        
     }
     return self;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    
+   
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.manager = [[RKPeripheralManager alloc] init];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addService:)];
 	// Do any additional setup after loading the view.
 }
@@ -42,7 +44,7 @@
 }
 - (void)addService:(id)sender
 {
-    
+     [self performSegueWithIdentifier:@"availableServices" sender:self];
 }
 #pragma mark - Table view data source
 
@@ -62,7 +64,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"cell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
@@ -115,7 +117,7 @@
  }
  */
 
-/*
+
  #pragma mark - Navigation
  
  // In a story board-based application, you will often want to do a little preparation before navigation
@@ -123,7 +125,22 @@
  {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     __weak BLCentralsViewController * this = self;
+     BLAvailableServicesViewController * vc  = [(UINavigationController*)segue.destinationViewController viewControllers][0];
+     vc.onSelectService =  ^(NSDictionary * service)
+     {
+         [this addServiceWithDict:service];
+     };
  }
- 
- */
+- (void)addServiceWithDict:(NSDictionary *) info
+{
+    CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:[info allKeys][0]] primary:YES];
+    NSString * oldTitle = self.title;
+    __weak BLCentralsViewController * this = self;
+    [self.manager addService:service onFinish:^(CBService *service, NSError *error) {
+        [this.tableView reloadData];
+    }];
+                                  
+}
+
 @end

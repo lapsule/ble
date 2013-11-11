@@ -7,7 +7,7 @@
 //
 
 #import "BLTableViewController.h"
-
+typedef void(^BLServiceSelected)(NSDictionary * service);
 @interface BLAvailableServicesViewController : BLTableViewController
-
+@property (nonatomic,copy) BLServiceSelected onSelectService;
 @end

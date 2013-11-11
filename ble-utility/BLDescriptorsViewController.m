@@ -38,11 +38,13 @@
     }];
     
     //check if write supportted
-    if ((_characteristic.properties &CBCharacteristicPropertyWrite) >0)
+    if ((_characteristic.properties &CBCharacteristicPropertyWrite) !=0 || (_characteristic.properties &CBCharacteristicPropertyWriteWithoutResponse) !=0)
     {
+        self.valueTextField.borderStyle = UITextBorderStyleRoundedRect;
         self.valueTextField.enabled = YES;
     }else
     {
+        self.valueTextField.borderStyle = UITextBorderStyleNone;
         self.valueTextField.enabled = NO;
     }
     [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
@@ -178,21 +180,30 @@
     NSData * data = [NSData  dataWithHexString: textField.text ];
     if (data)
     {
-        self.title = @"writing data";
-        [self.indicator startAnimating];
-        [self.peripheral writeValue:data forCharacteristic:_characteristic type:CBCharacteristicWriteWithResponse onFinish:^(CBCharacteristic *characteristic, NSError *error) {
-            DebugLog(@"write response %@",error);
-            [this.indicator stopAnimating];
-            
-            if (error)
+        
+        CBCharacteristicWriteType type =CBCharacteristicWriteWithResponse;
+        RKCharacteristicChangedBlock onfinish=nil;
+        if ((_characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) !=0)
+        {
+            type = CBCharacteristicWriteWithoutResponse;
+        }else
+        {
+            [self.indicator startAnimating];
+            onfinish = ^(CBCharacteristic * characteristic, NSError * error)
             {
-                self.title = error.localizedDescription;
-            }else
-            {
-                self.title = @"done";
-            }
-        }];
-
+                DebugLog(@"write response %@",error);
+                [this.indicator stopAnimating];
+                
+                if (error)
+                {
+                    NSLog(@"%@",error);
+                }else
+                {
+                    
+                }
+            };
+        }
+        [self.peripheral writeValue:data forCharacteristic:_characteristic type:type onFinish:onfinish];
     }
         [textField resignFirstResponder];
     return YES;

@@ -2,7 +2,7 @@
 //  RKCentralManager.m
 //  ble-utility
 //
-//  Created by Joost Fu on 10/30/13.
+//  Created by 北京锐和信科技有限公司 on 10/30/13.
 //  Copyright (c) 2013 北京锐和信科技有限公司. All rights reserved.
 //
 

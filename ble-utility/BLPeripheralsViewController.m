@@ -2,8 +2,8 @@
 //  BLServiceListViewController.m
 //  ble-utility
 //
-//  Created by joost on 13-10-29.
-//  Copyright (c) 2013年 joost. All rights reserved.
+//  Created by 北京锐和信科技有限公司 13-10-29.
+//  Copyright (c) 2013年 北京锐和信科技有限公司. All rights reserved.
 //
 
 #import "BLPeripheralsViewController.h"

@@ -3,7 +3,7 @@
 //  ble-utility
 //
 //  Created by Joost Fu on 11/10/13.
-//  Copyright (c) 2013 joost. All rights reserved.
+//  Copyright (c) 2013 北京锐和信科技有限公司. All rights reserved.
 //
 
 #import "CBUUID+RKBlueKit.h"

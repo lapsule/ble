@@ -32,7 +32,17 @@
     [super viewDidLoad];
     [self setup];
     self.title = _peripheral.name;
-    
+    __weak BLServicesViewController * this  = self;
+    self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    [self.indicator startAnimating];
+    [_peripheral readRSSIOnFinish:^(NSError *error) {
+        this.rssiLabel.text = [_peripheral.RSSI stringValue];
+    }];
+    [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
+        [this.tableView reloadData];
+        [this.indicator stopAnimating];
+        DebugLog(@"%@",_peripheral.services);
+    }];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,17 +57,12 @@
 }
 - (void)viewDidAppear:(BOOL)animated
 {
-    __weak BLServicesViewController * this  = self;
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    [_peripheral readRSSIOnFinish:^(NSError *error) {
-        this.rssiLabel.text = [_peripheral.RSSI stringValue];
-    }];
-    [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
-        [this.tableView reloadData];
-        [this.indicator stopAnimating];
-        DebugLog(@"%@",_peripheral.services);
-    }];
+    [super viewDidAppear:animated];
+    
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 #pragma mark - Table view data source
 

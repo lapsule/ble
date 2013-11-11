@@ -175,7 +175,7 @@
 {
     
     __weak BLDescriptorsViewController * this = self;
-    NSData * data = [textField.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSData * data = [NSData  dataWithHexString: textField.text ];
     if (data)
     {
         self.title = @"writing data";

@@ -34,18 +34,27 @@
     [super viewDidLoad];
     [self setup];
     self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    __weak BLPeripheralsViewController * wp = self;
-    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
-        [wp.tableView reloadData];
-    }];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.indicator startAnimating];
+    __weak BLPeripheralsViewController * wp = self;
+    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
+        [wp.tableView reloadData];
+    }];
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear: animated];
+    [self.central stopScan];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -154,6 +163,7 @@
         }
     } onDisconnected:^(RKPeripheral *peripheral, NSError *error) {
         DebugLog(@"disconnected : %@, %@",peripheral,error);
+        [this.navigationController popToRootViewControllerAnimated:YES];
     }];
     
 

@@ -54,6 +54,7 @@
 #pragma mark scan
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
+    [self.peripherals removeAllObjects];
     self.onPeripheralUpdated = onUpdate;
     if (_manager.state == CBCentralManagerStatePoweredOn )
     {
@@ -150,15 +151,24 @@
         {
             self.onConnectionFinish(self.connectingPeripheral,error);
         }
+        [self.peripherals removeObject:self.connectingPeripheral];
         self.connectingPeripheral = nil;
     }
 }
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-
+    RKPeripheral * rkperipheral = nil;
+    for (int i =0;i!= self.peripherals.count;++i)
+    {
+        if (peripheral == [self.peripherals[i] peripheral])
+        {
+            rkperipheral = self.peripherals[i];
+            break;
+        }
+    }
+    
     if (self.onDisconnected)
     {
-        RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral: peripheral];
         self.onDisconnected(rkperipheral,error);
     }
 

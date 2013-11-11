@@ -11,7 +11,6 @@
 #import "CBUUID+RKBlueKit.h"
 
 @interface BLServicesViewController ()
-@property (nonatomic,strong) NSDictionary * serviceNames;
 @end
 
 @implementation BLServicesViewController
@@ -26,17 +25,7 @@
 }
 - (void)setup
 {
-    NSDictionary * dict =[NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"uuids" ofType:@"plist"]];
-    NSArray * t =dict[@"Services"];
-    NSMutableDictionary * sers = [NSMutableDictionary dictionaryWithCapacity:t.count];
-    for (NSDictionary * dict in t)
-    {
-        for (NSString * key in dict)
-        {
-            sers[key]=dict[key];
-        }
-    }
-    self.serviceNames = sers;
+    
 }
 
 - (void)viewDidLoad
@@ -100,8 +89,7 @@
     // Configure the cell...
     CBService * service = self.peripheral.services[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
-    NSString * hex =[NSString stringWithFormat:@"0x%@", [[service.UUID representativeString] uppercaseString]];
-    label.text = self.serviceNames[hex];
+    label.text = [service.UUID description];
     
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
     uuidLabel.text = [[service.UUID representativeString] uppercaseString];

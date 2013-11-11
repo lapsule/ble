@@ -60,7 +60,7 @@
         }];
     }
     //labels
-    self.properties.text =[ [RKBlueKit propertiesFrom: _characteristic.properties] componentsJoinedByString:@" "];
+    self.properties.text =[ [RKBlueKit propertiesFrom: _characteristic.properties] componentsJoinedByString:@","];
     self.uuidLabel.text = [_characteristic.UUID representativeString];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

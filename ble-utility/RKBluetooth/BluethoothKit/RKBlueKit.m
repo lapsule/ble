@@ -7,7 +7,7 @@
 //
 
 #import "RKBlueKit.h"
-static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutResponse",@"Notify",@"Indicate",@"AuthenticatedSignedWrites",
+static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutResponse",@"Write",@"Notify",@"Indicate",@"AuthenticatedSignedWrites",
 @"ExtendedProperties",@"NotifyEncryptionRequired",@"IndicateEncryptionRequired"};
 @implementation RKBlueKit
 + (NSArray *)propertiesFrom:(CBCharacteristicProperties) properties
@@ -16,8 +16,8 @@ static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutRe
     NSMutableArray * temp = [NSMutableArray arrayWithCapacity:c];
     for (int i =0 ; i!= c; ++i)
     {
-        int t = 2<<i;
-        if ((t&properties) >0)
+        NSInteger t = 0x1<<i;
+        if ((t&properties) !=0)
         {
             [temp addObject:sPropertyNames[i]];
         }

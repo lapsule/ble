@@ -36,17 +36,30 @@
         [this.tableView reloadData];
         [this.indicator stopAnimating];
     }];
+    
+    //check if write supportted
     if ((_characteristic.properties &CBCharacteristicPropertyWrite) >0)
     {
         self.valueTextField.enabled = YES;
-        [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
-             this.valueTextField.text =[_characteristic.value hexadecimalString];
-        }];
-       
     }else
     {
         self.valueTextField.enabled = NO;
     }
+    [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+        this.valueTextField.text =[_characteristic.value hexadecimalString];
+    }];
+    if ((_characteristic.properties & CBCharacteristicPropertyRead)>0)
+    {
+        
+    }
+    //check  if notify
+    if ((_characteristic.properties & CBCharacteristicPropertyNotify))
+    {
+        [self.peripheral setNotifyValue:YES forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
+            this.valueTextField.text =[characteristic.value hexadecimalString];
+        }];
+    }
+    //labels
     self.properties.text =[ [RKBlueKit propertiesFrom: _characteristic.properties] componentsJoinedByString:@" "];
     self.uuidLabel.text = [_characteristic.UUID representativeString];
     // Uncomment the following line to preserve selection between presentations.
@@ -55,7 +68,14 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //check  if notify
+    if ((_characteristic.properties & CBCharacteristicPropertyNotify))
+    {
+        [self.peripheral setNotifyValue:NO forCharacteristic:self.characteristic onUpdated:nil];
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -327,7 +327,7 @@
 			attributes = {
 				CLASSPREFIX = BL;
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = joost;
+				ORGANIZATIONNAME = "北京锐和信科技有限公司";
 				TargetAttributes = {
 					C81DFD66181F5FAE00E71CA8 = {
 						DevelopmentTeam = WZDWHJ9YE9;

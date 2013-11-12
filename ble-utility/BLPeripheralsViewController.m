@@ -55,7 +55,7 @@
     [super viewDidAppear:animated];
 
     __weak BLPeripheralsViewController * wp = self;
-    [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
+    [self.central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}  onUpdated:^(RKPeripheral *peripheral) {
         [wp.tableView reloadData];
     }];
     [self.tableView reloadData];

@@ -97,7 +97,7 @@
 
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
-    [self.peripherals removeAllObjects];
+    NSAssert(onUpdate!=nil, @"onUpdate should be nil!");
     self.onPeripheralUpdated = onUpdate;
     if (self.manager.state == CBCentralManagerStatePoweredOn )
     {
@@ -137,21 +137,69 @@
 {
     return [_manager retrievePeripheralsWithIdentifiers: identifiers];
 }
-
+#pragma mark - internal methods
+- (void)clearPeripherals
+{
+    [self.connectedPeripherals removeAllObjects];
+    [self.connectingPeripherals removeAllObjects];
+    [self.peripherals removeAllObjects];
+    [self.connectionFinishBlocks removeAllObjects];
+    [self.disconnectedBlocks removeAllObjects];
+}
 #pragma mark - Delegate
 #pragma mark    central state delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if (central == self.manager)
     {
+        switch ([central state])
+        {
+            case CBCentralManagerStatePoweredOff:
+            {
+                [self clearPeripherals];
+                _onPeripheralUpdated(nil);
+                break;
+            }
+                
+            case CBCentralManagerStateUnauthorized:
+            {
+                /* Tell user the app is not allowed. */
+                break;
+            }
+                
+            case CBCentralManagerStateUnknown:
+            {
+                /* Bad news, let's wait for another event. */
+                break;
+            }
+                
+            case CBCentralManagerStatePoweredOn:
+            {
+                if(_scanStarted)
+                {
+                    [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
+                }
+               /* [self.connectedPeripherals addObjectsFromArray:[self retrieveConnectedPeripheralsWithServices:self.scanningServices]];
+                [self.peripherals addObjectsFromArray:[self retrievePeripheralsWithIdentifiers:nil]];
+                */
+                _onPeripheralUpdated(nil);
+                break;
+            }
+                
+            case CBCentralManagerStateResetting:
+            {
+                [self clearPeripherals];
+                _onPeripheralUpdated(nil);
+                break;
+            }
+            case CBCentralManagerStateUnsupported:
+                break;
+        }
         if (_onStateChanged)
         {
             _onStateChanged(nil);
         }
-        if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
-        {
-            [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
-        }
+        
     }
     //FIXME:ERROR
     DebugLog(@"Central %@ changed to %d",central,(int)central.state);
@@ -170,17 +218,15 @@
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
+   
     RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral:peripheral];
     if (rkperipheral&& ![self.peripherals containsObject: rkperipheral])
     {
         [self.peripherals addObject: rkperipheral];
-        if (_onPeripheralUpdated)
-        {
             _onPeripheralUpdated(rkperipheral);
-        }
     }
     
-    DebugLog(@"name %@",peripheral.name);
+    DebugLog(@"%@ on %@ thread",peripheral, [NSThread isMainThread]?@"Main":@"Other");
 }
 
 #pragma mark Monitoring Connections with Peripherals

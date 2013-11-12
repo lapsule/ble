@@ -50,7 +50,11 @@
 #pragma mark propertys
 - (NSString *)name
 {
-    return _peripheral.name;
+    if (!_name)
+    {
+        self.name = _peripheral.name;
+    }
+    return _name;
 }
 - (NSUUID*)identifier
 {
@@ -74,7 +78,15 @@
 }
 - (NSNumber *)RSSI
 {
-    return _peripheral.RSSI;
+    if (!_RSSI)
+    {
+        self.RSSI = _peripheral.RSSI;
+    }
+    return _RSSI;
+}
+- (BOOL)isEqual:(id)object
+{
+    return [self.peripheral isEqual: [object peripheral]];
 }
 #pragma mark discovery services
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKObjectChangedBlock) discoverFinished

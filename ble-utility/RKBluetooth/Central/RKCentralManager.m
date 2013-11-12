@@ -26,6 +26,15 @@
 
 @implementation RKCentralManager
 
+- (instancetype) initWithQueue:(dispatch_queue_t)queue
+{
+    self = [super init];
+    if (self)
+    {
+        [self initializeWithQueue:queue options:nil];
+    }
+    return  self;
+}
 - (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options
 {
     self = [super init];

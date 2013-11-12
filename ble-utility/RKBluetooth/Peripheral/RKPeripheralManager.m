@@ -14,6 +14,8 @@
 @property (nonatomic,strong) NSMutableDictionary * serviceAddingBlocks;
 @property (nonatomic,copy) RKObjectChangedBlock advertisingStartedBlock;
 @property (nonatomic,strong) NSMutableArray * addedServices;
+@property (nonatomic,strong) NSDictionary * initializedOptions;
+@property (nonatomic,strong) dispatch_queue_t queue;
 @end
 #pragma mark - implementation
 @implementation RKPeripheralManager
@@ -46,19 +48,25 @@
 }
 - (void)initializeWithQueue:(dispatch_queue_t) queue options:(NSDictionary *)options
 {
-    if (options)
-    {
-        _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue options:options];
-    }else
-    {
-        _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:queue];
-    }
-    
-    
+    self.queue = queue;
+    self.initializedOptions = options;
     //blocks for adding services
     self.serviceAddingBlocks = [NSMutableDictionary dictionaryWithCapacity:5];
     self.addedServices = [NSMutableArray arrayWithCapacity:10];
-    
+}
+- (CBPeripheralManager *)peripheralManager
+{
+    @synchronized(_peripheralManager)
+    {
+        if ([CBPeripheralManager instancesRespondToSelector:@selector(initWithDelegate:queue:options:)])
+        {
+            _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue options:self.initializedOptions];
+        }else
+        {
+            _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue ];
+        }
+    }
+    return _peripheralManager;
 }
 #pragma mark Adding and Removing Services
 - (void)addService:(CBMutableService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish

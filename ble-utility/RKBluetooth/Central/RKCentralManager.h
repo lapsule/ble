@@ -17,7 +17,8 @@
 @property (nonatomic,weak) id<CBCentralManagerDelegate> delegate;
 @property(readonly) CBCentralManagerState state;
 
-- (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options;
+- (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options NS_AVAILABLE(NA, 7_0);
+- (instancetype) initWithQueue:(dispatch_queue_t)queue;
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate;
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected;
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs;

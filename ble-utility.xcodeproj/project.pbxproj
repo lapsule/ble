@@ -33,7 +33,6 @@
 		C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581A182146CA00655AB4 /* RKCentralManager.m */; };
 		C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC581E182146CA00655AB4 /* RKPeripheral.m */; };
 		C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BC5827182146E700655AB4 /* RKPeripheralManager.m */; };
-		C8CC47021830D2C600F6CE18 /* uuids.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8CC47011830D2C600F6CE18 /* uuids.plist */; };
 		C8CC47041830D3A800F6CE18 /* servicesdefs in Resources */ = {isa = PBXBuildFile; fileRef = C8CC47031830D3A800F6CE18 /* servicesdefs */; };
 /* End PBXBuildFile section */
 
@@ -92,7 +91,6 @@
 		C8BC581E182146CA00655AB4 /* RKPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheral.m; sourceTree = "<group>"; };
 		C8BC5826182146E700655AB4 /* RKPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheralManager.h; sourceTree = "<group>"; };
 		C8BC5827182146E700655AB4 /* RKPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheralManager.m; sourceTree = "<group>"; };
-		C8CC47011830D2C600F6CE18 /* uuids.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = uuids.plist; sourceTree = "<group>"; };
 		C8CC47031830D3A800F6CE18 /* servicesdefs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = servicesdefs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,7 +196,6 @@
 		C84A6898182FA7E00094226A /* external */ = {
 			isa = PBXGroup;
 			children = (
-				C8CC47011830D2C600F6CE18 /* uuids.plist */,
 				C84A6899182FA8060094226A /* NSData+Hex.h */,
 				C84A689A182FA8060094226A /* NSData+Hex.m */,
 			);
@@ -368,7 +365,6 @@
 				C81DFD75181F5FAE00E71CA8 /* InfoPlist.strings in Resources */,
 				C8CC47041830D3A800F6CE18 /* servicesdefs in Resources */,
 				C81DFD7E181F5FAE00E71CA8 /* Main.storyboard in Resources */,
-				C8CC47021830D2C600F6CE18 /* uuids.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

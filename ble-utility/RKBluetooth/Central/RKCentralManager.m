@@ -101,6 +101,7 @@
     self.onPeripheralUpdated = onUpdate;
     if (self.manager.state == CBCentralManagerStatePoweredOn )
     {
+        self.scanStarted = NO;
         [self.manager scanForPeripheralsWithServices: serviceUUIDs options:options];
     }else
     {
@@ -179,9 +180,7 @@
                 {
                     [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
                 }
-               /* [self.connectedPeripherals addObjectsFromArray:[self retrieveConnectedPeripheralsWithServices:self.scanningServices]];
-                [self.peripherals addObjectsFromArray:[self retrievePeripheralsWithIdentifiers:nil]];
-                */
+                
                 _onPeripheralUpdated(nil);
                 break;
             }

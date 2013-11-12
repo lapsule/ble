@@ -26,6 +26,12 @@
 }
 - (void)setup
 {
+    NSDictionary * opts = nil;
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)
+    {
+        DebugLog(@"%f",[[UIDevice currentDevice].systemVersion floatValue]);
+//        opts = @{CBCentralManagerOptionShowPowerAlertKey:@YES};
+    }
     self.central = [[RKCentralManager alloc] init];
 }
 
@@ -87,9 +93,9 @@
     UILabel * label =(UILabel*) [cell viewWithTag:19];
     label.text = peripheral.name;
     UILabel * rssi =(UILabel*) [cell viewWithTag:20];
-    [peripheral readRSSIOnFinish:^(NSError *error) {
-        rssi.text =[NSString stringWithFormat:@"rssi: %@", [peripheral.RSSI stringValue]];
-    }];
+//    [peripheral readRSSIOnFinish:^(NSError *error) {
+//        rssi.text =[NSString stringWithFormat:@"rssi: %@", [peripheral.RSSI stringValue]];
+//    }];
     
     return cell;
 }

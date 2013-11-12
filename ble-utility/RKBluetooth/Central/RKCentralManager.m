@@ -20,6 +20,8 @@
 @property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;
 @property (nonatomic,strong) RKPeripheral * connectingPeripheral;
+@property (nonatomic,strong) NSDictionary * initializedOptions;
+@property (nonatomic,strong) dispatch_queue_t queue;
 @end
 
 @implementation RKCentralManager
@@ -38,27 +40,47 @@
     self = [super init];
     if (self)
     {
-        [self initializeWithQueue:nil options: @{CBCentralManagerOptionShowPowerAlertKey:@YES}];
+        [self initializeWithQueue:nil options: nil];
     }
     return self;
 }
 - (void)initializeWithQueue:(dispatch_queue_t) queue options:(NSDictionary *) options
 {
-    self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:queue options:options];
+    self.queue = queue;
+    self.initializedOptions = options;
     _peripherals = [NSMutableArray arrayWithCapacity:10];
 }
 - (CBCentralManagerState)state
 {
     return _manager.state;
 }
+- (CBCentralManager *) manager
+{
+    @synchronized(_manager)
+    {
+        if (!_manager)
+        {
+            if (![CBCentralManager resolveInstanceMethod:@selector(initWithDelegate:queue:options:)])
+            {
+                //for ios version lowser than 7.0
+                self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue];
+            }else
+            {
+                
+                self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options: self.initializedOptions];
+            }
+        }
+    }
+    return _manager;
+}
 #pragma mark scan
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
     [self.peripherals removeAllObjects];
     self.onPeripheralUpdated = onUpdate;
-    if (_manager.state == CBCentralManagerStatePoweredOn )
+    if (self.manager.state == CBCentralManagerStatePoweredOn )
     {
-        [_manager scanForPeripheralsWithServices: serviceUUIDs options:options];
+        [self.manager scanForPeripheralsWithServices: serviceUUIDs options:options];
     }else
     {
         self.scanningOptions = options;

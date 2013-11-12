@@ -36,9 +36,9 @@
     __weak BLServicesViewController * this  = self;
     self.navigationItem.rightBarButtonItem = self.indicatorItem;
     [self.indicator startAnimating];
-    [_peripheral readRSSIOnFinish:^(NSError *error) {
-        this.rssiLabel.text = [_peripheral.RSSI stringValue];
-    }];
+//    [_peripheral readRSSIOnFinish:^(NSError *error) {
+//        this.rssiLabel.text = [_peripheral.RSSI stringValue];
+//    }];
     [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
         [this.tableView reloadData];
         [this.indicator stopAnimating];

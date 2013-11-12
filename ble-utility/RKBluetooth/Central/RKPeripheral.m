@@ -45,10 +45,7 @@
     }
     return self;
 }
-- (BOOL) isEqual:(id)object
-{
-    return [_peripheral isEqual: [object peripheral]];
-}
+
 #pragma mark propertys
 - (NSString *)name
 {
@@ -141,7 +138,7 @@
 #pragma mark ReadRSSI
 - (void)readRSSIOnFinish:(RKObjectChangedBlock) onUpdated
 {
-    self.rssiUpdated = onUpdated;
+//    self.rssiUpdated = onUpdated;
     [_peripheral readRSSI];
 }
 
@@ -284,5 +281,10 @@
     {
         self.onNameUpdated(nil);
     }
+}
+- (void)dealloc
+{
+    _peripheral.delegate = nil;
+    NSLog(@"dealloc %@",self);
 }
 @end

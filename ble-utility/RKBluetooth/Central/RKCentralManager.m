@@ -82,6 +82,10 @@
     }
     return _manager;
 }
+- (void)dealloc
+{
+    _manager.delegate = nil;
+}
 #pragma mark scan
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
@@ -197,7 +201,7 @@
             break;
         }
     }
-    
+//    [self.peripherals removeObject:rkperipheral];
     if (self.onDisconnected)
     {
         self.onDisconnected(rkperipheral,error);

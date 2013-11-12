@@ -30,9 +30,9 @@
     if ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)
     {
         DebugLog(@"%f",[[UIDevice currentDevice].systemVersion floatValue]);
-//        opts = @{CBCentralManagerOptionShowPowerAlertKey:@YES};
+        opts = @{CBCentralManagerOptionShowPowerAlertKey:@YES};
     }
-    self.central = [[RKCentralManager alloc] init];
+    self.central = [[RKCentralManager alloc] initWithQueue:nil options:opts];
 }
 
 - (void)viewDidLoad
@@ -41,6 +41,9 @@
     [self setup];
     self.navigationItem.rightBarButtonItem = self.indicatorItem;
     
+    [self.indicator startAnimating];
+    
+   
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -50,11 +53,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.indicator startAnimating];
+
     __weak BLPeripheralsViewController * wp = self;
     [self.central scanForPeripheralsWithServices:nil options:nil  onUpdated:^(RKPeripheral *peripheral) {
         [wp.tableView reloadData];
     }];
+    [self.tableView reloadData];
 }
 - (void)viewDidDisappear:(BOOL)animated
 {

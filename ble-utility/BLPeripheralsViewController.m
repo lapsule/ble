@@ -161,18 +161,15 @@
     [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
         if (!error)
         {
-            if (connectedperipheral == peripheral)
-            {
-                [this performSegueWithIdentifier:@"services" sender: peripheral];
-            }
+            [this performSegueWithIdentifier:@"services" sender: peripheral];
             
         }else
         {
             //error handler here
             DebugLog(@"error when connecting : %@, %@",peripheral,error);
         }
-    } onDisconnected:^(RKPeripheral *peripheral, NSError *error) {
-        DebugLog(@"disconnected : %@, %@",peripheral,error);
+    } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
+        DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
         [this.navigationController popToRootViewControllerAnimated:YES];
     }];
     

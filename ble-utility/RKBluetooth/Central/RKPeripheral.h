@@ -20,7 +20,8 @@
 @property (nonatomic,copy) RKServicesUpdated onServiceModified;
 @property (nonatomic,copy) RKObjectChangedBlock onNameUpdated;
 @property (nonatomic,copy) RKCharacteristicChangedBlock notificationStateChanged;
-
+@property (nonatomic,copy)RKPeripheralConnectionBlock onConnectionFinished;
+@property (nonatomic,copy)RKPeripheralConnectionBlock onDisconnected;
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral;
 
 #pragma mark discovery services

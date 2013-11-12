@@ -14,8 +14,7 @@
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
 @property (nonatomic,copy) RKPeripheralUpdatedBlock onPeripheralUpdated;
-@property (nonatomic,strong) NSMutableDictionary *  connectionFinishBlocks;
-@property (nonatomic,strong) NSMutableDictionary* disconnectedBlocks;
+
 @property (nonatomic,strong) NSArray * scanningServices;
 @property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;
@@ -23,6 +22,8 @@
 @property (nonatomic,strong) NSMutableArray * connectedPeripherals;
 @property (nonatomic,strong) NSDictionary * initializedOptions;
 @property (nonatomic,strong) dispatch_queue_t queue;
+@property (nonatomic,strong) NSMutableDictionary * disconnectedBlocks;
+@property (nonatomic,strong) NSMutableDictionary * connectionFinishBlocks;
 @end
 
 @implementation RKCentralManager
@@ -59,10 +60,10 @@
     self.queue = queue;
     self.initializedOptions = options;
     _peripherals = [NSMutableArray arrayWithCapacity:10];
-    self.connectionFinishBlocks = [NSMutableDictionary dictionaryWithCapacity:3];
-    self.disconnectedBlocks = [NSMutableDictionary dictionaryWithCapacity:3];
     self.connectingPeripherals = [NSMutableArray arrayWithCapacity:3];
     self.connectedPeripherals = [NSMutableArray arrayWithCapacity:3];
+    self.connectionFinishBlocks = [NSMutableDictionary dictionaryWithCapacity:3];
+    self.disconnectedBlocks =  [NSMutableDictionary dictionaryWithCapacity:3];
 }
 - (CBCentralManagerState)state
 {
@@ -141,7 +142,10 @@
 #pragma mark    central state delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-   
+    if (_onStateChanged)
+    {
+        _onStateChanged(nil);
+    }
     if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
     {
         [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
@@ -162,15 +166,16 @@
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
-    RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral: peripheral];
-    if (![self.peripherals containsObject: rkperipheral])
+    RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral:peripheral];
+    if (rkperipheral&& ![self.peripherals containsObject: rkperipheral])
     {
         [self.peripherals addObject: rkperipheral];
+        if (_onPeripheralUpdated)
+        {
+            _onPeripheralUpdated(rkperipheral);
+        }
     }
-    if (_onPeripheralUpdated)
-    {
-        _onPeripheralUpdated(rkperipheral);
-    }
+    
     DebugLog(@"name %@",peripheral.name);
 }
 
@@ -186,8 +191,6 @@
             break;
         }
     }
-    
-    
     if (thePeripheral)
     {
         RKPeripheralConnectionBlock finish = self.connectionFinishBlocks[thePeripheral.identifier];

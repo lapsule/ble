@@ -135,7 +135,7 @@
 - (void)addServiceWithDict:(NSDictionary *) info
 {
     CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:[info allKeys][0]] primary:YES];
-    NSString * oldTitle = self.title;
+//    NSString * oldTitle = self.title;
     __weak BLCentralsViewController * this = self;
     [self.manager addService:service onFinish:^(CBService *service, NSError *error) {
         [this.tableView reloadData];

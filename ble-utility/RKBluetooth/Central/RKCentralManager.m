@@ -14,12 +14,13 @@
 @interface RKCentralManager()<CBCentralManagerDelegate>
 @property (nonatomic,strong) CBCentralManager * manager;
 @property (nonatomic,copy) RKPeripheralUpdatedBlock onPeripheralUpdated;
-@property (nonatomic,copy) RKPeripheralConnectionBlock onConnectionFinish;
-@property (nonatomic,copy) RKPeripheralConnectionBlock onDisconnected;
+@property (nonatomic,strong) NSMutableDictionary *  connectionFinishBlocks;
+@property (nonatomic,strong) NSMutableDictionary* disconnectedBlocks;
 @property (nonatomic,strong) NSArray * scanningServices;
 @property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;
-@property (nonatomic,strong) RKPeripheral * connectingPeripheral;
+@property (nonatomic,strong) NSMutableArray * connectingPeripherals;
+@property (nonatomic,strong) NSMutableArray * connectedPeripherals;
 @property (nonatomic,strong) NSDictionary * initializedOptions;
 @property (nonatomic,strong) dispatch_queue_t queue;
 @end
@@ -58,6 +59,10 @@
     self.queue = queue;
     self.initializedOptions = options;
     _peripherals = [NSMutableArray arrayWithCapacity:10];
+    self.connectionFinishBlocks = [NSMutableDictionary dictionaryWithCapacity:3];
+    self.disconnectedBlocks = [NSMutableDictionary dictionaryWithCapacity:3];
+    self.connectingPeripherals = [NSMutableArray arrayWithCapacity:3];
+    self.connectedPeripherals = [NSMutableArray arrayWithCapacity:3];
 }
 - (CBCentralManagerState)state
 {
@@ -86,7 +91,9 @@
 {
     _manager.delegate = nil;
 }
-#pragma mark scan
+
+#pragma mark Scanning or Stopping Scans of Peripherals
+
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
     [self.peripherals removeAllObjects];
@@ -105,24 +112,27 @@
 {
     [_manager stopScan];
 }
-#pragma mark connect peripheral
+#pragma mark Establishing or Canceling Connections with Peripherals
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected
 {
-    self.onConnectionFinish = finished;
-    self.onDisconnected = disconnected;
-    self.connectingPeripheral = peripheral;
+    self.connectionFinishBlocks[peripheral.peripheral] = finished;
+    self.disconnectedBlocks[peripheral.peripheral] = disconnected;
+    [self.connectingPeripherals addObject: peripheral];
     [_manager connectPeripheral: peripheral.peripheral options:options];
     
 }
-
-#pragma mark retrieve connected peripherals
+- (void)cancelPeripheralConnection:(CBPeripheral *)peripheral onFinished:(RKPeripheralConnectionBlock) ondisconnected
+{
+    [_manager cancelPeripheralConnection:peripheral];
+}
+#pragma mark Retrieving Lists of Peripherals
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
 {
    return  [_manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
 }
 - (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
-    return [_manager retrieveConnectedPeripheralsWithServices:identifiers];
+    return [_manager retrievePeripheralsWithIdentifiers: identifiers];
 }
 
 #pragma mark - Delegate
@@ -165,46 +175,68 @@
     DebugLog(@"name %@",peripheral.name);
 }
 
-#pragma mark connection delegate
+#pragma mark Monitoring Connections with Peripherals
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    if (peripheral == self.connectingPeripheral.peripheral)
+    RKPeripheral * thePeripheral = nil;
+    for (RKPeripheral * rk in self.connectingPeripherals)
     {
-        if (self.onConnectionFinish)
+        if (peripheral == rk.peripheral)
         {
-            self.onConnectionFinish(self.connectingPeripheral,nil);
+            thePeripheral = rk;
+            break;
         }
-        self.connectingPeripheral = nil;
     }
     
+    RKPeripheralConnectionBlock finish = self.connectionFinishBlocks[peripheral];
+    if (finish)
+    {
+        finish(thePeripheral,nil);
+        // remove it
+        [self.connectingPeripherals removeObject: thePeripheral];
+        [self.connectedPeripherals addObject: thePeripheral];
+        [self.connectionFinishBlocks removeObjectForKey: thePeripheral.peripheral];
+    }
 }
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    if (peripheral == self.connectingPeripheral.peripheral)
+    RKPeripheral * thePeripheral = nil;
+    for (RKPeripheral * rk in self.connectingPeripherals)
     {
-        if (self.onConnectionFinish)
+        if (peripheral == rk.peripheral)
         {
-            self.onConnectionFinish(self.connectingPeripheral,error);
+            thePeripheral = rk;
+            break;
         }
-        [self.peripherals removeObject:self.connectingPeripheral];
-        self.connectingPeripheral = nil;
+    }
+    
+    RKPeripheralConnectionBlock finish = self.connectionFinishBlocks[peripheral];
+    if (finish)
+    {
+        finish(thePeripheral,error);
+        // remove it
+        [self.connectingPeripherals removeObject: thePeripheral];
+        [self.connectionFinishBlocks removeObjectForKey: thePeripheral.peripheral];
+        [self.disconnectedBlocks removeObjectForKey:thePeripheral.peripheral];
     }
 }
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     RKPeripheral * rkperipheral = nil;
-    for (int i =0;i!= self.peripherals.count;++i)
+    for (int i =0;i!= self.connectedPeripherals.count;++i)
     {
-        if (peripheral == [self.peripherals[i] peripheral])
+        if (peripheral == [self.connectedPeripherals[i] peripheral])
         {
-            rkperipheral = self.peripherals[i];
+            rkperipheral = self.connectedPeripherals[i];
             break;
         }
     }
-//    [self.peripherals removeObject:rkperipheral];
-    if (self.onDisconnected)
+    RKPeripheralConnectionBlock finish = self.disconnectedBlocks[peripheral];
+    [self.connectedPeripherals removeObject:rkperipheral];
+    if (finish)
     {
-        self.onDisconnected(rkperipheral,error);
+        finish(rkperipheral,error);
+        [self.disconnectedBlocks removeObjectForKey:peripheral];
     }
 
 }

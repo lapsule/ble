@@ -20,6 +20,7 @@
 @property (nonatomic,strong) NSMutableDictionary * descriptorValueWrtieBlocks;
 @property (nonatomic,strong) NSMutableDictionary * characteristicsNotifyBlocks;
 @end
+
 @implementation RKPeripheral
 - (instancetype)initWithPeripheral:(CBPeripheral *) peripheral
 {
@@ -53,7 +54,22 @@
 }
 - (NSUUID*)identifier
 {
-    return _peripheral.identifier;
+    
+    if (!_identifier)
+    {
+        @try {
+            self.identifier = _peripheral.identifier;
+        }
+        @catch (NSException *exception) {
+            NSString * uuidStr =CFBridgingRelease(CFUUIDCreateString(NULL,_peripheral.UUID));
+            self.identifier = [[NSUUID alloc] initWithUUIDString: uuidStr];
+        }
+        @finally
+        {
+            
+        }
+    }
+    return _identifier;
 }
 - (NSNumber *)RSSI
 {

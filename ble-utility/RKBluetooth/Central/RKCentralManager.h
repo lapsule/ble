@@ -27,7 +27,7 @@
 #pragma mark Establishing or Canceling Connections with Peripherals
 
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected;
-
+- (void)cancelPeripheralConnection:(RKPeripheral *)peripheral onFinished:(RKPeripheralConnectionBlock) ondisconnected;
 #pragma mark Retrieving Lists of Peripherals
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs NS_AVAILABLE(NA, 7_0);
 - (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers NS_AVAILABLE(NA, 7_0);

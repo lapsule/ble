@@ -14,9 +14,9 @@
 @property (nonatomic,strong,readonly) CBPeripheral * peripheral;
 @property (nonatomic) NSArray * services;
 @property (nonatomic,weak) id<CBPeripheralDelegate> delegate;
-@property(readonly, nonatomic,strong) NSUUID *identifier;
-@property(readonly,strong) NSString *name;
-@property(readonly,strong) NSNumber *RSSI;
+@property(nonatomic,strong) NSUUID *identifier;
+@property(nonatomic, strong) NSString *name;
+@property(nonatomic, strong) NSNumber *RSSI;
 @property (nonatomic,copy) RKServicesUpdated onServiceModified;
 @property (nonatomic,copy) RKObjectChangedBlock onNameUpdated;
 @property (nonatomic,copy) RKCharacteristicChangedBlock notificationStateChanged;

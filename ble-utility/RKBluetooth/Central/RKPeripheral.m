@@ -63,6 +63,7 @@
         @catch (NSException *exception) {
             NSString * uuidStr =CFBridgingRelease(CFUUIDCreateString(NULL,_peripheral.UUID));
             self.identifier = [[NSUUID alloc] initWithUUIDString: uuidStr];
+            NSLog(@"solved");
         }
         @finally
         {
@@ -78,6 +79,7 @@
 #pragma mark discovery services
 - (void)discoverServices:(NSArray *)serviceUUIDs onFinish:(RKObjectChangedBlock) discoverFinished
 {
+    NSAssert(discoverFinished!=nil, @"block finished must'not be nil!");
     self.didFinishServiceDiscovery = discoverFinished;
     [_peripheral discoverServices:serviceUUIDs];
 }

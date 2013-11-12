@@ -142,16 +142,20 @@
 #pragma mark    central state delegate
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    if (_onStateChanged)
+    if (central == self.manager)
     {
-        _onStateChanged(nil);
-    }
-    if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
-    {
-        [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
+        if (_onStateChanged)
+        {
+            _onStateChanged(nil);
+        }
+        if(central.state==CBCentralManagerStatePoweredOn && _scanStarted)
+        {
+            [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
+        }
     }
     //FIXME:ERROR
     DebugLog(@"Central %@ changed to %d",central,(int)central.state);
+    
 }
 //- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary *)dict
 //{

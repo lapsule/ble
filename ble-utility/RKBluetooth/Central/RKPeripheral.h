@@ -13,7 +13,6 @@
 @interface RKPeripheral : NSObject
 @property (nonatomic,strong,readonly) CBPeripheral * peripheral;
 @property (nonatomic) NSArray * services;
-@property (nonatomic,weak) id<CBPeripheralDelegate> delegate;
 @property(nonatomic,strong) NSUUID *identifier;
 @property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) NSNumber *RSSI;

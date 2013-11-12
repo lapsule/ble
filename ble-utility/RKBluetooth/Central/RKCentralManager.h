@@ -14,13 +14,13 @@
 
 @interface RKCentralManager : NSObject
 @property (atomic,strong,readonly) NSMutableArray * peripherals;
-@property (nonatomic,weak) id<CBCentralManagerDelegate> delegate;
 @property(readonly) CBCentralManagerState state;
-
+@property (nonatomic,copy)RKObjectChangedBlock onStateChanged;
 - (instancetype) initWithQueue:(dispatch_queue_t)queue options:(NSDictionary *) options NS_AVAILABLE(NA, 7_0);
 - (instancetype) initWithQueue:(dispatch_queue_t)queue;
 
 #pragma mark Scanning or Stopping Scans of Peripherals
+
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate;
 - (void)stopScan;
 

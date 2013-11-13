@@ -54,6 +54,26 @@
                 {
                     dict[att.name] = [att.children[0] XMLString];
                 }
+                NSArray * characteristicsxml = [servicexml elementsForName:@"Characteristics"];
+                if ( [characteristicsxml isKindOfClass:[NSArray class]] && characteristicsxml.count>0)
+                {
+                    characteristicsxml = [characteristicsxml[0] elementsForName:@"Characteristic"];
+                    NSMutableArray * characteristics = [NSMutableArray arrayWithCapacity:characteristicsxml.count];
+                    //one characteristic
+                    for (GDataXMLElement * characterNode in characteristicsxml)
+                    {
+                        NSMutableDictionary * nodedict = [NSMutableDictionary dictionaryWithCapacity:10];
+                        for (GDataXMLNode * att in characterNode.attributes)
+                        {
+                            nodedict[att.name] = [att.children[0] XMLString];
+                        }
+                        //add to array
+                        [characteristics addObject:nodedict];
+                    }
+                    dict[@"characteristics"]=characteristics;
+                }
+
+                
                 [_services addObject: dict];
             }
         }

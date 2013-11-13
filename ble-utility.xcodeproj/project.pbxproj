@@ -212,8 +212,6 @@
 		C84A6898182FA7E00094226A /* external */ = {
 			isa = PBXGroup;
 			children = (
-				C86B09F418331EED000C047F /* CBMutableService+RKBluetoothKit.h */,
-				C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */,
 				C86B09EB183314E0000C047F /* GDataXML-HTML */,
 				C84A6899182FA8060094226A /* NSData+Hex.h */,
 				C84A689A182FA8060094226A /* NSData+Hex.m */,
@@ -221,6 +219,8 @@
 				C86B09F9183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m */,
 				C86B09FB18335961000C047F /* CBMutableCharacteristic+BluetootKit.h */,
 				C86B09FC18335961000C047F /* CBMutableCharacteristic+BluetootKit.m */,
+				C86B09F418331EED000C047F /* CBMutableService+RKBluetoothKit.h */,
+				C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */,
 			);
 			name = external;
 			sourceTree = "<group>";

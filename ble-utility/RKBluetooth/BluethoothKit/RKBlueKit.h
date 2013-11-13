@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutResponse",@"Write",@"Notify",@"Indicate",@"SignedWrite",
+    @"ExtendedProperties",@"NotifyEncryptionRequired",@"IndicateEncryptionRequired"};
+
 @interface RKBlueKit : NSObject
 + (NSArray *)propertiesFrom:(CBCharacteristicProperties) properties;
++(CBCharacteristicProperties )propertyWithString:(NSString *) string;
 @end

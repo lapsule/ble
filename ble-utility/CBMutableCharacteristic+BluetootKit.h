@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "GDataXMLNode.h"
+
 @interface CBMutableCharacteristic(BluetootKit)
++ (CBMutableCharacteristic*)characteristicsWithXmlElement:(GDataXMLElement *) element;
 - (void)addDescriptorsWithXmlElement:(GDataXMLElement *)element;
 @end

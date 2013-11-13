@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "GDataXMLNode.h"
+extern  NSString * folder;
 @interface CBMutableService(RKBluetoothKit)
 +(CBMutableService *) serviceWithDict:(NSDictionary*) info;
 @end

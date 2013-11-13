@@ -9,48 +9,43 @@
 #import "CBMutableService+RKBluetoothKit.h"
 #import "GDataXMLNode.h"
 #import "CBMutableCharacteristic+BluetootKit.h"
-static NSString * folder = nil;
+NSString * folder = nil;
 @implementation CBMutableService(RKBluetoothKit)
 +(CBMutableService *) serviceWithDict:(NSDictionary*) info;
 {
-    
     if (!folder)
     {
         folder = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"servicesdefs"];
     }
-   
     CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:info[@"uuid"]] primary:YES];
-    [service addCharacteristcsWithArr:info[@"characteristics"]];
+    
+    //read xml for characteristics propertys and detail
+    NSString * file = [folder stringByAppendingPathComponent:[info[@"type"] stringByAppendingPathExtension:@"xml"]];
+    [service addCharacteristcsWithXmlFile:file];
     return service;
 }
-- (void) addCharacteristcsWithArr:(NSArray *) chardicts
+- (void)addCharacteristcsWithXmlFile:(NSString *)file
 {
-    //add characteristics
-    NSMutableArray * charas= [NSMutableArray arrayWithCapacity: chardicts.count];
-    for (NSDictionary * chdict in chardicts)
+    NSData * data = [NSData dataWithContentsOfFile:file];
+    GDataXMLDocument * doc = [[GDataXMLDocument alloc] initWithData:data error:nil];
+    if (doc)
     {
-        NSString * type = chdict[@"type"];
-        NSString * file = [type stringByAppendingPathExtension:@"xml"];
-        file = [folder stringByAppendingPathComponent: file];
-        NSData * data = [NSData dataWithContentsOfFile:file];
-        GDataXMLDocument * doc = [[GDataXMLDocument alloc] initWithData:data error:nil];
-        if (doc)
+        GDataXMLElement * servicexml = [doc rootElement];
+        NSArray * characteristicsxml = [servicexml elementsForName:@"Characteristics"];
+        if ( [characteristicsxml isKindOfClass:[NSArray class]] && characteristicsxml.count>0)
         {
-            GDataXMLElement * servicexml = [doc rootElement];
-            NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:servicexml.attributes.count];
-            for (GDataXMLNode * att in servicexml.attributes)
+            characteristicsxml = [characteristicsxml[0] elementsForName:@"Characteristic"];
+            //one characteristic
+            for (GDataXMLElement * ele in characteristicsxml)
             {
-                dict[att.name] = [att.children[0] XMLString];
+               CBMutableCharacteristic * characteristc =  [CBMutableCharacteristic characteristicsWithXmlElement: ele];
+                
             }
-            CBMutableCharacteristic * characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString: dict[@"uuid"]] properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
-            //descriptor
-            GDataXMLElement * descriptoreles = [servicexml elementsForName:@"descriptoreles"][0];
-            [characteristic addDescriptorsWithXmlElement: descriptoreles];
-            //
-            [charas addObject: characteristic];
+            
         }
         
     }
-    self.characteristics = charas;
+    
 }
+
 @end

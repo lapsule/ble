@@ -7,8 +7,7 @@
 //
 
 #import "RKBlueKit.h"
-static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutResponse",@"Write",@"Notify",@"Indicate",@"AuthenticatedSignedWrites",
-@"ExtendedProperties",@"NotifyEncryptionRequired",@"IndicateEncryptionRequired"};
+
 @implementation RKBlueKit
 + (NSArray *)propertiesFrom:(CBCharacteristicProperties) properties
 {
@@ -23,5 +22,19 @@ static  NSString * const sPropertyNames[]={@"Broadcast",@"Read",@"WriteWithoutRe
         }
     }
     return temp;
+}
++(CBCharacteristicProperties )propertyWithString:(NSString *) string
+{
+    int c = sizeof(sPropertyNames)/sizeof(NSString*);
+    CBCharacteristicProperties t=0;
+    for (int i =0 ; i!= c; ++i)
+    {
+        if ([sPropertyNames[i] isEqualToString:string])
+        {
+            t = 0x1<<i;
+            break;
+        }
+    }
+    return t;
 }
 @end

@@ -28,6 +28,8 @@
 		C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09ED183314E0000C047F /* GDataXMLNode.m */; };
 		C86B09F0183314F4000C047F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C86B09EF183314F4000C047F /* libxml2.2.dylib */; };
 		C86B09F618331EED000C047F /* CBMutableService+RKBluetoothKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */; };
+		C86B09FA183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09F9183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m */; };
+		C86B09FD18335961000C047F /* CBMutableCharacteristic+BluetootKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09FC18335961000C047F /* CBMutableCharacteristic+BluetootKit.m */; };
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
@@ -82,6 +84,10 @@
 		C86B09EF183314F4000C047F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		C86B09F418331EED000C047F /* CBMutableService+RKBluetoothKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBMutableService+RKBluetoothKit.h"; sourceTree = "<group>"; };
 		C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBMutableService+RKBluetoothKit.m"; sourceTree = "<group>"; };
+		C86B09F8183358C8000C047F /* CBMutableDescriptor+BluetoothKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBMutableDescriptor+BluetoothKit.h"; sourceTree = "<group>"; };
+		C86B09F9183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBMutableDescriptor+BluetoothKit.m"; sourceTree = "<group>"; };
+		C86B09FB18335961000C047F /* CBMutableCharacteristic+BluetootKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBMutableCharacteristic+BluetootKit.h"; sourceTree = "<group>"; };
+		C86B09FC18335961000C047F /* CBMutableCharacteristic+BluetootKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBMutableCharacteristic+BluetootKit.m"; sourceTree = "<group>"; };
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
 		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
@@ -211,6 +217,10 @@
 				C86B09EB183314E0000C047F /* GDataXML-HTML */,
 				C84A6899182FA8060094226A /* NSData+Hex.h */,
 				C84A689A182FA8060094226A /* NSData+Hex.m */,
+				C86B09F8183358C8000C047F /* CBMutableDescriptor+BluetoothKit.h */,
+				C86B09F9183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m */,
+				C86B09FB18335961000C047F /* CBMutableCharacteristic+BluetootKit.h */,
+				C86B09FC18335961000C047F /* CBMutableCharacteristic+BluetootKit.m */,
 			);
 			name = external;
 			sourceTree = "<group>";
@@ -415,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
+				C86B09FD18335961000C047F /* CBMutableCharacteristic+BluetootKit.m in Sources */,
 				C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */,
 				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
 				C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */,
@@ -426,6 +437,7 @@
 				C84A689B182FA8060094226A /* NSData+Hex.m in Sources */,
 				C81DFD77181F5FAE00E71CA8 /* main.m in Sources */,
 				C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */,
+				C86B09FA183358C8000C047F /* CBMutableDescriptor+BluetoothKit.m in Sources */,
 				C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */,
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
 				C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */,

@@ -58,6 +58,7 @@
         }];
     }else
     {
+        self.characteristics = _service.characteristics;
         [self.tableView reloadData];
     }
    

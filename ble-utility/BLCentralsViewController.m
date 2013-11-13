@@ -9,6 +9,7 @@
 #import "BLCentralsViewController.h"
 #import "RKPeripheralManager.h"
 #import "BLAvailableServicesViewController.h"
+#import "CBMutableService+RKBluetoothKit.h"
 @interface BLCentralsViewController ()
 @property (nonatomic,strong) RKPeripheralManager * manager;
 @end
@@ -37,6 +38,7 @@
 }
 - (void)setup
 {
+    self.navigationItem.leftBarButtonItem = self.indicatorItem;
     self.manager = [[RKPeripheralManager alloc] init];
     if (self.manager.state != CBPeripheralManagerStatePoweredOn)
     {
@@ -45,8 +47,9 @@
         {
             if (this.manager.state == CBPeripheralManagerStatePoweredOn)
             {
+                this.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:this action:@selector(addService:)];
                 [this.manager startAdvertising:nil onStarted:^(NSError *error) {
-                    
+                    [this.indicator startAnimating];
                 }];
                 NSLog(@"powered on!");
             }
@@ -54,7 +57,7 @@
         };
         
     }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addService:)];
+   
 }
 - (void)didReceiveMemoryWarning
 {
@@ -74,28 +77,6 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    // Return the number of rows in the section.
-    return _manager.services.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    CBService * service = _manager.services[indexPath.row];
-    UILabel * label = (UILabel*)[cell viewWithTag:19];
-    label.text = [service.UUID description];
-    UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [NSString stringWithFormat:@"%@",service.UUID];
-    DebugLog(@"%@",label.text);
-    
-    return cell;
-}
 
 /*
  // Override to support conditional editing of the table view.
@@ -155,15 +136,16 @@
 
      }else
      {
-         
+         [super prepareForSegue:segue sender:sender];
      }
      
 }
 - (void)addServiceWithDict:(NSDictionary *) info
 {
-    CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:info[@"uuid"]] primary:YES];
+    CBMutableService * service = [CBMutableService serviceWithDict:info];
     __weak BLCentralsViewController * this = self;
     [self.manager addService:service onFinish:^(CBService *service, NSError *error) {
+        this.services = this.manager.services;
         [this.tableView reloadData];
     }];
                                   

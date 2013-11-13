@@ -1,5 +1,5 @@
 //
-//  CBMutableService+RKBluetoothKit.h
+//  CBMutableDescriptor+BluetoothKit.h
 //  ble-utility
 //
 //  Created by joost on 13-11-13.
@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "GDataXMLNode.h"
-@interface CBMutableService(RKBluetoothKit)
-+(CBMutableService *) serviceWithDict:(NSDictionary*) info;
+@interface CBMutableDescriptor(BluetoothKit)
++ (CBMutableDescriptor *)descriptorWithInfo:(NSDictionary *) info;
 @end

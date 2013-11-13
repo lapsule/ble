@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad
 {
+    self.title = @"Available Services";
     [super viewDidLoad];
     [self loadServices];
     [self.tableView reloadData];

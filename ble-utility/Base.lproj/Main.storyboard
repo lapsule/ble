@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8YX-ce-x5E">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="8YX-ce-x5E">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="-280" y="100"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Central-->
         <scene sceneID="Hhe-Vd-hiV">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Go5-Rv-CVX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="TKN-RC-ctU"/>
+                    <tabBarItem key="tabBarItem" title="Central" id="TKN-RC-ctU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="k8C-5u-vaS">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -176,11 +176,11 @@
             </objects>
             <point key="canvasLocation" x="1280" y="648"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller - Peripheral-->
         <scene sceneID="X6b-Gt-mm9">
             <objects>
                 <navigationController definesPresentationContext="YES" id="uOr-fN-ATJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="EPt-UX-Mzu"/>
+                    <tabBarItem key="tabBarItem" title="Peripheral" id="EPt-UX-Mzu"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZD5-kN-Ioi">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

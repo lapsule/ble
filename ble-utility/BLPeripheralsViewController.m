@@ -26,6 +26,7 @@
 }
 - (void)setup
 {
+    self.title = @"Central";
     NSDictionary * opts = nil;
     if ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)
     {

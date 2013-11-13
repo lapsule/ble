@@ -39,9 +39,13 @@
         characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString: uuid] properties:p value:nil permissions:CBAttributePermissionsReadable];
         
         //# add descriptors
+        [characteristic addDescriptorsWithXmlElement:servicexml];
     }
     
     return characteristic;
 }
-
+- (void)addDescriptorsWithXmlElement:(GDataXMLElement *)element
+{
+    
+}
 @end

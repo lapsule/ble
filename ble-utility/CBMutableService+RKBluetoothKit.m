@@ -32,18 +32,18 @@ NSString * folder = nil;
     {
         GDataXMLElement * servicexml = [doc rootElement];
         NSArray * characteristicsxml = [servicexml elementsForName:@"Characteristics"];
+        NSMutableArray * tcharacteristics = [NSMutableArray arrayWithCapacity:characteristicsxml.count];
         if ( [characteristicsxml isKindOfClass:[NSArray class]] && characteristicsxml.count>0)
         {
             characteristicsxml = [characteristicsxml[0] elementsForName:@"Characteristic"];
             //one characteristic
             for (GDataXMLElement * ele in characteristicsxml)
             {
-               CBMutableCharacteristic * characteristc =  [CBMutableCharacteristic characteristicsWithXmlElement: ele];
-                
+               CBMutableCharacteristic * characteristic =  [CBMutableCharacteristic characteristicsWithXmlElement: ele];
+                [tcharacteristics addObject: characteristic];
             }
-            
+            self.characteristics = tcharacteristics;
         }
-        
     }
     
 }

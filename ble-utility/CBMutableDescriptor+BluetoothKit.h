@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "GDataXMLNode.h"
 @interface CBMutableDescriptor(BluetoothKit)
-+ (CBMutableDescriptor *)descriptorWithInfo:(NSDictionary *) info;
++ (CBMutableDescriptor *)descriptorWithXmlElement:(GDataXMLElement *) element;
 @end

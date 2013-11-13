@@ -9,5 +9,8 @@
 #import "CBMutableDescriptor+BluetoothKit.h"
 
 @implementation CBMutableDescriptor(BluetoothKit)
-
++ (CBMutableDescriptor *)descriptorWithXmlElement:(GDataXMLElement *) element
+{
+    return nil;
+}
 @end

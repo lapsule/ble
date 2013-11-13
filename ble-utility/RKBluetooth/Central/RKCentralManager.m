@@ -15,8 +15,8 @@
 @property (nonatomic,strong) CBCentralManager * manager;
 @property (nonatomic,copy) RKPeripheralUpdatedBlock onPeripheralUpdated;
 
-@property (nonatomic,strong) NSArray * scanningServices;
-@property (nonatomic,strong) NSDictionary*  scanningOptions;
+//@property (nonatomic,strong) NSArray * scanningServices;
+//@property (nonatomic,strong) NSDictionary*  scanningOptions;
 @property (nonatomic,assign) BOOL scanStarted;
 @property (nonatomic,strong) NSMutableArray * connectingPeripherals;
 @property (nonatomic,strong) NSMutableArray * connectedPeripherals;
@@ -98,17 +98,8 @@
 - (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options onUpdated:(RKPeripheralUpdatedBlock) onUpdate
 {
     NSAssert(onUpdate!=nil, @"onUpdate should be nil!");
+    [self.manager scanForPeripheralsWithServices: serviceUUIDs options:options];
     self.onPeripheralUpdated = onUpdate;
-    if (self.manager.state == CBCentralManagerStatePoweredOn )
-    {
-        self.scanStarted = NO;
-        [self.manager scanForPeripheralsWithServices: serviceUUIDs options:options];
-    }else
-    {
-        self.scanningOptions = options;
-        self.scanningServices = serviceUUIDs;
-        self.scanStarted = YES;
-    }
 }
 - (void)stopScan
 {
@@ -176,11 +167,6 @@
                 
             case CBCentralManagerStatePoweredOn:
             {
-                if(_scanStarted)
-                {
-                    [self scanForPeripheralsWithServices:self.scanningServices options:self.scanningOptions onUpdated: self.onPeripheralUpdated];
-                }
-                
                 _onPeripheralUpdated(nil);
                 break;
             }

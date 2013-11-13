@@ -34,7 +34,17 @@
     }
     self.central = [[RKCentralManager alloc] initWithQueue:nil options:opts];
     self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
+   
+    __weak BLPeripheralsViewController * wp = self;
+    if (self.central.state != CBCentralManagerStatePoweredOn)
+    {
+        [wp.indicator startAnimating];
+        [wp.central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}  onUpdated:^(RKPeripheral *peripheral) {
+            [wp.tableView reloadData];
+        }];
+    }
+  
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad
@@ -51,16 +61,12 @@
 {
     [super viewDidAppear:animated];
 
-    __weak BLPeripheralsViewController * wp = self;
-    [self.central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}  onUpdated:^(RKPeripheral *peripheral) {
-        [wp.tableView reloadData];
-    }];
-    [self.tableView reloadData];
+   
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
-    [self.central stopScan];
+//    [self.central stopScan];
 }
 - (void)didReceiveMemoryWarning
 {

@@ -159,6 +159,7 @@
     vc.isCentralManager = self.isCentralManager;
     vc.service = sender;
     vc.peripheral = self.peripheral;
+    vc.characteristics = vc.service.characteristics;
 }
 
 

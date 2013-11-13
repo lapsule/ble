@@ -123,15 +123,13 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="u2K-ep-Xhl" kind="push" identifier="characteristics" id="2mm-l1-Bwe"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Root View Controller" id="IlJ-SJ-aOw"/>
                     <connections>
                         <segue destination="prE-WN-xnb" kind="modal" identifier="availableServices" id="aaV-Vz-BBK"/>
+                        <segue destination="u2K-ep-Xhl" kind="push" identifier="characteristics" id="UEE-Go-oTu"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YT6-Hd-QW7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -432,6 +430,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="2mm-l1-Bwe"/>
+        <segue reference="UEE-Go-oTu"/>
     </inferredMetricsTieBreakers>
 </document>

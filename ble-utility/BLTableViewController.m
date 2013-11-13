@@ -19,12 +19,21 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
 - (void)setup
 {
     
+}
+- (BLAppDelegate *)appd
+{
+    if (!_appd)
+    {
+        self.appd = [UIApplication sharedApplication].delegate;
+    }
+    return _appd;
 }
 - (void)viewDidLoad
 {

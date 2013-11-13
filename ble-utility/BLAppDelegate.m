@@ -9,7 +9,6 @@
 #import "BLAppDelegate.h"
 #import "GDataXMLNode.h"
 @interface BLAppDelegate ()
-@property (nonatomic,strong) NSMutableDictionary * uuidNames;
 @property (nonatomic,strong) NSString * uuidPlistPath;
 @end
 @implementation BLAppDelegate

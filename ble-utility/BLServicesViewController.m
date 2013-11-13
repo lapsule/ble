@@ -10,6 +10,7 @@
 #import "BLCharacteristicsViewController.h"
 #import "CBUUID+RKBlueKit.h"
 
+
 @interface BLServicesViewController ()
 @end
 
@@ -96,11 +97,14 @@
     // Configure the cell...
     CBService * service = self.services[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
-    label.text = [service.UUID description];
-    
+
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
     uuidLabel.text = [[service.UUID representativeString] uppercaseString];
-    DebugLog(@"%@",label.text);
+    label.text = self.appd.uuidNames[uuidLabel.text][@"name"];
+    if (!label.text)
+    {
+        label.text = @"Unknown";
+    }
     return cell;
 }
 

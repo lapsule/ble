@@ -93,10 +93,13 @@
     // Configure the cell...
     CBCharacteristic * characteristic = _service.characteristics[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
-    label.text = [characteristic.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    uuidLabel.text = [characteristic.UUID representativeString];
-    
+    uuidLabel.text = [[characteristic.UUID representativeString] uppercaseString];
+    label.text = self.appd.uuidNames[uuidLabel.text][@"name"];
+    if (!label.text)
+    {
+        label.text = @"Unknown";
+    }
     UILabel * propertyLabel = (UILabel *)[cell viewWithTag:21];
     propertyLabel.text = [[RKBlueKit propertiesFrom: characteristic.properties] componentsJoinedByString:@","];
 

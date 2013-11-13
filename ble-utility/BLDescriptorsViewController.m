@@ -108,11 +108,17 @@
     // Configure the cell...
     CBDescriptor * descriptor = self.characteristic.descriptors[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
-    label.text = [descriptor.UUID description];
+    NSString * uuid = [[[descriptor UUID] representativeString] uppercaseString];
+    label.text = self.appd.uuidNames[uuid][@"name"];
+    if (!label.text)
+    {
+        label.text = @"Unknown";
+    }
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
-    [self.peripheral readValueForDescriptor:descriptor onFinish:^(CBDescriptor *tdescriptor, NSError *error) {
-        uuidLabel.text =[NSString stringWithFormat:@"value:%@", tdescriptor.value];
-    }];
+    uuidLabel.text = uuid;
+//    [self.peripheral readValueForDescriptor:descriptor onFinish:^(CBDescriptor *tdescriptor, NSError *error) {
+//        uuidLabel.text =[NSString stringWithFormat:@"value:%@", tdescriptor.value];
+//    }];
     return cell;
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

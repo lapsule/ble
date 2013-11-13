@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface BLAppDelegate : UIResponder <UIApplicationDelegate>
-
+@property (nonatomic,strong) NSMutableDictionary * uuidNames;
 @property (strong, nonatomic) UIWindow *window;
 @end

@@ -40,7 +40,6 @@
     [super viewDidLoad];
     [self setup];
     self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    
     [self.indicator startAnimating];
     
    

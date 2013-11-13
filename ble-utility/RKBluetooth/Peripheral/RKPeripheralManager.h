@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "RKBlueBlocks.h"
 @interface RKPeripheralManager : NSObject
-@property(readonly) BOOL isAdvertising;
+@property(nonatomic, readonly) BOOL isAdvertising;
+@property(nonatomic, readonly) CBPeripheralManagerState state;
 @property (nonatomic,copy)RKObjectChangedBlock onStatedUpdated;
 @property (nonatomic,copy)RKPeripheralManagerStatedChnagedBlock onWillRestoreState;
 @property (nonatomic,copy)RKCentralSubscriptionBlock onSubscribedBlock;
@@ -17,7 +18,7 @@
 @property (nonatomic,copy)RKCentralReadRequestBlock onReceivedReadRequest;
 @property (nonatomic,copy)RKCentralWriteRequestBlock onReceivedWriteRequest;
 @property (nonatomic,copy)RKObjectChangedBlock onReadToUpdateSubscribers;
-@property(readonly) CBPeripheralManagerState state;
+
 @property (nonatomic,strong)NSArray * services;
 
 - (instancetype)initWithQueue:(dispatch_queue_t)queue;

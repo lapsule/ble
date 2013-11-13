@@ -16,6 +16,8 @@
 @property (nonatomic,strong) NSMutableArray * addedServices;
 @property (nonatomic,strong) NSDictionary * initializedOptions;
 @property (nonatomic,strong) dispatch_queue_t queue;
+@property(nonatomic,assign) BOOL isAdvertising;
+@property(nonatomic,assign) CBPeripheralManagerState state;
 @end
 #pragma mark - implementation
 @implementation RKPeripheralManager
@@ -58,12 +60,16 @@
 {
     @synchronized(_peripheralManager)
     {
-        if ([CBPeripheralManager instancesRespondToSelector:@selector(initWithDelegate:queue:options:)])
+        if (!_peripheralManager)
         {
-            _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue options:self.initializedOptions];
-        }else
-        {
-            _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue ];
+            if ([CBPeripheralManager instancesRespondToSelector:@selector(initWithDelegate:queue:options:)])
+            {
+                _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue options:self.initializedOptions];
+            }else
+            {
+                _peripheralManager= [[CBPeripheralManager alloc] initWithDelegate:self queue:self.queue ];
+            }
+
         }
     }
     return _peripheralManager;
@@ -72,16 +78,16 @@
 - (void)addService:(CBMutableService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish
 {
     self.serviceAddingBlocks[service.UUID] = onfinish;
-    [_peripheralManager addService:service];
+    [self.peripheralManager addService:service];
 }
 - (void)removeService:(CBMutableService *)service
 {
-    [_peripheralManager removeService:service];
+    [self.peripheralManager removeService:service];
     [self.addedServices removeObject:service];
 }
 - (void)removeAllServices
 {
-    [_peripheralManager removeAllServices];
+    [self.peripheralManager removeAllServices];
     [self.addedServices removeAllObjects];
 }
 #pragma mark Managing Advertising
@@ -93,17 +99,18 @@
 }
 - (void)stopAdvertising
 {
-    [_peripheralManager stopAdvertising];
+    [self.peripheralManager stopAdvertising];
 }
 - (BOOL)isAdvertising
 {
-    return  _peripheralManager.isAdvertising;
+    
+    return  self.peripheralManager.isAdvertising;
 }
 
 #pragma mark Sending Updates of a Characteristic’s Value
 - (BOOL)updateValue:(NSData *)value forCharacteristic:(CBMutableCharacteristic *)characteristic onSubscribedCentrals:(NSArray *)centrals
 {
-    BOOL res = [_peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
+    BOOL res = [self.peripheralManager updateValue:value forCharacteristic:characteristic onSubscribedCentrals:centrals];
     if (!res)
     {
         
@@ -122,7 +129,8 @@
 }
 - (CBPeripheralManagerState) state
 {
-    return _peripheralManager.state;
+
+    return self.peripheralManager.state;
 }
 - (NSArray *)services
 {
@@ -140,16 +148,16 @@
         }
     }
 }
-- (void)peripheralManager:(CBPeripheralManager *)peripheral willRestoreState:(NSDictionary *)dict
-{
-    if (peripheral == self.peripheralManager)
-    {
-        if (self.onWillRestoreState)
-        {
-            self.onWillRestoreState(dict);
-        }
-    }
-}
+//- (void)peripheralManager:(CBPeripheralManager *)peripheral willRestoreState:(NSDictionary *)dict
+//{
+//    if (peripheral == self.peripheralManager)
+//    {
+//        if (self.onWillRestoreState)
+//        {
+//            self.onWillRestoreState(dict);
+//        }
+//    }
+//}
 #pragma mark Adding Services
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(NSError *)error
 {

@@ -33,6 +33,23 @@
 {
     [super viewDidLoad];
     self.manager = [[RKPeripheralManager alloc] init];
+    if (self.manager.state != CBPeripheralManagerStatePoweredOn)
+    {
+        __weak BLCentralsViewController * this = self;
+        self.manager.onStatedUpdated=  ^(NSError * error)
+        {
+            if (this.manager.state == CBPeripheralManagerStatePoweredOn)
+            {
+                [this.manager startAdvertising:nil onStarted:^(NSError *error) {
+
+                }];
+                NSLog(@"powered on!");
+            }
+            
+        };
+
+    }
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addService:)];
 	// Do any additional setup after loading the view.
 }
@@ -134,8 +151,7 @@
  }
 - (void)addServiceWithDict:(NSDictionary *) info
 {
-    CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:[info allKeys][0]] primary:YES];
-//    NSString * oldTitle = self.title;
+    CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:info[@"uuid"]] primary:YES];
     __weak BLCentralsViewController * this = self;
     [self.manager addService:service onFinish:^(CBService *service, NSError *error) {
         [this.tableView reloadData];

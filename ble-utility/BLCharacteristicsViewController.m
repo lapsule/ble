@@ -48,7 +48,7 @@
     if (self.isCentralManager)
     {
         [self.indicator startAnimating];
-        [_peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
+        [self.peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
             if (service == _service)
             {
 
@@ -161,6 +161,7 @@
     vc.isCentralManager = self.isCentralManager;
     vc.peripheral = self.peripheral;
     vc.characteristic = sender;
+    vc.peripheralManager = self.peripheralManager;
 }
 
 

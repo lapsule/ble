@@ -10,6 +10,7 @@
 #import "RKPeripheralManager.h"
 #import "BLAvailableServicesViewController.h"
 #import "CBMutableService+RKBluetoothKit.h"
+#import "BLCharacteristicsViewController.h"
 @interface BLCentralsViewController ()
 @property (nonatomic,strong) RKPeripheralManager * manager;
 @end
@@ -136,7 +137,10 @@
 
      }else
      {
-         [super prepareForSegue:segue sender:sender];
+         BLCharacteristicsViewController * vc = segue.destinationViewController;
+         vc.isCentralManager = NO;
+         vc.service = sender;
+         vc.peripheralManager = self.manager;
      }
      
 }

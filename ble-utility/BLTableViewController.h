@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BLAppDelegate.h"
+#import "RKPeripheral.h"
+#import "RKPeripheralManager.h"
 @interface BLTableViewController : UITableViewController
 @property (nonatomic,strong) UIActivityIndicatorView * indicator;
 @property (nonatomic,strong) UIBarButtonItem * indicatorItem;
 @property (nonatomic,assign) BOOL isCentralManager;
 @property (nonatomic,weak) BLAppDelegate * appd;
+@property (nonatomic,strong) RKPeripheral * peripheral;
+@property (nonatomic,strong)RKPeripheralManager * peripheralManager;
 - (void)setup;
 @end

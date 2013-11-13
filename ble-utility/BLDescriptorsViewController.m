@@ -30,36 +30,72 @@
 {
     [super viewDidLoad];
     __weak BLDescriptorsViewController * this = self;
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    [_peripheral discoverDescriptorsForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
-        [this.tableView reloadData];
-        [this.indicator stopAnimating];
-    }];
-    
+    if (self.isCentralManager)
+    {
+        self.navigationItem.rightBarButtonItem = self.indicatorItem;
+        [self.indicator startAnimating];
+        [self.peripheral discoverDescriptorsForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+            [this.tableView reloadData];
+            [this.indicator stopAnimating];
+        }];
+        [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+            this.valueTextField.text =[_characteristic.value hexadecimalString];
+        }];
+      
+    }else
+    {
+        [self.tableView reloadData];
+        self.peripheralManager.onReceivedReadRequest = ^(CBATTRequest * readRequest)
+        {
+            if ([readRequest.characteristic.UUID isEqual:this.characteristic.UUID])
+            {
+                readRequest.value = [this.characteristic.value
+                                 subdataWithRange:NSMakeRange(readRequest.offset,
+                                                              this.characteristic.value.length - readRequest.offset)];
+                [this.peripheralManager respondToRequest:readRequest withResult: CBATTErrorSuccess];
+            }else
+            {
+                [this.peripheralManager respondToRequest:readRequest withResult: CBATTErrorInvalidAttributeValueLength];
+            }
+            
+        };
+        self.peripheralManager.onReceivedWriteRequest = ^(NSArray * requests){
+            for (CBATTRequest * request in requests)
+            {
+                this.valueTextField.text =  [request.value hexadecimalString];
+                [this.peripheralManager respondToRequest: request withResult:CBATTErrorSuccess];
+                break;
+            }
+            
+        };
+    }
     //check if write supportted
     if ((_characteristic.properties &CBCharacteristicPropertyWrite) !=0 || (_characteristic.properties &CBCharacteristicPropertyWriteWithoutResponse) !=0)
     {
-        self.valueTextField.borderStyle = UITextBorderStyleRoundedRect;
-        self.valueTextField.enabled = YES;
+        self.valueTextField.enabled = self.isCentralManager;
     }else
     {
-        self.valueTextField.borderStyle = UITextBorderStyleNone;
-        self.valueTextField.enabled = NO;
+        self.valueTextField.enabled = !self.isCentralManager;
     }
-    [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
-        this.valueTextField.text =[_characteristic.value hexadecimalString];
-    }];
-    if ((_characteristic.properties & CBCharacteristicPropertyRead)>0)
-    {
-        
-    }
+    self.valueTextField.borderStyle =self.valueTextField.enabled ? UITextBorderStyleRoundedRect:UITextBorderStyleNone;
     //check  if notify
     if ((_characteristic.properties & CBCharacteristicPropertyNotify))
     {
-        [self.peripheral setNotifyValue:YES forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
-            this.valueTextField.text =[characteristic.value hexadecimalString];
-        }];
+        if (self.isCentralManager)
+        {
+            [self.peripheral setNotifyValue:YES forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
+                this.valueTextField.text =[characteristic.value hexadecimalString];
+            }];
+        }else
+        {
+            self.peripheralManager.onSubscribedBlock= ^(CBCentral * central,CBCharacteristic * characteristic){
+                if (characteristic == this.characteristic)
+                {
+                }
+                
+            };
+        }
+        
     }
     //labels
     self.properties.text =[ [RKBlueKit propertiesFrom: _characteristic.properties] componentsJoinedByString:@","];
@@ -186,30 +222,39 @@
     NSData * data = [NSData  dataWithHexString: textField.text ];
     if (data)
     {
-        
-        CBCharacteristicWriteType type =CBCharacteristicWriteWithResponse;
-        RKCharacteristicChangedBlock onfinish=nil;
-        if ((_characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) !=0)
+        if (self.isCentralManager)
         {
-            type = CBCharacteristicWriteWithoutResponse;
+            CBCharacteristicWriteType type =CBCharacteristicWriteWithResponse;
+            RKCharacteristicChangedBlock onfinish=nil;
+            if ((_characteristic.properties & CBCharacteristicPropertyWriteWithoutResponse) !=0)
+            {
+                type = CBCharacteristicWriteWithoutResponse;
+            }else
+            {
+                [self.indicator startAnimating];
+                onfinish = ^(CBCharacteristic * characteristic, NSError * error)
+                {
+                    DebugLog(@"write response %@",error);
+                    [this.indicator stopAnimating];
+                    
+                    if (error)
+                    {
+                        NSLog(@"%@",error);
+                    }else
+                    {
+                        
+                    }
+                };
+            }
+            [self.peripheral writeValue:data forCharacteristic:_characteristic type:type onFinish:onfinish];
         }else
         {
-            [self.indicator startAnimating];
-            onfinish = ^(CBCharacteristic * characteristic, NSError * error)
+            [(CBMutableCharacteristic *)self.characteristic setValue:data ] ;
+            if ((_characteristic.properties & CBCharacteristicPropertyNotify))
             {
-                DebugLog(@"write response %@",error);
-                [this.indicator stopAnimating];
-                
-                if (error)
-                {
-                    NSLog(@"%@",error);
-                }else
-                {
-                    
-                }
-            };
+                [self.peripheralManager updateValue:data forCharacteristic:(CBMutableCharacteristic*)self.characteristic onSubscribedCentrals:nil];
+            }
         }
-        [self.peripheral writeValue:data forCharacteristic:_characteristic type:type onFinish:onfinish];
     }
         [textField resignFirstResponder];
     return YES;

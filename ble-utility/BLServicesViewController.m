@@ -38,13 +38,13 @@
             this.services = this.peripheral.services;
             [this.tableView reloadData];
             [this.indicator stopAnimating];
-            DebugLog(@"%@",_peripheral.services);
+            DebugLog(@"%@",self.peripheral.services);
         }];
     }else
     {
         [self.tableView reloadData];
     }
-    self.title = _peripheral.name;
+    self.title = self.peripheral.name;
    
 }
 

@@ -170,7 +170,10 @@
         }
     } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
         DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
-        [this.navigationController popToRootViewControllerAnimated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [this.navigationController popToRootViewControllerAnimated:NO];
+        });
+        
     }];
     
 

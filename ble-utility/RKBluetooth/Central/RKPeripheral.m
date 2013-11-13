@@ -181,6 +181,7 @@
         self.didFinishServiceDiscovery(error);
         self.didFinishServiceDiscovery = nil;
     }
+    DebugLog(@"%p & %p",peripheral,_peripheral);
 }
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error
 {

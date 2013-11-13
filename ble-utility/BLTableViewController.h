@@ -11,4 +11,6 @@
 @interface BLTableViewController : UITableViewController
 @property (nonatomic,strong) UIActivityIndicatorView * indicator;
 @property (nonatomic,strong) UIBarButtonItem * indicatorItem;
+@property (nonatomic,assign) BOOL isCentralManager;
+- (void)setup;
 @end

@@ -224,6 +224,21 @@
 			path = "GDataXML-HTML";
 			sourceTree = "<group>";
 		};
+		C86B09F718332C36000C047F /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
+				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
+				C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */,
+				C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */,
+				C89261CB182F282D0062860A /* BLDescriptorsViewController.h */,
+				C89261CC182F282D0062860A /* BLDescriptorsViewController.m */,
+				C89261CE182F2F450062860A /* BLTableViewController.h */,
+				C89261CF182F2F450062860A /* BLTableViewController.m */,
+			);
+			name = shared;
+			sourceTree = "<group>";
+		};
 		C89261D1182F62E50062860A /* BluetoothKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,14 +256,6 @@
 			children = (
 				C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */,
 				C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */,
-				C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */,
-				C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */,
-				C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */,
-				C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */,
-				C89261CB182F282D0062860A /* BLDescriptorsViewController.h */,
-				C89261CC182F282D0062860A /* BLDescriptorsViewController.m */,
-				C89261CE182F2F450062860A /* BLTableViewController.h */,
-				C89261CF182F2F450062860A /* BLTableViewController.m */,
 			);
 			name = "central manager";
 			sourceTree = "<group>";
@@ -267,6 +274,7 @@
 		C8AFDE65182DCD2A005BA936 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C86B09F718332C36000C047F /* shared */,
 				C89261D7182F7A9D0062860A /* peripheral manager */,
 				C89261D6182F7A880062860A /* central manager */,
 			);

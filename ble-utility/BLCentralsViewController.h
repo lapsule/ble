@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 北京锐和信科技有限公司. All rights reserved.
 //
 
-#import "BLTableViewController.h"
+#import "BLServicesViewController.h"
 
-@interface BLCentralsViewController : BLTableViewController
+@interface BLCentralsViewController:BLServicesViewController
 
 @end

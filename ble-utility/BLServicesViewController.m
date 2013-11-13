@@ -25,25 +25,32 @@
 }
 - (void)setup
 {
-    
+    if (self.isCentralManager)
+    {
+        __weak BLServicesViewController * this  = self;
+        self.navigationItem.rightBarButtonItem = self.indicatorItem;
+        [self.indicator startAnimating];
+        //    [_peripheral readRSSIOnFinish:^(NSError *error) {
+        //        this.rssiLabel.text = [_peripheral.RSSI stringValue];
+        //    }];
+        [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
+            this.services = this.peripheral.services;
+            [this.tableView reloadData];
+            [this.indicator stopAnimating];
+            DebugLog(@"%@",_peripheral.services);
+        }];
+    }else
+    {
+        [self.tableView reloadData];
+    }
+    self.title = _peripheral.name;
+   
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setup];
-    self.title = _peripheral.name;
-    __weak BLServicesViewController * this  = self;
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-//    [_peripheral readRSSIOnFinish:^(NSError *error) {
-//        this.rssiLabel.text = [_peripheral.RSSI stringValue];
-//    }];
-    [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
-        [this.tableView reloadData];
-        [this.indicator stopAnimating];
-        DebugLog(@"%@",_peripheral.services);
-    }];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -78,7 +85,7 @@
 {
 
     // Return the number of rows in the section.
-    return self.peripheral.services.count;
+    return _services.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,7 +94,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBService * service = self.peripheral.services[indexPath.row];
+    CBService * service = self.services[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [service.UUID description];
     
@@ -138,7 +145,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CBService * service = self.peripheral.services[indexPath.row];
+    CBService * service = self.services[indexPath.row];
     [self performSegueWithIdentifier:@"characteristics" sender:service];
 }
 #pragma mark - Navigation
@@ -149,6 +156,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     BLCharacteristicsViewController * vc = segue.destinationViewController;
+    vc.isCentralManager = self.isCentralManager;
     vc.service = sender;
     vc.peripheral = self.peripheral;
 }

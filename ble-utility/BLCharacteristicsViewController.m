@@ -25,7 +25,13 @@
     }
     return self;
 }
-
+- (void)setup
+{
+    if (self.isCentralManager)
+    {
+        self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,16 +45,19 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     __weak BLCharacteristicsViewController * this = self;
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    [_peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
-        if (service == _service)
-        {
-            [this.tableView reloadData];
-            [this.indicator stopAnimating];
-        }
-        
-    }];
+    if (self.isCentralManager)
+    {
+        [self.indicator startAnimating];
+        [_peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
+            if (service == _service)
+            {
+                self.characteristics = _service.characteristics;
+                [this.tableView reloadData];
+                [this.indicator stopAnimating];
+            }
+        }];
+    }
+   
     
 }
 - (void)didReceiveMemoryWarning
@@ -70,7 +79,7 @@
 {
 
     // Return the number of rows in the section.
-    return _service.characteristics.count;
+    return _characteristics.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,7 +88,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBCharacteristic * characteristic = self.service.characteristics[indexPath.row];
+    CBCharacteristic * characteristic = self.characteristics[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [characteristic.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
@@ -132,7 +141,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CBCharacteristic * characteristic = self.service.characteristics[indexPath.row];
+    CBCharacteristic * characteristic = self.characteristics[indexPath.row];
     [self performSegueWithIdentifier:@"descriptors" sender:characteristic];
 }
 #pragma mark - Navigation
@@ -143,6 +152,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     BLDescriptorsViewController * vc = segue.destinationViewController;
+    vc.isCentralManager = self.isCentralManager;
     vc.peripheral = self.peripheral;
     vc.characteristic = sender;
 }

@@ -33,15 +33,13 @@
         opts = @{CBCentralManagerOptionShowPowerAlertKey:@YES};
     }
     self.central = [[RKCentralManager alloc] initWithQueue:nil options:opts];
+    self.navigationItem.rightBarButtonItem = self.indicatorItem;
+    [self.indicator startAnimating];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setup];
-    self.navigationItem.rightBarButtonItem = self.indicatorItem;
-    [self.indicator startAnimating];
-    
    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -182,6 +180,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     BLServicesViewController * services = segue.destinationViewController;
+    services.isCentralManager = YES;
     services.peripheral = sender;
 }
 @end

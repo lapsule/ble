@@ -12,4 +12,5 @@
 @interface BLServicesViewController : BLTableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (weak, nonatomic) IBOutlet UILabel *rssiLabel;
+@property (nonatomic,strong) NSArray * services;
 @end

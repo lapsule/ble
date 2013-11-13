@@ -20,7 +20,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
+        self.isCentralManager = NO;
     }
     return self;
 }
@@ -32,6 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+	// Do any additional setup after loading the view.
+}
+- (void)setup
+{
     self.manager = [[RKPeripheralManager alloc] init];
     if (self.manager.state != CBPeripheralManagerStatePoweredOn)
     {
@@ -41,19 +46,16 @@
             if (this.manager.state == CBPeripheralManagerStatePoweredOn)
             {
                 [this.manager startAdvertising:nil onStarted:^(NSError *error) {
-
+                    
                 }];
                 NSLog(@"powered on!");
             }
             
         };
-
+        
     }
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addService:)];
-	// Do any additional setup after loading the view.
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -143,12 +145,20 @@
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
      __weak BLCentralsViewController * this = self;
-     BLAvailableServicesViewController * vc  = [(UINavigationController*)segue.destinationViewController viewControllers][0];
-     vc.onSelectService =  ^(NSDictionary * service)
+     if ([segue.identifier isEqualToString:@""])
      {
-         [this addServiceWithDict:service];
-     };
- }
+         BLAvailableServicesViewController * vc  = [(UINavigationController*)segue.destinationViewController viewControllers][0];
+         vc.onSelectService =  ^(NSDictionary * service)
+         {
+             [this addServiceWithDict:service];
+         };
+
+     }else
+     {
+         
+     }
+     
+}
 - (void)addServiceWithDict:(NSDictionary *) info
 {
     CBMutableService * service = [[CBMutableService alloc] initWithType:[CBUUID UUIDWithString:info[@"uuid"]] primary:YES];

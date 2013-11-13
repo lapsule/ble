@@ -12,5 +12,4 @@
 @interface BLCharacteristicsViewController : BLTableViewController
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (nonatomic,strong) CBService * service;
-@property (nonatomic,strong) NSArray * characteristics;
 @end

@@ -51,14 +51,13 @@
         [_peripheral discoverCharacteristics:nil forService: _service onFinish:^(CBService *service, NSError *error) {
             if (service == _service)
             {
-                self.characteristics = _service.characteristics;
+
                 [this.tableView reloadData];
                 [this.indicator stopAnimating];
             }
         }];
     }else
     {
-        self.characteristics = _service.characteristics;
         [self.tableView reloadData];
     }
    
@@ -83,7 +82,7 @@
 {
 
     // Return the number of rows in the section.
-    return _characteristics.count;
+    return _service.characteristics.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,7 +91,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    CBCharacteristic * characteristic = self.characteristics[indexPath.row];
+    CBCharacteristic * characteristic = _service.characteristics[indexPath.row];
     UILabel * label = (UILabel*)[cell viewWithTag:19];
     label.text = [characteristic.UUID description];
     UILabel * uuidLabel = (UILabel *)[cell viewWithTag:20];
@@ -145,7 +144,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CBCharacteristic * characteristic = self.characteristics[indexPath.row];
+    CBCharacteristic * characteristic = _service.characteristics[indexPath.row];
     [self performSegueWithIdentifier:@"descriptors" sender:characteristic];
 }
 #pragma mark - Navigation

@@ -145,7 +145,7 @@
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
      __weak BLCentralsViewController * this = self;
-     if ([segue.identifier isEqualToString:@""])
+     if ([segue.identifier isEqualToString:@"availableServices"])
      {
          BLAvailableServicesViewController * vc  = [(UINavigationController*)segue.destinationViewController viewControllers][0];
          vc.onSelectService =  ^(NSDictionary * service)

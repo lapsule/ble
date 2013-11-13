@@ -8,8 +8,10 @@
 
 #import "BLAvailableServicesViewController.h"
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "GDataXMLNode.h"
+#import "CBMutableService+RKBluetoothKit.h"
 @interface BLAvailableServicesViewController ()
-@property (nonatomic,strong) NSArray * services;
+@property (nonatomic,strong) NSMutableArray * services;
 @end
 
 @implementation BLAvailableServicesViewController
@@ -27,12 +29,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSDictionary * dict =[NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"uuids" ofType:@"plist"]];
-    self.services = dict[@"Services"];
+    [self loadServicesFromXmls];
     [self.tableView reloadData];
 	// Do any additional setup after loading the view.
 }
-
+- (void)loadServicesFromXmls
+{
+    NSString * folder = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"servicesdefs"];
+    NSFileManager * filer = [NSFileManager defaultManager];
+    NSDirectoryEnumerator * enumerator =  [filer enumeratorAtPath: folder];
+    NSString * item = nil;
+    self.services = [NSMutableArray arrayWithCapacity:30];
+    while (item = [enumerator nextObject])
+    {
+        if ([item hasPrefix:@"org.bluetooth.service"])
+        {
+            NSData * data = [NSData dataWithContentsOfFile:[folder stringByAppendingPathComponent:item]];
+            GDataXMLDocument * doc = [[GDataXMLDocument alloc] initWithData:data error:nil];
+            if (doc)
+            {
+                GDataXMLElement * servicexml = [doc rootElement];
+                NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:10];
+                for (GDataXMLNode * att in servicexml.attributes)
+                {
+                    dict[att.name] = [att.children[0] XMLString];
+                }
+                [_services addObject: dict];
+            }
+        }
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -61,8 +87,7 @@
     
     // Configure the cell...
     NSDictionary * service = self.services[indexPath.row];
-
-    cell.textLabel.text = [[service allValues] objectAtIndex:0];
+    cell.textLabel.text =service[@"name"];
     
     return cell;
 }

@@ -25,6 +25,9 @@
 		C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */; };
 		C84A689B182FA8060094226A /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689A182FA8060094226A /* NSData+Hex.m */; };
 		C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */; };
+		C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09ED183314E0000C047F /* GDataXMLNode.m */; };
+		C86B09F0183314F4000C047F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C86B09EF183314F4000C047F /* libxml2.2.dylib */; };
+		C86B09F618331EED000C047F /* CBMutableService+RKBluetoothKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */; };
 		C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */; };
 		C89261CD182F282D0062860A /* BLDescriptorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CC182F282D0062860A /* BLDescriptorsViewController.m */; };
 		C89261D0182F2F450062860A /* BLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C89261CF182F2F450062860A /* BLTableViewController.m */; };
@@ -74,6 +77,11 @@
 		C84A689A182FA8060094226A /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		C84A689C182FD9840094226A /* BLAvailableServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLAvailableServicesViewController.h; sourceTree = "<group>"; };
 		C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLAvailableServicesViewController.m; sourceTree = "<group>"; };
+		C86B09EC183314E0000C047F /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		C86B09ED183314E0000C047F /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		C86B09EF183314F4000C047F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		C86B09F418331EED000C047F /* CBMutableService+RKBluetoothKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBMutableService+RKBluetoothKit.h"; sourceTree = "<group>"; };
+		C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBMutableService+RKBluetoothKit.m"; sourceTree = "<group>"; };
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
 		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
@@ -99,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C86B09F0183314F4000C047F /* libxml2.2.dylib in Frameworks */,
 				C81DFD6D181F5FAE00E71CA8 /* CoreGraphics.framework in Frameworks */,
 				C81DFD6F181F5FAE00E71CA8 /* UIKit.framework in Frameworks */,
 				C81DFD6B181F5FAE00E71CA8 /* Foundation.framework in Frameworks */,
@@ -140,6 +149,7 @@
 		C81DFD69181F5FAE00E71CA8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C86B09EF183314F4000C047F /* libxml2.2.dylib */,
 				C81DFD6A181F5FAE00E71CA8 /* Foundation.framework */,
 				C81DFD6C181F5FAE00E71CA8 /* CoreGraphics.framework */,
 				C81DFD6E181F5FAE00E71CA8 /* UIKit.framework */,
@@ -196,13 +206,25 @@
 		C84A6898182FA7E00094226A /* external */ = {
 			isa = PBXGroup;
 			children = (
+				C86B09F418331EED000C047F /* CBMutableService+RKBluetoothKit.h */,
+				C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */,
+				C86B09EB183314E0000C047F /* GDataXML-HTML */,
 				C84A6899182FA8060094226A /* NSData+Hex.h */,
 				C84A689A182FA8060094226A /* NSData+Hex.m */,
 			);
 			name = external;
 			sourceTree = "<group>";
 		};
-		C89261D1182F62E50062860A /* BluethoothKit */ = {
+		C86B09EB183314E0000C047F /* GDataXML-HTML */ = {
+			isa = PBXGroup;
+			children = (
+				C86B09EC183314E0000C047F /* GDataXMLNode.h */,
+				C86B09ED183314E0000C047F /* GDataXMLNode.m */,
+			);
+			path = "GDataXML-HTML";
+			sourceTree = "<group>";
+		};
+		C89261D1182F62E50062860A /* BluetoothKit */ = {
 			isa = PBXGroup;
 			children = (
 				C89261D2182F63130062860A /* RKBlueKit.h */,
@@ -210,6 +232,7 @@
 				C84A6895182FA05C0094226A /* CBUUID+RKBlueKit.h */,
 				C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */,
 			);
+			name = BluetoothKit;
 			path = BluethoothKit;
 			sourceTree = "<group>";
 		};
@@ -253,7 +276,7 @@
 		C8BC580B1821453000655AB4 /* RKBluetooth */ = {
 			isa = PBXGroup;
 			children = (
-				C89261D1182F62E50062860A /* BluethoothKit */,
+				C89261D1182F62E50062860A /* BluetoothKit */,
 				C8BC5818182146CA00655AB4 /* Central */,
 				C8BC5821182146CA00655AB4 /* Peripheral */,
 			);
@@ -384,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
+				C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */,
 				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
 				C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */,
 				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
@@ -398,6 +422,7 @@
 				C89261CA182F1FB50062860A /* BLCharacteristicsViewController.m in Sources */,
 				C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */,
 				C89261D4182F63130062860A /* RKBlueKit.m in Sources */,
+				C86B09F618331EED000C047F /* CBMutableService+RKBluetoothKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,11 +553,18 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ble-utility/ble-utility-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "ble-utility/ble-utility-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -546,10 +578,17 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ble-utility/ble-utility-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "ble-utility/ble-utility-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

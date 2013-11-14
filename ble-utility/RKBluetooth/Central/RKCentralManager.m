@@ -67,7 +67,7 @@
 }
 - (CBCentralManagerState)state
 {
-    return _manager.state;
+    return self.manager.state;
 }
 - (CBCentralManager *) manager
 {
@@ -103,7 +103,7 @@
 }
 - (void)stopScan
 {
-    [_manager stopScan];
+    [self.manager stopScan];
 }
 #pragma mark Establishing or Canceling Connections with Peripherals
 - (void)connectPeripheral:(RKPeripheral *)peripheral options:(NSDictionary *)options onFinished:(RKPeripheralConnectionBlock) finished onDisconnected:(RKPeripheralConnectionBlock) disconnected
@@ -111,23 +111,23 @@
     self.connectionFinishBlocks[peripheral.identifier] = finished;
     self.disconnectedBlocks[peripheral.identifier] = disconnected;
     [self.connectingPeripherals addObject: peripheral];
-    [_manager connectPeripheral: peripheral.peripheral options:options];
+    [self.manager connectPeripheral: peripheral.peripheral options:options];
     
 }
 - (void)cancelPeripheralConnection:(RKPeripheral *)peripheral onFinished:(RKPeripheralConnectionBlock) ondisconnected
 {
     self.disconnectedBlocks[peripheral.identifier] = ondisconnected;
-    [_manager cancelPeripheralConnection:peripheral.peripheral];
+    [self.manager cancelPeripheralConnection:peripheral.peripheral];
 }
 #pragma mark Retrieving Lists of Peripherals
 //TODO: need to convert
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
 {
-   return  [_manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
+   return  [self.manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
 }
 - (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
-    return [_manager retrievePeripheralsWithIdentifiers: identifiers];
+    return [self.manager retrievePeripheralsWithIdentifiers: identifiers];
 }
 #pragma mark - internal methods
 - (void)clearPeripherals
@@ -167,7 +167,11 @@
                 
             case CBCentralManagerStatePoweredOn:
             {
-                _onPeripheralUpdated(nil);
+                if (_onPeripheralUpdated)
+                {
+                    _onPeripheralUpdated(nil);
+                }
+                
                 break;
             }
                 

@@ -39,10 +39,13 @@
     __weak BLPeripheralsViewController * wp = self;
     if (self.central.state != CBCentralManagerStatePoweredOn)
     {
-        [wp.indicator startAnimating];
-        [wp.central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}  onUpdated:^(RKPeripheral *peripheral) {
-            [wp.tableView reloadData];
-        }];
+        self.central.onStateChanged = ^(NSError * error){
+            [wp.indicator startAnimating];
+            [wp.central scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}  onUpdated:^(RKPeripheral *peripheral) {
+                [wp.tableView reloadData];
+            }];
+        };
+        
     }
   
     [self.tableView reloadData];

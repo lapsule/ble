@@ -39,7 +39,7 @@
         characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString: uuid] properties:p value:nil permissions:CBAttributePermissionsReadable];
         
         //# add descriptors
-        [characteristic addDescriptorsWithXmlElement:servicexml];
+//        [characteristic addDescriptorsWithXmlElement:servicexml];
     }
     
     return characteristic;

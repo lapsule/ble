@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
     __weak BLDescriptorsViewController * this = self;
+    this.valueTextField.text =[_characteristic.value hexadecimalString];
     if (self.isCentralManager)
     {
         self.navigationItem.rightBarButtonItem = self.indicatorItem;
@@ -246,6 +247,7 @@
                     }
                 };
             }
+            
             [self.peripheral writeValue:data forCharacteristic:_characteristic type:type onFinish:onfinish];
         }else
         {

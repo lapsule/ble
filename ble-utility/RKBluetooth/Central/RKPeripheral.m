@@ -140,7 +140,7 @@
         NSAssert(onfinish!=nil, @"block onfinish must'not be nil!");
         _characteristicValueWrtieBlocks[characteristic.UUID] = onfinish;
     }
-    [_peripheral writeValue:data forCharacteristic:characteristic type:type];
+    [_peripheral writeValue:data forCharacteristic:characteristic type: type];
 }
 - (void)writeValue:(NSData *)data forDescriptor:(CBDescriptor *)descriptor onFinish:(RKDescriptorChangedBlock) onfinish
 {

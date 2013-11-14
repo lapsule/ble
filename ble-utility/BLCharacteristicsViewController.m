@@ -35,7 +35,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Characteristics";
+    NSString *uuid = [[self.service.UUID representativeString] uppercaseString];
+    self.title =self.appd.uuidNames[uuid][@"name"]; ;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -105,7 +106,23 @@
 
     return cell;
 }
-
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString * title = nil;
+    if (section ==0)
+    {
+        title = [NSString stringWithFormat:@"%lu characteristics",(unsigned long)self.service.characteristics.count];
+    }
+    return title;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section ==0)
+    {
+        return 30;
+    }
+    return 0;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

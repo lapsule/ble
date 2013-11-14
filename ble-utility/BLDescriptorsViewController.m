@@ -29,6 +29,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //title
+    NSString *uuid = [[self.characteristic.UUID representativeString] uppercaseString];
+    self.title =self.appd.uuidNames[uuid][@"name"]; ;
+    //
     __weak BLDescriptorsViewController * this = self;
     this.valueTextField.text =[_characteristic.value hexadecimalString];
     if (self.isCentralManager)

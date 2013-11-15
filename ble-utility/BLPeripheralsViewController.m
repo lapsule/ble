@@ -198,8 +198,6 @@
         [self performSegueWithIdentifier:@"services" sender: peripheral];
     }
     
-    
-
 }
 
 #pragma mark - peripheral connection

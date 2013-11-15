@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Services";
+    self.navigationItem.title = @"Services";
 	// Do any additional setup after loading the view.
 }
 - (void)setup

@@ -179,7 +179,7 @@
             {
                 //error handler here
                 DebugLog(@"error when connecting : %@, %@",peripheral,error);
-                this.hud.detailsLabelText = [error localizedFailureReason];
+                this.hud.detailsLabelText = [error localizedDescription];
                 [this.hud hide:YES afterDelay:0.4];
             }
             

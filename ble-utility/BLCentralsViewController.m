@@ -148,6 +148,12 @@
     [self.manager addService:service onFinish:^(CBService *service, NSError *error) {
         this.services = this.manager.services;
         [this.tableView reloadData];
+        if (error)
+        {
+            this.hud.labelText = @"Error";
+            this.hud.detailsLabelText = [error localizedDescription];
+            [this.hud show:YES];
+        }
     }];
                                   
 }

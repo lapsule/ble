@@ -208,12 +208,26 @@
                   RSSI:(NSNumber *)RSSI
 {
    
-    RKPeripheral * rkperipheral = [[RKPeripheral alloc] initWithPeripheral:peripheral];
-    if (rkperipheral&& ![self.peripherals containsObject: rkperipheral])
+    RKPeripheral * rkperipheral=nil;
+    for (RKPeripheral * t in self.peripherals)
     {
-        [self.peripherals addObject: rkperipheral];
-            _onPeripheralUpdated(rkperipheral);
+        if (t.peripheral == peripheral)
+        {
+            rkperipheral = t;
+            break;
+        }
     }
+    if (!rkperipheral)
+    {
+        rkperipheral = [[RKPeripheral alloc] initWithPeripheral:peripheral];
+        if (rkperipheral)
+        {
+            [self.peripherals addObject: rkperipheral];
+        }
+        
+    }
+    rkperipheral.RSSI = RSSI;
+    _onPeripheralUpdated(rkperipheral);
     
     DebugLog(@"%@ on %@ thread",peripheral, [NSThread isMainThread]?@"Main":@"Other");
 }

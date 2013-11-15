@@ -298,7 +298,7 @@
 {
     if (peripheral == _peripheral)
     {
-        self.rssiUpdated(error);
+//        self.rssiUpdated(error);
 //        self.rssiUpdated = nil;
     }
     

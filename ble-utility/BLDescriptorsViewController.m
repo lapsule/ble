@@ -124,7 +124,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)dealloc
+{
+    if (_characteristic.isNotifying)
+    {
+        if (self.isCentralManager)
+        {
+            [self.peripheral setNotifyValue:NO forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
+            }];
+        }
+    }
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

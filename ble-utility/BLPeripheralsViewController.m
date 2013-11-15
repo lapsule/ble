@@ -26,7 +26,7 @@
 }
 - (void)setup
 {
-    self.title = @"Central";
+    self.navigationItem.title = @"Peripherals";
     NSDictionary * opts = nil;
     if ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)
     {

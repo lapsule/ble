@@ -17,6 +17,7 @@
     CBMutableCharacteristic * characteristic = nil;
     //# get properties
     CBCharacteristicProperties p=0 ;
+    CBAttributePermissions permission = 0;
     NSError * err=nil;
     NSArray * t = [element nodesForXPath: @"Properties/*" error:& err];
     for (GDataXMLNode * node in t)
@@ -26,7 +27,19 @@
             p|=[RKBlueKit propertyWithString: [node name] ];
         }
     }
-    
+    //permissions
+     if ((p &CBCharacteristicPropertyWrite) !=0 ||(p&CBCharacteristicPropertyWriteWithoutResponse)!=0 )
+     {
+         permission |= CBAttributePermissionsWriteable;
+     }
+    if ((p &CBCharacteristicPropertyAuthenticatedSignedWrites) !=0 )
+    {
+        permission |= CBAttributePermissionsWriteEncryptionRequired;
+    }
+    if ((p &CBCharacteristicPropertyRead) !=0 )
+    {
+        permission |= CBAttributePermissionsReadable;
+    }
     //detailed characteristics
     NSString * file = [type stringByAppendingPathExtension:@"xml"];
     file = [folder stringByAppendingPathComponent: file];
@@ -34,9 +47,11 @@
     GDataXMLDocument * doc = [[GDataXMLDocument alloc] initWithData:data error:nil];
     if (doc)
     {
+        
+        
         GDataXMLElement * servicexml = [doc rootElement];
         uuid = [[servicexml attributeForName:@"uuid"] stringValue];
-        characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString: uuid] properties:p value:nil permissions:CBAttributePermissionsReadable];
+        characteristic = [[CBMutableCharacteristic alloc] initWithType:[CBUUID UUIDWithString: uuid] properties:p value:nil permissions:permission];
         
         //# add descriptors
 //        [characteristic addDescriptorsWithXmlElement:servicexml];

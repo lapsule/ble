@@ -54,11 +54,8 @@
                 }];
                 NSLog(@"powered on!");
             }
-            
         };
-        
     }
-   
 }
 - (void)didReceiveMemoryWarning
 {

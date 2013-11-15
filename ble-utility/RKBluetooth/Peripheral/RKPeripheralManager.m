@@ -74,11 +74,7 @@
     }
     return _peripheralManager;
 }
-- (void)dealloc
-{
-    int i =1;
-    NSLog(@"%d",i);
-}
+
 #pragma mark Adding and Removing Services
 - (void)addService:(CBMutableService *)service onFinish:(RKSpecifiedServiceUpdatedBlock) onfinish
 {

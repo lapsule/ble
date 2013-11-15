@@ -65,6 +65,7 @@
             self.identifier = _peripheral.identifier;
         }
         @catch (NSException *exception) {
+            // ios6
             NSString * uuidStr =CFBridgingRelease(CFUUIDCreateString(NULL,_peripheral.UUID));
             self.identifier = [[NSUUID alloc] initWithUUIDString: uuidStr];
             NSLog(@"solved");
@@ -80,9 +81,13 @@
 {
     if (!_RSSI)
     {
-        self.RSSI = _peripheral.RSSI;
+        self.RSSI = self.peripheral.RSSI;
     }
     return _RSSI;
+}
+- (CBPeripheralState )state
+{
+    return self.peripheral.state;
 }
 - (BOOL)isEqual:(id)object
 {

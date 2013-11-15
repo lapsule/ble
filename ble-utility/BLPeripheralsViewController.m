@@ -165,23 +165,30 @@
 {
     RKPeripheral * peripheral = self.central.peripherals[indexPath.row];
     __weak BLPeripheralsViewController * this = self;
-    [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
-        if (!error)
-        {
-            [this performSegueWithIdentifier:@"services" sender: peripheral];
+    if(peripheral.state == CBPeripheralStateDisconnected)
+    {
+        [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
+            if (!error)
+            {
+                [this performSegueWithIdentifier:@"services" sender: peripheral];
+                
+            }else
+            {
+                //error handler here
+                DebugLog(@"error when connecting : %@, %@",peripheral,error);
+            }
+        } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
+            DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [this.navigationController popToRootViewControllerAnimated:NO];
+            });
             
-        }else
-        {
-            //error handler here
-            DebugLog(@"error when connecting : %@, %@",peripheral,error);
-        }
-    } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
-        DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [this.navigationController popToRootViewControllerAnimated:NO];
-        });
-        
-    }];
+        }];
+    }else
+    {
+        [self performSegueWithIdentifier:@"services" sender: peripheral];
+    }
+    
     
 
 }

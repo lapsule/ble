@@ -16,6 +16,7 @@
 @property(nonatomic,strong) NSUUID *identifier;
 @property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) NSNumber *RSSI;
+@property (readonly) CBPeripheralState state;
 @property (nonatomic,copy) RKServicesUpdated onServiceModified;
 @property (nonatomic,copy) RKObjectChangedBlock onNameUpdated;
 @property (nonatomic,copy) RKCharacteristicChangedBlock notificationStateChanged;

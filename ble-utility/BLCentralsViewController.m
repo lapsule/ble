@@ -153,6 +153,7 @@
             this.hud.labelText = @"Error";
             this.hud.detailsLabelText = [error localizedDescription];
             [this.hud show:YES];
+            [this.hud hide:YES afterDelay:1.4];
         }
     }];
                                   

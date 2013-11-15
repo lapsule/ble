@@ -103,7 +103,8 @@
     RKPeripheral * peripheral = _central.peripherals[indexPath.row] ;
     UILabel * label =(UILabel*) [cell viewWithTag:19];
     label.text = peripheral.name;
-    UILabel * rssi =(UILabel*) [cell viewWithTag:20];
+    UILabel * idLable =(UILabel*) [cell viewWithTag:20];
+    idLable.text = peripheral.identifier.UUIDString;
 //    [peripheral readRSSIOnFinish:^(NSError *error) {
 //        rssi.text =[NSString stringWithFormat:@"rssi: %@", [peripheral.RSSI stringValue]];
 //    }];

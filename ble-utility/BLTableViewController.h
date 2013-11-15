@@ -10,6 +10,7 @@
 #import "BLAppDelegate.h"
 #import "RKPeripheral.h"
 #import "RKPeripheralManager.h"
+#import "MBProgressHUD.h"
 @interface BLTableViewController : UITableViewController
 @property (nonatomic,strong) UIActivityIndicatorView * indicator;
 @property (nonatomic,strong) UIBarButtonItem * indicatorItem;
@@ -17,5 +18,6 @@
 @property (nonatomic,weak) BLAppDelegate * appd;
 @property (nonatomic,strong) RKPeripheral * peripheral;
 @property (nonatomic,strong)RKPeripheralManager * peripheralManager;
+@property (nonatomic,strong) MBProgressHUD * hud;
 - (void)setup;
 @end

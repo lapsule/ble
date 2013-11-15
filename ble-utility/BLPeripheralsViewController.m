@@ -167,20 +167,29 @@
     __weak BLPeripheralsViewController * this = self;
     if(peripheral.state == CBPeripheralStateDisconnected)
     {
+        self.hud.detailsLabelText = @"connecting ...";
+        [self.hud show:YES];
         [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
             if (!error)
             {
                 [this performSegueWithIdentifier:@"services" sender: peripheral];
-                
+                [this.hud hide:NO];
             }else
             {
                 //error handler here
                 DebugLog(@"error when connecting : %@, %@",peripheral,error);
+                this.hud.detailsLabelText = [error localizedFailureReason];
+                [this.hud hide:YES afterDelay:0.4];
             }
+            
         } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
             DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
             dispatch_async(dispatch_get_main_queue(), ^{
                 [this.navigationController popToRootViewControllerAnimated:NO];
+                [this.hud show:YES];
+                this.hud.labelText = @"disconnected!";
+                this.hud.detailsLabelText = [error localizedFailureReason];
+                [this.hud hide:YES afterDelay:0.7];
             });
             
         }];

@@ -45,6 +45,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+- (MBProgressHUD *) hud
+{
+    if (!_hud)
+    {
+        _hud = [[MBProgressHUD alloc] initWithView:self.view];
+        _hud.mode = MBProgressHUDModeIndeterminate;
+        [self.view addSubview: _hud];
+    }
+    return _hud;
+}
 - (UIBarButtonItem *) indicatorItem
 {
     if (!_indicatorItem)

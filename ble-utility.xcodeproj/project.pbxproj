@@ -25,6 +25,8 @@
 		C84A6897182FA05C0094226A /* CBUUID+RKBlueKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */; };
 		C84A689B182FA8060094226A /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689A182FA8060094226A /* NSData+Hex.m */; };
 		C84A689E182FD9840094226A /* BLAvailableServicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */; };
+		C857E92B18360E7900EF51FD /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C857E92818360E7800EF51FD /* 37x-Checkmark@2x.png */; };
+		C857E92C18360E7900EF51FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C857E92A18360E7900EF51FD /* MBProgressHUD.m */; };
 		C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09ED183314E0000C047F /* GDataXMLNode.m */; };
 		C86B09F0183314F4000C047F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C86B09EF183314F4000C047F /* libxml2.2.dylib */; };
 		C86B09F618331EED000C047F /* CBMutableService+RKBluetoothKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C86B09F518331EED000C047F /* CBMutableService+RKBluetoothKit.m */; };
@@ -79,6 +81,9 @@
 		C84A689A182FA8060094226A /* NSData+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Hex.m"; sourceTree = "<group>"; };
 		C84A689C182FD9840094226A /* BLAvailableServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLAvailableServicesViewController.h; sourceTree = "<group>"; };
 		C84A689D182FD9840094226A /* BLAvailableServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLAvailableServicesViewController.m; sourceTree = "<group>"; };
+		C857E92818360E7800EF51FD /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
+		C857E92918360E7900EF51FD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		C857E92A18360E7900EF51FD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		C86B09EC183314E0000C047F /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
 		C86B09ED183314E0000C047F /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
 		C86B09EF183314F4000C047F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -225,12 +230,23 @@
 		C84A6898182FA7E00094226A /* external */ = {
 			isa = PBXGroup;
 			children = (
+				C857E92718360E7800EF51FD /* MBProgressHUD */,
 				C86B09EB183314E0000C047F /* GDataXML-HTML */,
 				C84A6899182FA8060094226A /* NSData+Hex.h */,
 				C84A689A182FA8060094226A /* NSData+Hex.m */,
 				C83F20FA1834A86F00BF28B8 /* Kit */,
 			);
 			name = external;
+			sourceTree = "<group>";
+		};
+		C857E92718360E7800EF51FD /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				C857E92818360E7800EF51FD /* 37x-Checkmark@2x.png */,
+				C857E92918360E7900EF51FD /* MBProgressHUD.h */,
+				C857E92A18360E7900EF51FD /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		C86B09EB183314E0000C047F /* GDataXML-HTML */ = {
@@ -413,6 +429,7 @@
 				C81DFD86181F5FAE00E71CA8 /* Images.xcassets in Resources */,
 				C81DFD75181F5FAE00E71CA8 /* InfoPlist.strings in Resources */,
 				C8CC47041830D3A800F6CE18 /* servicesdefs in Resources */,
+				C857E92B18360E7900EF51FD /* 37x-Checkmark@2x.png in Resources */,
 				C81DFD7E181F5FAE00E71CA8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +456,7 @@
 				C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */,
 				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
 				C8BC5824182146CA00655AB4 /* RKPeripheral.m in Sources */,
+				C857E92C18360E7900EF51FD /* MBProgressHUD.m in Sources */,
 				C81DFDA4181F61A600E71CA8 /* BLPeripheralsViewController.m in Sources */,
 				C89261D0182F2F450062860A /* BLTableViewController.m in Sources */,
 				C81DFDA7181F680100E71CA8 /* BLServicesViewController.m in Sources */,
@@ -587,7 +605,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "ble-utility/ble-utility-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -612,7 +630,7 @@
 					/usr/include/libxml2,
 				);
 				INFOPLIST_FILE = "ble-utility/ble-utility-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

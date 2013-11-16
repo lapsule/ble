@@ -12,6 +12,7 @@
 #import "BLServicesViewController.h"
 @interface BLPeripheralsViewController ()
 @property (nonatomic,strong) RKCentralManager * central;
+@property (nonatomic,weak) NSTimer  * timer;
 @end
 
 @implementation BLPeripheralsViewController
@@ -47,8 +48,9 @@
         };
         
     }
-  
     [self.tableView reloadData];
+    
+    
 }
 
 - (void)viewDidLoad
@@ -64,12 +66,14 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-   
+    //timer for rssi reading
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.8 target:self selector:@selector(updateRSSI:) userInfo:nil repeats:YES];
+//    [self.timer fire];
 }
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear: animated];
+    [self.timer invalidate];
 //    [self.central stopScan];
 }
 - (void)didReceiveMemoryWarning
@@ -77,7 +81,24 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)updateRSSI:(NSTimer *) t
+{
+    __weak BLPeripheralsViewController *this = self;
+    int i =0;
+    for (RKPeripheral * peripheral in self.central.peripherals)
+    {
+        if (peripheral.state == CBPeripheralStateConnected)
+        {
+            [peripheral readRSSIOnFinish:^(NSError *error) {
+                UITableViewCell * cell = [this.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                UILabel * rssiLabel = (UILabel *)[cell viewWithTag:22];
+                rssiLabel.text = [peripheral.RSSI stringValue];
+            }];
+        }
+        
+        ++i;
+    }
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

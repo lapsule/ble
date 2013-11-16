@@ -29,15 +29,19 @@
     if (self.isCentralManager)
     {
         __weak BLServicesViewController * this  = self;
-        self.navigationItem.rightBarButtonItem = self.indicatorItem;
-        [self.indicator startAnimating];
+        
+        //# read rssi
         [self.peripheral readRSSIOnFinish:^(NSError *error) {
             this.rssiLabel.text = [this.peripheral.RSSI stringValue];
         }];
+        
+        //#
+        self.hud.labelText = @"discover services";
+        [self.hud show:YES];
         [self.peripheral discoverServices:nil onFinish:^(NSError *error) {
             this.services = this.peripheral.services;
             [this.tableView reloadData];
-            [this.indicator stopAnimating];
+            [this.hud hide:YES afterDelay:0.3];
             DebugLog(@"%@",self.peripheral.services);
         }];
     }else

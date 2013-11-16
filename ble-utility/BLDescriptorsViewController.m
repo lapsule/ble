@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.notifySwitch.hidden = YES;
+    self.notifyLabel.hidden = YES;
     //title
     NSString *uuid = [[self.characteristic.UUID representativeString] uppercaseString];
     self.title =self.appd.uuidNames[uuid][@"name"]; ;
@@ -90,15 +92,21 @@
         {
             self.notifySwitch.on = NO;
             self.notifySwitch.hidden = NO;
+            self.notifyLabel.hidden = NO;
         }else
         {
             self.notifySwitch.hidden  = YES;
+            self.notifyLabel.hidden = YES;
             self.peripheralManager.onSubscribedBlock= ^(CBCentral * central,CBCharacteristic * characteristic){
                 if (characteristic == this.characteristic)
                 {
+                    this.hud.labelText = @"central subscribed";
+                    this.hud.detailsLabelText =[NSString stringWithFormat: @"%@",central.identifier];
+                    [this.hud show:YES];
+                    [this.hud hide:YES afterDelay:1.3];
                 }
-                
             };
+
         }
         
     }

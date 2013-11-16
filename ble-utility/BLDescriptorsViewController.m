@@ -88,11 +88,11 @@
     {
         if (self.isCentralManager)
         {
-            [self.peripheral setNotifyValue:YES forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
-                this.valueTextField.text =[characteristic.value hexadecimalString];
-            }];
+            self.notifySwitch.on = NO;
+            self.notifySwitch.hidden = NO;
         }else
         {
+            self.notifySwitch.hidden  = YES;
             self.peripheralManager.onSubscribedBlock= ^(CBCentral * central,CBCharacteristic * characteristic){
                 if (characteristic == this.characteristic)
                 {
@@ -276,4 +276,10 @@
     return YES;
 }
 
+- (IBAction)changeNotifyState:(id)sender {
+    __weak BLDescriptorsViewController * this = self;
+    [self.peripheral setNotifyValue:self.notifySwitch.on forCharacteristic:self.characteristic onUpdated:^(CBCharacteristic *characteristic, NSError *error) {
+        this.valueTextField.text =[characteristic.value hexadecimalString];
+    }];
+}
 @end

@@ -168,6 +168,7 @@
     __weak BLPeripheralsViewController * this = self;
     if(peripheral.state == CBPeripheralStateDisconnected)
     {
+        self.hud.labelText = @"";
         self.hud.detailsLabelText = @"connecting ...";
         [self.hud show:YES];
         [self.central connectPeripheral: peripheral options:nil onFinished:^(RKPeripheral * connectedperipheral, NSError *error) {
@@ -179,6 +180,7 @@
             {
                 //error handler here
                 DebugLog(@"error when connecting : %@, %@",peripheral,error);
+                this.hud.labelText = @"connect failed!";
                 this.hud.detailsLabelText = [error localizedDescription];
                 [this.hud hide:YES afterDelay:0.4];
             }

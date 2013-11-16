@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *uuidLabel;
 @property (weak, nonatomic) IBOutlet UILabel *properties;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
+@property (weak, nonatomic) IBOutlet UISwitch *notifySwitch;
+@property (weak, nonatomic) IBOutlet UILabel *notifyLabel;
+- (IBAction)changeNotifyState:(id)sender;
 @end

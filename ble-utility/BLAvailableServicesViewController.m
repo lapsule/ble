@@ -25,7 +25,14 @@
     }
     return self;
 }
-
+- (void)setup
+{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action: @selector(back:)];
+}
+- (void)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)viewDidLoad
 {
     self.title = @"Available Services";

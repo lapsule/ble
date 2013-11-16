@@ -173,7 +173,7 @@
 #pragma mark ReadRSSI
 - (void)readRSSIOnFinish:(RKObjectChangedBlock) onUpdated
 {
-//    self.rssiUpdated = onUpdated;
+    self.rssiUpdated = onUpdated;
     [_peripheral readRSSI];
 }
 
@@ -298,8 +298,8 @@
 {
     if (peripheral == _peripheral)
     {
-//        self.rssiUpdated(error);
-//        self.rssiUpdated = nil;
+        self.rssiUpdated(error);
+        self.rssiUpdated = nil;
     }
     
 }

@@ -186,11 +186,12 @@
         } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
             DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
             dispatch_async(dispatch_get_main_queue(), ^{
-                [this.navigationController popToRootViewControllerAnimated:NO];
-                [this.hud show:YES];
-                this.hud.labelText = @"disconnected!";
-                this.hud.detailsLabelText = [error localizedFailureReason];
-                [this.hud hide:YES afterDelay:0.7];
+                NSArray * vcs  = [this.navigationController viewControllers];
+                BLTableViewController * top = vcs[vcs.count-1];
+                [top.hud show:YES];
+                top.hud.labelText = @"disconnected!";
+                top.hud.detailsLabelText = [error localizedDescription];
+                [top.hud hide:YES afterDelay:0.7];
             });
             
         }];

@@ -224,10 +224,9 @@
         {
             [self.peripherals addObject: rkperipheral];
         }
-        rkperipheral.RSSI = RSSI;
-        _onPeripheralUpdated(rkperipheral);
     }
-   
+    rkperipheral.RSSI = RSSI;
+    _onPeripheralUpdated(rkperipheral);
     
     DebugLog(@"%@ on %@ thread",peripheral, [NSThread isMainThread]?@"Main":@"Other");
 }

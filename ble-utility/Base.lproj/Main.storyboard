@@ -19,11 +19,12 @@
                     <connections>
                         <segue destination="Go5-Rv-CVX" kind="relationship" relationship="viewControllers" id="fPG-aG-wvy"/>
                         <segue destination="uOr-fN-ATJ" kind="relationship" relationship="viewControllers" id="foQ-S7-Mzw"/>
+                        <segue destination="yhv-ih-guD" kind="relationship" relationship="viewControllers" id="LkN-H6-lHT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNP-y4-bzi" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-280" y="100"/>
+            <point key="canvasLocation" x="-697" y="52"/>
         </scene>
         <!--Navigation Controller - Central-->
         <scene sceneID="Hhe-Vd-hiV">
@@ -184,11 +185,61 @@
             </objects>
             <point key="canvasLocation" x="1280" y="648"/>
         </scene>
+        <!--About View Controller - About US-->
+        <scene sceneID="Utf-K3-uqk">
+            <objects>
+                <viewController title="About US" id="yhv-ih-guD" customClass="RKAboutViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ycV-fc-fJi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zbu-NP-LTX">
+                                <rect key="frame" x="65" y="179" width="161" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="http://www.ruiking.com">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="contactusAction:" destination="DYS-Ln-6hD" eventType="touchUpInside" id="96y-eT-C3g"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mail us:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V9W-tL-A85">
+                                <rect key="frame" x="45" y="83" width="60" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visit us:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Kd-Jj-kxV">
+                                <rect key="frame" x="45" y="150" width="60" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c2b-EW-P7C">
+                                <rect key="frame" x="65" y="112" width="146" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="support@ruiking.com">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mailusAction:" destination="DYS-Ln-6hD" eventType="touchUpInside" id="bUB-Vd-DDa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Contact" image="contact" id="KiU-nj-aXy"/>
+                    <navigationItem key="navigationItem" id="djy-oa-PCx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DYS-Ln-6hD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-383" y="796"/>
+        </scene>
         <!--Navigation Controller - Peripheral-->
         <scene sceneID="X6b-Gt-mm9">
             <objects>
                 <navigationController definesPresentationContext="YES" id="uOr-fN-ATJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Peripheral" id="EPt-UX-Mzu"/>
+                    <tabBarItem key="tabBarItem" title="Peripheral" image="second" id="EPt-UX-Mzu"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZD5-kN-Ioi">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -446,7 +497,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="contact" width="29" height="29"/>
         <image name="first" width="30" height="30"/>
+        <image name="second" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

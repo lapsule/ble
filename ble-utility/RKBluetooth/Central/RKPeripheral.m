@@ -66,7 +66,7 @@
         }
         @catch (NSException *exception) {
             // ios6
-            NSString * uuidStr =CFBridgingRelease(CFUUIDCreateString(NULL,_peripheral.UUID));
+            NSString * uuidStr =_peripheral.identifier.UUIDString;
             self.identifier = [[NSUUID alloc] initWithUUIDString: uuidStr];
             NSLog(@"solved");
         }

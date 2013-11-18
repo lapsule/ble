@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F4EDC5C1839CD9A00D2D818 /* RKAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4EDC5B1839CD9A00D2D818 /* RKAboutViewController.m */; };
 		C81DFD6B181F5FAE00E71CA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81DFD6A181F5FAE00E71CA8 /* Foundation.framework */; };
 		C81DFD6D181F5FAE00E71CA8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81DFD6C181F5FAE00E71CA8 /* CoreGraphics.framework */; };
 		C81DFD6F181F5FAE00E71CA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C81DFD6E181F5FAE00E71CA8 /* UIKit.framework */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F4EDC5A1839CD9A00D2D818 /* RKAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKAboutViewController.h; sourceTree = "<group>"; };
+		7F4EDC5B1839CD9A00D2D818 /* RKAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKAboutViewController.m; sourceTree = "<group>"; };
 		C81DFD67181F5FAE00E71CA8 /* ble-utility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ble-utility.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C81DFD6A181F5FAE00E71CA8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C81DFD6C181F5FAE00E71CA8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -138,6 +141,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F4EDC591839CD7F00D2D818 /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				7F4EDC5A1839CD9A00D2D818 /* RKAboutViewController.h */,
+				7F4EDC5B1839CD9A00D2D818 /* RKAboutViewController.m */,
+			);
+			name = contact;
+			sourceTree = "<group>";
+		};
 		C81DFD5E181F5FAE00E71CA8 = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +320,7 @@
 		C8AFDE65182DCD2A005BA936 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F4EDC591839CD7F00D2D818 /* contact */,
 				C86B09F718332C36000C047F /* shared */,
 				C89261D7182F7A9D0062860A /* peripheral manager */,
 				C89261D6182F7A880062860A /* central manager */,
@@ -452,6 +465,7 @@
 				C81DFD7B181F5FAE00E71CA8 /* BLAppDelegate.m in Sources */,
 				C86B09FD18335961000C047F /* CBMutableCharacteristic+BluetootKit.m in Sources */,
 				C86B09EE183314E0000C047F /* GDataXMLNode.m in Sources */,
+				7F4EDC5C1839CD9A00D2D818 /* RKAboutViewController.m in Sources */,
 				C8BC5822182146CA00655AB4 /* RKCentralManager.m in Sources */,
 				C89261DA182F7ACF0062860A /* BLCentralsViewController.m in Sources */,
 				C8BC5828182146E700655AB4 /* RKPeripheralManager.m in Sources */,
@@ -609,7 +623,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "051D69C3-9F6E-4141-A64E-289A5A78C754";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -633,7 +647,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "051D69C3-9F6E-4141-A64E-289A5A78C754";
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};

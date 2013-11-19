@@ -25,7 +25,21 @@
     }
     return self;
 }
-
+- (void)setup
+{
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"read" style:UIBarButtonItemStylePlain target:self action:@selector(read:)];
+}
+- (void)read:(id)sender
+{
+    if (self.isCentralManager)
+    {
+        __weak BLDescriptorsViewController * this = self;
+        [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
+            this.valueTextField.text =[_characteristic.value hexadecimalString];
+        }];
+        
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,11 +53,19 @@
     this.valueTextField.text =[_characteristic.value hexadecimalString];
     if (self.isCentralManager)
     {
-        self.navigationItem.rightBarButtonItem = self.indicatorItem;
-        [self.indicator startAnimating];
+        [self.hud show:YES];
+        self.hud.labelText = @"discovering descriptors";
+        self.hud.detailsLabelText = @"";
         [self.peripheral discoverDescriptorsForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
             [this.tableView reloadData];
-            [this.indicator stopAnimating];
+            float delay =0.3;
+            if (error)
+            {
+                NSLog(@"%@",error);
+                delay = 1.5;
+                this.hud.detailsLabelText = [error localizedDescription];
+            }
+            [this.hud hide:YES afterDelay:delay];
         }];
         [self.peripheral readValueForCharacteristic:_characteristic onFinish:^(CBCharacteristic *characteristic, NSError *error) {
             this.valueTextField.text =[_characteristic.value hexadecimalString];
@@ -254,19 +276,20 @@
                 type = CBCharacteristicWriteWithoutResponse;
             }else
             {
-                [self.indicator startAnimating];
+                self.hud.labelText = @"writing walue ...";
+                self.hud.detailsLabelText=@"";
+                [self.hud show: YES];
                 onfinish = ^(CBCharacteristic * characteristic, NSError * error)
                 {
                     DebugLog(@"write response %@",error);
-                    [this.indicator stopAnimating];
-                    
+                    float delay =0.3;
                     if (error)
                     {
                         NSLog(@"%@",error);
-                    }else
-                    {
-                        
+                        delay = 1.5;
+                        this.hud.detailsLabelText = [error localizedDescription];
                     }
+                    [this.hud hide:YES afterDelay:delay];
                 };
             }
             

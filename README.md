@@ -13,7 +13,7 @@ Platforms
 ===
 
 Platform supportted: *iOS7.0 and Above* (with Bluetooth Low Energy supported devices).
-Structrues
+Structures
 -------
 The library is located in [ble / ble-utility / RKBluetooth](https://github.com/ruiking/ble/tree/develop/ble-utility/RKBluetooth)
 

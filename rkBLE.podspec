@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 
   s.summary         = "BLE library for iOS. Absolutely easy to use"
   s.homepage        = 'https://github.com/ruiking/ble'
-  s.author          = { 'ruiking' => 'dujun@ruiking.com' }
+  s.author          = { 'ruiking' => 'support@ruiking.com' }
 
   s.source          = { :git => 'https://github.com/ruiking/ble.git', :commit => "c63b63323873174754748505426a7e42cb3cfa37" }
   s.source_files    = 'ble-utility/RKBluetooth/**/*.{h,m}'

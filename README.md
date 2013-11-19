@@ -13,6 +13,17 @@ Platforms
 ===
 
 Platform supportted: *iOS7.0 and Above* (with Bluetooth Low Energy supported devices).
+
+### Installation with CocoaPods
+[CocoaPods](http://cocoapods.org) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like rkBLE in your projects.
+
+#### Podfile
+
+```ruby
+platform :ios, '7.0'
+pod "rkBLE", 
+```
+
 Structures
 -------
 The library is located in [ble / ble-utility / RKBluetooth](https://github.com/ruiking/ble/tree/develop/ble-utility/RKBluetooth)

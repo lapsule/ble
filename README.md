@@ -1,4 +1,3 @@
-
 ble
 ===
 
@@ -6,6 +5,7 @@ BLE library for iOS
 
 This lib intends to reduce your work from implementing delegate method with block call backs when developing Bluetooth Low Energy On iOS.
 
+The most benefit is that you don't need delegate methods just make operation you want and put processing code in blocks when it finishes.
 And the demo shows the basicly use of it.
 
 ----------

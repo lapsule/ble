@@ -75,7 +75,7 @@
     {
         if (!_manager)
         {
-            if (![CBCentralManager resolveInstanceMethod:@selector(initWithDelegate:queue:options:)])
+            if (![CBCentralManager instancesRespondToSelector:@selector(initWithDelegate:queue:options:)])
             {
                 //for ios version lowser than 7.0
                 self.manager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue];

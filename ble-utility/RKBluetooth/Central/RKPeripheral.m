@@ -322,6 +322,5 @@
 - (void)dealloc
 {
     _peripheral.delegate = nil;
-    NSLog(@"dealloc %@",self);
 }
 @end

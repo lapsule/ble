@@ -120,14 +120,36 @@
     [self.manager cancelPeripheralConnection:peripheral.peripheral];
 }
 #pragma mark Retrieving Lists of Peripherals
-//TODO: need to convert
+//#: need to convert to RKPeripheral , with pre-delegate unchanged
 - (NSArray *)retrieveConnectedPeripheralsWithServices:(NSArray *)serviceUUIDs
 {
-   return  [self.manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
+    NSArray * t  =  [self.manager retrieveConnectedPeripheralsWithServices: serviceUUIDs];
+    NSMutableArray * rkpers = [NSMutableArray arrayWithCapacity:t.count];
+    for (CBPeripheral * per in t)
+    {
+        RKPeripheral * rkper = per.delegate;
+        if (!rkper)
+        {
+            rkper = [[RKPeripheral alloc] initWithPeripheral:per];
+        }
+        [rkpers addObject: rkper];
+    }
+    return rkpers;
 }
 - (NSArray *)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
-    return [self.manager retrievePeripheralsWithIdentifiers: identifiers];
+    NSArray * t = [self.manager retrievePeripheralsWithIdentifiers:identifiers];
+    NSMutableArray * rkpers = [NSMutableArray arrayWithCapacity:t.count];
+    for (CBPeripheral * per in t)
+    {
+        RKPeripheral * rkper = per.delegate;
+        if (!rkper)
+        {
+            rkper = [[RKPeripheral alloc] initWithPeripheral:per];
+        }
+        [rkpers addObject: rkper];
+    }
+    return rkpers;
 }
 #pragma mark - internal methods
 - (void)clearPeripherals
@@ -190,7 +212,7 @@
         }
         
     }
-    //FIXME:ERROR
+    //
     DebugLog(@"Central %@ changed to %d",central,(int)central.state);
     
 }
@@ -208,22 +230,14 @@
                   RSSI:(NSNumber *)RSSI
 {
    
-    RKPeripheral * rkperipheral=nil;
-    for (RKPeripheral * t in self.peripherals)
-    {
-        if (t.peripheral == peripheral)
-        {
-            rkperipheral = t;
-            break;
-        }
-    }
+    RKPeripheral * rkperipheral=peripheral.delegate;
     if (!rkperipheral)
     {
         rkperipheral = [[RKPeripheral alloc] initWithPeripheral:peripheral];
-        if (rkperipheral)
-        {
-            [self.peripherals addObject: rkperipheral];
-        }
+    }
+    if (rkperipheral && ![self.peripherals containsObject: rkperipheral])
+    {
+        [self.peripherals addObject: rkperipheral];
     }
     rkperipheral.RSSI = RSSI;
     _onPeripheralUpdated(rkperipheral);
@@ -234,16 +248,8 @@
 #pragma mark Monitoring Connections with Peripherals
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    RKPeripheral * thePeripheral = nil;
-    for (RKPeripheral * rk in self.connectingPeripherals)
-    {
-        if (peripheral == rk.peripheral)
-        {
-            thePeripheral = rk;
-            break;
-        }
-    }
-    if (thePeripheral)
+    RKPeripheral * thePeripheral = peripheral.delegate;
+    if (thePeripheral && [self.connectingPeripherals containsObject: thePeripheral])
     {
         RKPeripheralConnectionBlock finish = self.connectionFinishBlocks[thePeripheral.identifier];
         // remove it
@@ -260,17 +266,9 @@
 }
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    RKPeripheral * thePeripheral = nil;
-    for (RKPeripheral * rk in self.connectingPeripherals)
-    {
-        if (peripheral == rk.peripheral)
-        {
-            thePeripheral = rk;
-            break;
-        }
-    }
-    
-    if (thePeripheral)
+    RKPeripheral * thePeripheral = peripheral.delegate;
+   
+    if (thePeripheral&& [self.connectingPeripherals containsObject: thePeripheral])
     {
         RKPeripheralConnectionBlock finish = self.connectionFinishBlocks[thePeripheral.identifier];
         // remove it
@@ -286,16 +284,9 @@
 }
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    RKPeripheral * rkperipheral = nil;
-    for (int i =0;i!= self.connectedPeripherals.count;++i)
-    {
-        if (peripheral == [self.connectedPeripherals[i] peripheral])
-        {
-            rkperipheral = self.connectedPeripherals[i];
-            break;
-        }
-    }
-    if (rkperipheral)
+    RKPeripheral * rkperipheral = peripheral.delegate;
+   
+    if (rkperipheral && [self.connectedPeripherals containsObject: rkperipheral])
     {
         RKPeripheralConnectionBlock finish = self.disconnectedBlocks[rkperipheral.identifier];
         [self.connectedPeripherals removeObject:rkperipheral];

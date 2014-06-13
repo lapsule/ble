@@ -42,7 +42,7 @@
             this.services = this.peripheral.services;
             [this.tableView reloadData];
             [this.hud hide:YES afterDelay:0.3];
-            DebugLog(@"%@",self.peripheral.services);
+            //DebugLog(@"%@",self.peripheral.services);
         }];
     }else
     {

@@ -31,7 +31,7 @@
     NSDictionary * opts = nil;
     if ([[UIDevice currentDevice].systemVersion floatValue]>=7.0)
     {
-        DebugLog(@"%f",[[UIDevice currentDevice].systemVersion floatValue]);
+        //DebugLog(@"%f",[[UIDevice currentDevice].systemVersion floatValue]);
         opts = @{CBCentralManagerOptionShowPowerAlertKey:@YES};
     }
     self.central = [[RKCentralManager alloc] initWithQueue:nil options:opts];
@@ -203,14 +203,14 @@
             }else
             {
                 //error handler here
-                DebugLog(@"error when connecting : %@, %@",peripheral,error);
+                //DebugLog(@"error when connecting : %@, %@",peripheral,error);
                 this.hud.labelText = @"connect failed!";
                 this.hud.detailsLabelText = [error localizedDescription];
                 [this.hud hide:YES afterDelay:0.4];
             }
             
         } onDisconnected:^(RKPeripheral *connectedperipheral, NSError *error) {
-            DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
+            //DebugLog(@"disconnected : %@, %@",connectedperipheral,error);
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSArray * vcs  = [this.navigationController viewControllers];
                 BLTableViewController * top = vcs[vcs.count-1];

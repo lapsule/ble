@@ -14,9 +14,9 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
-    #ifdef DEBUG
+   /* #ifdef DEBUG
     #define DebugLog( s, ... ) NSLog( @"<%p %@:%d (%@)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  NSStringFromSelector(_cmd), [NSString stringWithFormat:(s), ##__VA_ARGS__] )
     #else
     #define DebugLog( s, ... )
-    #endif
+    #endif*/
 #endif

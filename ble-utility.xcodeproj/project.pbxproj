@@ -64,7 +64,7 @@
 		C81DFD72181F5FAE00E71CA8 /* ble-utility-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ble-utility-Info.plist"; sourceTree = "<group>"; };
 		C81DFD74181F5FAE00E71CA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81DFD76181F5FAE00E71CA8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C81DFD78181F5FAE00E71CA8 /* ble-utility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ble-utility-Prefix.pch"; sourceTree = "<group>"; };
+		C81DFD78181F5FAE00E71CA8 /* ble-utility-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "ble-utility-Prefix.pch"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C81DFD79181F5FAE00E71CA8 /* BLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BLAppDelegate.h; sourceTree = "<group>"; };
 		C81DFD7A181F5FAE00E71CA8 /* BLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLAppDelegate.m; sourceTree = "<group>"; };
 		C81DFD7D181F5FAE00E71CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -75,9 +75,9 @@
 		C81DFD96181F5FAE00E71CA8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C81DFD98181F5FAE00E71CA8 /* ble_utilityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ble_utilityTests.m; sourceTree = "<group>"; };
 		C81DFDA2181F61A600E71CA8 /* BLPeripheralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLPeripheralsViewController.h; sourceTree = "<group>"; };
-		C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLPeripheralsViewController.m; sourceTree = "<group>"; };
+		C81DFDA3181F61A600E71CA8 /* BLPeripheralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BLPeripheralsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C81DFDA5181F680100E71CA8 /* BLServicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLServicesViewController.h; sourceTree = "<group>"; };
-		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLServicesViewController.m; sourceTree = "<group>"; };
+		C81DFDA6181F680100E71CA8 /* BLServicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BLServicesViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C84A6895182FA05C0094226A /* CBUUID+RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CBUUID+RKBlueKit.h"; sourceTree = "<group>"; };
 		C84A6896182FA05C0094226A /* CBUUID+RKBlueKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CBUUID+RKBlueKit.m"; sourceTree = "<group>"; };
 		C84A6899182FA8060094226A /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Hex.h"; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		C89261C8182F1FB50062860A /* BLCharacteristicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCharacteristicsViewController.h; sourceTree = "<group>"; };
 		C89261C9182F1FB50062860A /* BLCharacteristicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCharacteristicsViewController.m; sourceTree = "<group>"; };
 		C89261CB182F282D0062860A /* BLDescriptorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLDescriptorsViewController.h; sourceTree = "<group>"; };
-		C89261CC182F282D0062860A /* BLDescriptorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLDescriptorsViewController.m; sourceTree = "<group>"; };
+		C89261CC182F282D0062860A /* BLDescriptorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BLDescriptorsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C89261CE182F2F450062860A /* BLTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLTableViewController.h; sourceTree = "<group>"; };
 		C89261CF182F2F450062860A /* BLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLTableViewController.m; sourceTree = "<group>"; };
 		C89261D2182F63130062860A /* RKBlueKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKBlueKit.h; sourceTree = "<group>"; };
@@ -108,9 +108,9 @@
 		C89261D8182F7ACF0062860A /* BLCentralsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCentralsViewController.h; sourceTree = "<group>"; };
 		C89261D9182F7ACF0062860A /* BLCentralsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCentralsViewController.m; sourceTree = "<group>"; };
 		C8BC5819182146CA00655AB4 /* RKCentralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKCentralManager.h; sourceTree = "<group>"; };
-		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKCentralManager.m; sourceTree = "<group>"; };
+		C8BC581A182146CA00655AB4 /* RKCentralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RKCentralManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C8BC581D182146CA00655AB4 /* RKPeripheral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheral.h; sourceTree = "<group>"; };
-		C8BC581E182146CA00655AB4 /* RKPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheral.m; sourceTree = "<group>"; };
+		C8BC581E182146CA00655AB4 /* RKPeripheral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RKPeripheral.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C8BC5826182146E700655AB4 /* RKPeripheralManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKPeripheralManager.h; sourceTree = "<group>"; };
 		C8BC5827182146E700655AB4 /* RKPeripheralManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKPeripheralManager.m; sourceTree = "<group>"; };
 		C8CC47031830D3A800F6CE18 /* servicesdefs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = servicesdefs; sourceTree = "<group>"; };

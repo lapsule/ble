@@ -281,7 +281,7 @@
                 [self.hud show: YES];
                 onfinish = ^(CBCharacteristic * characteristic, NSError * error)
                 {
-                    DebugLog(@"write response %@",error);
+                    //DebugLog(@"write response %@",error);
                     float delay =0.3;
                     if (error)
                     {
